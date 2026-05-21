@@ -9,38 +9,394 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VillaRouteImport } from './routes/villa'
+import { Route as SchoolRouteImport } from './routes/school'
+import { Route as RestaurantRouteImport } from './routes/restaurant'
+import { Route as ResidentialRouteImport } from './routes/residential'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ProcessRouteImport } from './routes/process'
+import { Route as OfficeRouteImport } from './routes/office'
+import { Route as MallRouteImport } from './routes/mall'
+import { Route as HotelRouteImport } from './routes/hotel'
+import { Route as HospitalRouteImport } from './routes/hospital'
+import { Route as FactoryRouteImport } from './routes/factory'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BuildingRouteImport } from './routes/building'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as ApartmentRouteImport } from './routes/apartment'
+import { Route as AgricultureRouteImport } from './routes/agriculture'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
+const VillaRoute = VillaRouteImport.update({
+  id: '/villa',
+  path: '/villa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SchoolRoute = SchoolRouteImport.update({
+  id: '/school',
+  path: '/school',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RestaurantRoute = RestaurantRouteImport.update({
+  id: '/restaurant',
+  path: '/restaurant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResidentialRoute = ResidentialRouteImport.update({
+  id: '/residential',
+  path: '/residential',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProcessRoute = ProcessRouteImport.update({
+  id: '/process',
+  path: '/process',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfficeRoute = OfficeRouteImport.update({
+  id: '/office',
+  path: '/office',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MallRoute = MallRouteImport.update({
+  id: '/mall',
+  path: '/mall',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HotelRoute = HotelRouteImport.update({
+  id: '/hotel',
+  path: '/hotel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HospitalRoute = HospitalRouteImport.update({
+  id: '/hospital',
+  path: '/hospital',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FactoryRoute = FactoryRouteImport.update({
+  id: '/factory',
+  path: '/factory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuildingRoute = BuildingRouteImport.update({
+  id: '/building',
+  path: '/building',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApartmentRoute = ApartmentRouteImport.update({
+  id: '/apartment',
+  path: '/apartment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgricultureRoute = AgricultureRouteImport.update({
+  id: '/agriculture',
+  path: '/agriculture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/agriculture': typeof AgricultureRoute
+  '/apartment': typeof ApartmentRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/building': typeof BuildingRoute
+  '/contact': typeof ContactRoute
+  '/factory': typeof FactoryRoute
+  '/hospital': typeof HospitalRoute
+  '/hotel': typeof HotelRoute
+  '/mall': typeof MallRoute
+  '/office': typeof OfficeRoute
+  '/process': typeof ProcessRoute
+  '/projects': typeof ProjectsRoute
+  '/residential': typeof ResidentialRoute
+  '/restaurant': typeof RestaurantRoute
+  '/school': typeof SchoolRoute
+  '/villa': typeof VillaRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/agriculture': typeof AgricultureRoute
+  '/apartment': typeof ApartmentRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/building': typeof BuildingRoute
+  '/contact': typeof ContactRoute
+  '/factory': typeof FactoryRoute
+  '/hospital': typeof HospitalRoute
+  '/hotel': typeof HotelRoute
+  '/mall': typeof MallRoute
+  '/office': typeof OfficeRoute
+  '/process': typeof ProcessRoute
+  '/projects': typeof ProjectsRoute
+  '/residential': typeof ResidentialRoute
+  '/restaurant': typeof RestaurantRoute
+  '/school': typeof SchoolRoute
+  '/villa': typeof VillaRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/agriculture': typeof AgricultureRoute
+  '/apartment': typeof ApartmentRoute
+  '/blog': typeof BlogRouteWithChildren
+  '/building': typeof BuildingRoute
+  '/contact': typeof ContactRoute
+  '/factory': typeof FactoryRoute
+  '/hospital': typeof HospitalRoute
+  '/hotel': typeof HotelRoute
+  '/mall': typeof MallRoute
+  '/office': typeof OfficeRoute
+  '/process': typeof ProcessRoute
+  '/projects': typeof ProjectsRoute
+  '/residential': typeof ResidentialRoute
+  '/restaurant': typeof RestaurantRoute
+  '/school': typeof SchoolRoute
+  '/villa': typeof VillaRoute
+  '/blog/$slug': typeof BlogSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/agriculture'
+    | '/apartment'
+    | '/blog'
+    | '/building'
+    | '/contact'
+    | '/factory'
+    | '/hospital'
+    | '/hotel'
+    | '/mall'
+    | '/office'
+    | '/process'
+    | '/projects'
+    | '/residential'
+    | '/restaurant'
+    | '/school'
+    | '/villa'
+    | '/blog/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/agriculture'
+    | '/apartment'
+    | '/blog'
+    | '/building'
+    | '/contact'
+    | '/factory'
+    | '/hospital'
+    | '/hotel'
+    | '/mall'
+    | '/office'
+    | '/process'
+    | '/projects'
+    | '/residential'
+    | '/restaurant'
+    | '/school'
+    | '/villa'
+    | '/blog/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/agriculture'
+    | '/apartment'
+    | '/blog'
+    | '/building'
+    | '/contact'
+    | '/factory'
+    | '/hospital'
+    | '/hotel'
+    | '/mall'
+    | '/office'
+    | '/process'
+    | '/projects'
+    | '/residential'
+    | '/restaurant'
+    | '/school'
+    | '/villa'
+    | '/blog/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AgricultureRoute: typeof AgricultureRoute
+  ApartmentRoute: typeof ApartmentRoute
+  BlogRoute: typeof BlogRouteWithChildren
+  BuildingRoute: typeof BuildingRoute
+  ContactRoute: typeof ContactRoute
+  FactoryRoute: typeof FactoryRoute
+  HospitalRoute: typeof HospitalRoute
+  HotelRoute: typeof HotelRoute
+  MallRoute: typeof MallRoute
+  OfficeRoute: typeof OfficeRoute
+  ProcessRoute: typeof ProcessRoute
+  ProjectsRoute: typeof ProjectsRoute
+  ResidentialRoute: typeof ResidentialRoute
+  RestaurantRoute: typeof RestaurantRoute
+  SchoolRoute: typeof SchoolRoute
+  VillaRoute: typeof VillaRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/villa': {
+      id: '/villa'
+      path: '/villa'
+      fullPath: '/villa'
+      preLoaderRoute: typeof VillaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/school': {
+      id: '/school'
+      path: '/school'
+      fullPath: '/school'
+      preLoaderRoute: typeof SchoolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/restaurant': {
+      id: '/restaurant'
+      path: '/restaurant'
+      fullPath: '/restaurant'
+      preLoaderRoute: typeof RestaurantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/residential': {
+      id: '/residential'
+      path: '/residential'
+      fullPath: '/residential'
+      preLoaderRoute: typeof ResidentialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/process': {
+      id: '/process'
+      path: '/process'
+      fullPath: '/process'
+      preLoaderRoute: typeof ProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/office': {
+      id: '/office'
+      path: '/office'
+      fullPath: '/office'
+      preLoaderRoute: typeof OfficeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mall': {
+      id: '/mall'
+      path: '/mall'
+      fullPath: '/mall'
+      preLoaderRoute: typeof MallRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hotel': {
+      id: '/hotel'
+      path: '/hotel'
+      fullPath: '/hotel'
+      preLoaderRoute: typeof HotelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hospital': {
+      id: '/hospital'
+      path: '/hospital'
+      fullPath: '/hospital'
+      preLoaderRoute: typeof HospitalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/factory': {
+      id: '/factory'
+      path: '/factory'
+      fullPath: '/factory'
+      preLoaderRoute: typeof FactoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/building': {
+      id: '/building'
+      path: '/building'
+      fullPath: '/building'
+      preLoaderRoute: typeof BuildingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apartment': {
+      id: '/apartment'
+      path: '/apartment'
+      fullPath: '/apartment'
+      preLoaderRoute: typeof ApartmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agriculture': {
+      id: '/agriculture'
+      path: '/agriculture'
+      fullPath: '/agriculture'
+      preLoaderRoute: typeof AgricultureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +404,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
 
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AgricultureRoute: AgricultureRoute,
+  ApartmentRoute: ApartmentRoute,
+  BlogRoute: BlogRouteWithChildren,
+  BuildingRoute: BuildingRoute,
+  ContactRoute: ContactRoute,
+  FactoryRoute: FactoryRoute,
+  HospitalRoute: HospitalRoute,
+  HotelRoute: HotelRoute,
+  MallRoute: MallRoute,
+  OfficeRoute: OfficeRoute,
+  ProcessRoute: ProcessRoute,
+  ProjectsRoute: ProjectsRoute,
+  ResidentialRoute: ResidentialRoute,
+  RestaurantRoute: RestaurantRoute,
+  SchoolRoute: SchoolRoute,
+  VillaRoute: VillaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
