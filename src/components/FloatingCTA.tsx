@@ -18,10 +18,10 @@ export function FloatingCTA() {
     >
       <Link
         to="/contact"
-        className="glass-strong inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full ring-1 ring-[#C5A059]/30 hover:ring-[#C5A059]/60 transition-all"
+        className="glass-strong inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full ring-1 ring-white/10 hover:ring-white/20 transition-all"
       >
         <span className="text-[12px] font-medium tracking-wide">Обсудить проект</span>
-        <span className="size-8 grid place-items-center rounded-full bg-[#C5A059] text-[#050505]">
+        <span className="size-8 grid place-items-center rounded-full bg-[#f5f5f7] text-[#161617] shadow-[0_10px_30px_rgba(245,245,247,0.12)]">
           <ArrowUpRight className="size-4" />
         </span>
       </Link>

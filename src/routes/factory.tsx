@@ -6,9 +6,15 @@ export const Route = createFileRoute("/factory")({
   head: () => ({
     meta: [
       { title: "Умный завод — Smart Group Kazakhstan" },
-      { name: "description", content: "SCADA, энергоучёт, промбезопасность, интеграция с MES и ERP." },
+      {
+        name: "description",
+        content: "SCADA, энергоучёт, промбезопасность, интеграция с MES и ERP.",
+      },
       { property: "og:title", content: "Умный завод — Smart Group" },
-      { property: "og:description", content: "SCADA, энергоучёт, промбезопасность, интеграция с MES и ERP." },
+      {
+        property: "og:description",
+        content: "SCADA, энергоучёт, промбезопасность, интеграция с MES и ERP.",
+      },
     ],
   }),
   component: Page,

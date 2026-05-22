@@ -6,9 +6,15 @@ export const Route = createFileRoute("/mall")({
   head: () => ({
     meta: [
       { title: "Торговые и бизнес-центры — Smart Group Kazakhstan" },
-      { name: "description", content: "Сценарный свет, аналитика потоков, экономия энергии для ТЦ и БЦ." },
+      {
+        name: "description",
+        content: "Сценарный свет, аналитика потоков, экономия энергии для ТЦ и БЦ.",
+      },
       { property: "og:title", content: "Торговые и бизнес-центры — Smart Group" },
-      { property: "og:description", content: "Сценарный свет, аналитика потоков, экономия энергии для ТЦ и БЦ." },
+      {
+        property: "og:description",
+        content: "Сценарный свет, аналитика потоков, экономия энергии для ТЦ и БЦ.",
+      },
     ],
   }),
   component: Page,
