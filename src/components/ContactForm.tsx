@@ -11,9 +11,9 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
       }}
       className={`glass-strong rounded-3xl ${compact ? "p-8" : "p-10 md:p-12"} relative overflow-hidden`}
     >
-      <div className="absolute -top-20 -right-20 size-64 bg-[#C5A059]/10 blur-[120px] pointer-events-none" />
+      <div className="absolute -top-20 -right-20 size-64 bg-[#f5f5f7]/5 blur-[120px] pointer-events-none" />
       <div className="relative">
-        <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#C5A059] mb-3">
+        <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-3">
           Запрос
         </div>
         <h3 className="text-3xl md:text-4xl font-extrabold tracking-tighter mb-8">
@@ -34,7 +34,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
             <div className="md:col-span-2">
               <button
                 type="submit"
-                className="group w-full bg-[#C5A059] text-[#050505] font-bold uppercase tracking-[0.2em] text-xs py-5 rounded-full hover:scale-[1.01] active:scale-[0.99] transition-transform inline-flex items-center justify-center gap-3"
+                className="premium-button group w-full font-bold uppercase tracking-[0.2em] text-xs py-5 rounded-full active:scale-[0.99] inline-flex items-center justify-center gap-3"
               >
                 Отправить запрос
                 <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
@@ -72,7 +72,7 @@ function Field({
         type={type}
         name={name}
         required={required}
-        className="w-full bg-transparent border-b border-white/15 focus:border-[#C5A059] outline-none py-3 text-base text-fg transition-colors"
+        className="w-full bg-transparent border-b border-white/15 focus:border-white/60 outline-none py-3 text-base text-fg transition-colors"
       />
     </label>
   );

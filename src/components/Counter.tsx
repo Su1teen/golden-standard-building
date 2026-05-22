@@ -20,19 +20,22 @@ export function Counter({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !started.current) {
-        started.current = true;
-        const start = performance.now();
-        const tick = (now: number) => {
-          const p = Math.min(1, (now - start) / duration);
-          const eased = 1 - Math.pow(1 - p, 4);
-          setV(to * eased);
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }
-    }, { threshold: 0.4 });
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting && !started.current) {
+          started.current = true;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const p = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - p, 4);
+            setV(to * eased);
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.4 },
+    );
     io.observe(el);
     return () => io.disconnect();
   }, [to, duration]);
@@ -40,7 +43,10 @@ export function Counter({
   return (
     <span ref={ref} className="numeral">
       {prefix}
-      {v.toLocaleString("ru-RU", { maximumFractionDigits: decimals, minimumFractionDigits: decimals })}
+      {v.toLocaleString("ru-RU", {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: decimals,
+      })}
       {suffix}
     </span>
   );

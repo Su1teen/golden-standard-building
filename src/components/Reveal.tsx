@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type PropsWithChildren, type CSSProperties } from "react";
+import {
+  createElement,
+  useEffect,
+  useRef,
+  useState,
+  type PropsWithChildren,
+  type CSSProperties,
+} from "react";
 
 type Props = PropsWithChildren<{
   as?: keyof React.JSX.IntrinsicElements;
@@ -46,14 +53,13 @@ export function Reveal({
         ? "in-fade"
         : "in"
     : "";
-  const T = Tag as any;
-  return (
-    <T
-      ref={ref as any}
-      className={`reveal ${cls} ${className}`}
-      style={{ animationDelay: `${delay}ms`, ...style }}
-    >
-      {children}
-    </T>
+  return createElement(
+    Tag,
+    {
+      ref,
+      className: `reveal ${cls} ${className}`,
+      style: { animationDelay: `${delay}ms`, ...style },
+    },
+    children,
   );
 }

@@ -42,7 +42,7 @@ export function Navbar() {
           style={scrolled ? { padding: "10px 18px" } : undefined}
         >
           <Link to="/" className="flex items-center gap-2 group">
-            <span className="inline-block size-2 rounded-full bg-[#C5A059] shadow-[0_0_18px_rgba(197,160,89,0.6)]" />
+            <span className="inline-block size-2 rounded-full bg-[#f5f5f7] shadow-[0_0_18px_rgba(245,245,247,0.22)]" />
             <span className="font-extrabold tracking-tighter text-[15px] md:text-base">
               SMART GROUP
             </span>
@@ -54,9 +54,7 @@ export function Navbar() {
               onMouseEnter={() => setSolutionsOpen(true)}
               onMouseLeave={() => setSolutionsOpen(false)}
             >
-              <button className="hover:text-[#C5A059] transition-colors story-link">
-                Решения
-              </button>
+              <button className="hover:text-fg transition-colors story-link">Решения</button>
               {solutionsOpen && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-[640px]">
                   <div className="glass-strong rounded-2xl p-6 grid grid-cols-2 gap-1">
@@ -74,7 +72,7 @@ export function Navbar() {
                             {s.short}
                           </div>
                         </div>
-                        <span className="font-mono text-[10px] text-[#C5A059] opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="font-mono text-[10px] text-silver opacity-0 group-hover:opacity-100 transition-opacity">
                           {s.index}
                         </span>
                       </Link>
@@ -87,8 +85,8 @@ export function Navbar() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="hover:text-[#C5A059] transition-colors story-link"
-                activeProps={{ className: "text-[#C5A059]" }}
+                className="hover:text-fg transition-colors story-link"
+                activeProps={{ className: "text-fg" }}
               >
                 {l.label}
               </Link>
@@ -98,7 +96,7 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <Link
               to="/contact"
-              className="hidden md:inline-flex items-center gap-2 bg-[#C5A059] text-[#050505] text-[11px] font-bold uppercase tracking-[0.2em] px-5 py-2.5 rounded-full hover:scale-[1.03] active:scale-[0.98] transition-transform"
+              className="premium-button hidden md:inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] px-5 py-2.5 rounded-full active:scale-[0.98]"
             >
               Обсудить проект
             </Link>
@@ -114,13 +112,17 @@ export function Navbar() {
       </header>
 
       {open && (
-        <div className="fixed inset-0 z-[100] bg-[#050505] flex flex-col">
-          <div className="flex items-center justify-between px-5 py-5 border-b border-white/5">
+        <div className="fixed inset-0 z-[100] bg-[#161617] flex flex-col">
+          <div className="flex items-center justify-between px-5 py-5 glass-strong">
             <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
-              <span className="inline-block size-2 rounded-full bg-[#C5A059]" />
+              <span className="inline-block size-2 rounded-full bg-[#f5f5f7]" />
               <span className="font-extrabold tracking-tighter">SMART GROUP</span>
             </Link>
-            <button onClick={() => setOpen(false)} className="size-10 grid place-items-center" aria-label="Закрыть">
+            <button
+              onClick={() => setOpen(false)}
+              className="size-10 grid place-items-center"
+              aria-label="Закрыть"
+            >
               <X className="size-5" />
             </button>
           </div>
@@ -139,7 +141,7 @@ export function Navbar() {
               ))}
             </div>
             <div className="mt-10 pt-6 border-t border-white/5">
-              <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-[#C5A059] mb-4">
+              <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-4">
                 Решения
               </div>
               <div className="grid grid-cols-1 gap-1">
@@ -159,7 +161,7 @@ export function Navbar() {
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
-              className="mt-10 inline-flex w-full justify-center bg-[#C5A059] text-[#050505] py-4 rounded-full font-bold uppercase tracking-[0.2em] text-xs"
+              className="premium-button mt-10 inline-flex w-full justify-center py-4 rounded-full font-bold uppercase tracking-[0.2em] text-xs"
             >
               Обсудить проект
             </Link>

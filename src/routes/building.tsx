@@ -6,9 +6,15 @@ export const Route = createFileRoute("/building")({
   head: () => ({
     meta: [
       { title: "Умное здание — BMS — Smart Group Kazakhstan" },
-      { name: "description", content: "BMS, единый диспетчерский пульт, энергоменеджмент, открытые протоколы." },
+      {
+        name: "description",
+        content: "BMS, единый диспетчерский пульт, энергоменеджмент, открытые протоколы.",
+      },
       { property: "og:title", content: "Умное здание — BMS — Smart Group" },
-      { property: "og:description", content: "BMS, единый диспетчерский пульт, энергоменеджмент, открытые протоколы." },
+      {
+        property: "og:description",
+        content: "BMS, единый диспетчерский пульт, энергоменеджмент, открытые протоколы.",
+      },
     ],
   }),
   component: Page,

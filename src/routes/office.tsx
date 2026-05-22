@@ -6,9 +6,17 @@ export const Route = createFileRoute("/office")({
   head: () => ({
     meta: [
       { title: "Умный офис — Smart Group Kazakhstan" },
-      { name: "description", content: "Бронирование, климат, доступ, аналитика — здание работает само, команда занимается делом." },
+      {
+        name: "description",
+        content:
+          "Бронирование, климат, доступ, аналитика — здание работает само, команда занимается делом.",
+      },
       { property: "og:title", content: "Умный офис — Smart Group" },
-      { property: "og:description", content: "Бронирование, климат, доступ, аналитика — здание работает само, команда занимается делом." },
+      {
+        property: "og:description",
+        content:
+          "Бронирование, климат, доступ, аналитика — здание работает само, команда занимается делом.",
+      },
     ],
   }),
   component: Page,
