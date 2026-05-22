@@ -18,14 +18,14 @@ function NotFoundComponent() {
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="text-center">
-        <div className="text-[20vw] md:text-[12vw] font-extrabold tracking-tighter text-[#C5A059] leading-none">
+        <div className="text-[20vw] md:text-[12vw] font-extrabold tracking-tighter text-silver leading-none">
           404
         </div>
         <h2 className="mt-6 text-2xl font-extrabold tracking-tight">Страница не найдена</h2>
         <p className="mt-3 text-mute">Возможно, она ещё в проекте.</p>
         <Link
           to="/"
-          className="mt-10 inline-flex bg-[#C5A059] text-[#050505] px-6 py-3 rounded-full font-bold uppercase tracking-[0.2em] text-xs"
+          className="premium-button mt-10 inline-flex px-6 py-3 rounded-full font-bold uppercase tracking-[0.2em] text-xs"
         >
           На главную
         </Link>
@@ -42,8 +42,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <h1 className="text-3xl font-extrabold tracking-tighter">Что-то пошло не так</h1>
         <p className="mt-3 text-mute text-sm">{error.message}</p>
         <button
-          onClick={() => { router.invalidate(); reset(); }}
-          className="mt-8 bg-[#C5A059] text-[#050505] px-6 py-3 rounded-full font-bold uppercase tracking-[0.2em] text-xs"
+          onClick={() => {
+            router.invalidate();
+            reset();
+          }}
+          className="premium-button mt-8 px-6 py-3 rounded-full font-bold uppercase tracking-[0.2em] text-xs"
         >
           Перезагрузить
         </button>
@@ -64,7 +67,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Smart Group Kazakhstan — премиальные решения умного дома, BMS и автоматизации зданий в Казахстане.",
       },
       { property: "og:title", content: "Smart Group Kazakhstan" },
-      { property: "og:description", content: "Премиальные решения умного дома и автоматизации зданий." },
+      {
+        property: "og:description",
+        content: "Премиальные решения умного дома и автоматизации зданий.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -94,7 +100,7 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col bg-[#050505] text-fg">
+      <div className="min-h-screen flex flex-col bg-[#161617] text-fg">
         <ScrollProgress />
         <Navbar />
         <div className="flex-1">

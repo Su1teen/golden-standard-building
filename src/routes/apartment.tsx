@@ -6,9 +6,15 @@ export const Route = createFileRoute("/apartment")({
   head: () => ({
     meta: [
       { title: "Умная квартира — Smart Group Kazakhstan" },
-      { name: "description", content: "Сценарии света, климата, безопасности и мультимедиа для квартиры премиум-класса." },
+      {
+        name: "description",
+        content: "Сценарии света, климата, безопасности и мультимедиа для квартиры премиум-класса.",
+      },
       { property: "og:title", content: "Умная квартира — Smart Group" },
-      { property: "og:description", content: "Сценарии света, климата, безопасности и мультимедиа для квартиры премиум-класса." },
+      {
+        property: "og:description",
+        content: "Сценарии света, климата, безопасности и мультимедиа для квартиры премиум-класса.",
+      },
     ],
   }),
   component: Page,

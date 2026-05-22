@@ -6,9 +6,15 @@ export const Route = createFileRoute("/agriculture")({
   head: () => ({
     meta: [
       { title: "Умное сельское хозяйство — Smart Group Kazakhstan" },
-      { name: "description", content: "Теплицы, полевой мониторинг, хранение, аналитика для агрокомплексов." },
+      {
+        name: "description",
+        content: "Теплицы, полевой мониторинг, хранение, аналитика для агрокомплексов.",
+      },
       { property: "og:title", content: "Умное сельское хозяйство — Smart Group" },
-      { property: "og:description", content: "Теплицы, полевой мониторинг, хранение, аналитика для агрокомплексов." },
+      {
+        property: "og:description",
+        content: "Теплицы, полевой мониторинг, хранение, аналитика для агрокомплексов.",
+      },
     ],
   }),
   component: Page,
