@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { solutions } from "@/lib/solutions";
 
 const navLinks = [
-  { to: "/", label: "Главная" },
   { to: "/projects", label: "Проекты" },
   { to: "/process", label: "Процесс" },
   { to: "/blog", label: "Блог" },
@@ -18,7 +17,7 @@ export function Navbar() {
   const [solutionsOpen, setSolutionsOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 50);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -28,51 +27,57 @@ export function Navbar() {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
+  const baseColor = scrolled ? "text-[#1d1d1f]" : "text-white";
+  const navBg = scrolled ? "nav-glass-light" : "bg-transparent";
+
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-          scrolled ? "py-3" : "py-5"
-        }`}
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${navBg} ${baseColor}`}
       >
-        <div
-          className={`mx-auto max-w-[1400px] px-5 md:px-8 flex items-center justify-between ${
-            scrolled ? "glass rounded-full" : ""
-          } transition-all duration-500`}
-          style={scrolled ? { padding: "10px 18px" } : undefined}
-        >
-          <Link to="/" className="flex items-center gap-2 group">
-            <span className="inline-block size-2 rounded-full bg-[#f5f5f7] shadow-[0_0_18px_rgba(245,245,247,0.22)]" />
-            <span className="font-extrabold tracking-tighter text-[15px] md:text-base">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10 h-16 md:h-[68px] flex items-center justify-between">
+          <Link
+            to="/"
+            className="flex items-center gap-2 group"
+            aria-label="Smart Group Kazakhstan"
+          >
+            <span
+              className={`inline-block size-1.5 rounded-full transition-colors ${
+                scrolled ? "bg-[#0071e3]" : "bg-white"
+              }`}
+            />
+            <span className="font-bold tracking-[0.06em] text-[14px] md:text-[15px]">
               SMART GROUP
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-7 text-[12px] uppercase tracking-[0.2em] text-mute">
+          <nav className="hidden lg:flex items-center gap-8 text-[13px] font-medium">
             <div
               className="relative"
               onMouseEnter={() => setSolutionsOpen(true)}
               onMouseLeave={() => setSolutionsOpen(false)}
             >
-              <button className="hover:text-fg transition-colors story-link">Решения</button>
+              <Link
+                to="/solutions"
+                className="inline-flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity"
+              >
+                Решения
+                <ChevronDown className="size-3.5 opacity-70" />
+              </Link>
               {solutionsOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-[640px]">
-                  <div className="glass-strong rounded-2xl p-6 grid grid-cols-2 gap-1">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[640px]">
+                  <div className="bg-white text-[#1d1d1f] rounded-2xl p-5 grid grid-cols-2 gap-1 shadow-[0_24px_60px_rgba(0,0,0,0.16)] border border-black/5">
                     {solutions.map((s) => (
                       <Link
                         key={s.slug}
                         to={s.route}
-                        className="flex items-center justify-between rounded-xl px-3 py-2.5 hover:bg-white/5 transition-colors group"
+                        className="flex items-center justify-between rounded-lg px-3 py-2.5 hover:bg-[#f5f5f7] transition-colors group"
                       >
                         <div>
-                          <div className="text-[13px] tracking-normal normal-case text-fg font-medium">
-                            {s.title}
-                          </div>
-                          <div className="text-[11px] tracking-normal normal-case text-mute">
-                            {s.short}
-                          </div>
+                          <div className="text-[13px] font-medium">{s.title}</div>
+                          <div className="text-[11px] text-[#6e6e73]">{s.short}</div>
                         </div>
-                        <span className="font-mono text-[10px] text-silver opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="font-mono text-[10px] text-[#6e6e73] opacity-0 group-hover:opacity-100 transition-opacity">
                           {s.index}
                         </span>
                       </Link>
@@ -81,12 +86,12 @@ export function Navbar() {
                 </div>
               )}
             </div>
-            {navLinks.slice(1).map((l) => (
+            {navLinks.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
-                className="hover:text-fg transition-colors story-link"
-                activeProps={{ className: "text-fg" }}
+                className="opacity-80 hover:opacity-100 transition-opacity"
+                activeProps={{ className: "opacity-100" }}
               >
                 {l.label}
               </Link>
@@ -96,13 +101,14 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <Link
               to="/contact"
-              className="premium-button hidden md:inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] px-5 py-2.5 rounded-full active:scale-[0.98]"
+              className="btn-primary hidden md:inline-flex !py-2.5 !px-5 !text-[12px]"
             >
               Обсудить проект
+              <ArrowRight className="size-3.5" />
             </Link>
             <button
               onClick={() => setOpen(true)}
-              className="lg:hidden size-10 grid place-items-center rounded-full glass"
+              className="lg:hidden size-10 grid place-items-center rounded-full border border-current/20"
               aria-label="Меню"
             >
               <Menu className="size-4" />
@@ -112,11 +118,11 @@ export function Navbar() {
       </header>
 
       {open && (
-        <div className="fixed inset-0 z-[100] bg-[#161617] flex flex-col">
-          <div className="flex items-center justify-between px-5 py-5 glass-strong">
+        <div className="fixed inset-0 z-[100] bg-[#1d1d1f] text-white flex flex-col">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
             <Link to="/" onClick={() => setOpen(false)} className="flex items-center gap-2">
-              <span className="inline-block size-2 rounded-full bg-[#f5f5f7]" />
-              <span className="font-extrabold tracking-tighter">SMART GROUP</span>
+              <span className="inline-block size-1.5 rounded-full bg-[#0071e3]" />
+              <span className="font-bold tracking-[0.06em]">SMART GROUP</span>
             </Link>
             <button
               onClick={() => setOpen(false)}
@@ -126,44 +132,45 @@ export function Navbar() {
               <X className="size-5" />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto px-6 py-10">
-            <div className="space-y-1">
-              {navLinks.map((l, i) => (
+          <nav className="flex-1 overflow-y-auto px-5 py-10 flex flex-col gap-3">
+            <Link
+              to="/solutions"
+              onClick={() => setOpen(false)}
+              className="text-3xl font-bold tracking-tight"
+            >
+              Решения
+            </Link>
+            <div className="grid grid-cols-2 gap-1 pl-1 mb-6">
+              {solutions.map((s) => (
                 <Link
-                  key={l.to}
-                  to={l.to}
+                  key={s.slug}
+                  to={s.route}
                   onClick={() => setOpen(false)}
-                  className="reveal in block py-3 text-3xl font-extrabold tracking-tighter"
-                  style={{ animationDelay: `${i * 60}ms` } as React.CSSProperties}
+                  className="py-2 text-[13px] text-white/70 hover:text-white"
                 >
-                  {l.label}
+                  {s.title}
                 </Link>
               ))}
             </div>
-            <div className="mt-10 pt-6 border-t border-white/5">
-              <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-4">
-                Решения
-              </div>
-              <div className="grid grid-cols-1 gap-1">
-                {solutions.map((s) => (
-                  <Link
-                    key={s.slug}
-                    to={s.route}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center justify-between py-2.5 border-b border-white/5"
-                  >
-                    <span className="text-base">{s.title}</span>
-                    <span className="font-mono text-[10px] text-mute">{s.index}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            {navLinks.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className="text-3xl font-bold tracking-tight"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="px-5 py-5 border-t border-white/10">
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
-              className="premium-button mt-10 inline-flex w-full justify-center py-4 rounded-full font-bold uppercase tracking-[0.2em] text-xs"
+              className="btn-primary w-full justify-center"
             >
               Обсудить проект
+              <ArrowRight className="size-4" />
             </Link>
           </div>
         </div>

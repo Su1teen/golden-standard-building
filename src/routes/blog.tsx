@@ -103,50 +103,76 @@ const posts = [
   },
 ];
 
+const featuredImage = "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1600&q=80";
+const postImages = [
+  "https://images.unsplash.com/photo-1518733057094-95b53143d2a7?w=1200&q=80",
+  "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&q=80",
+  "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+  "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80",
+  "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80",
+  "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80",
+  "https://images.unsplash.com/photo-1519642918688-7e43b19245d8?w=1200&q=80",
+  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80",
+  "https://images.unsplash.com/photo-1582719188393-bb71ca45dbb9?w=1200&q=80",
+  "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80",
+];
+
 function Blog() {
   const [c, setC] = useState("Все");
   const filtered = c === "Все" ? posts : posts.filter((p) => p.cat === c);
   return (
-    <main className="pt-32">
-      <section className="relative px-6 md:px-10 pb-16 overflow-hidden">
-        <div className="ambient-glow ambient-glow--hero" />
-        <div className="max-w-[1400px] mx-auto">
-          <Reveal className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-8">
+    <main>
+      {/* Hero */}
+      <section className="section-dark relative min-h-[60vh] flex items-end overflow-hidden">
+        <div
+          className="hero-image-bg"
+          style={{ backgroundImage: `url(${featuredImage})` }}
+          aria-hidden="true"
+        />
+        <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-16">
+          <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
             Журнал
           </Reveal>
           <Reveal
             as="h1"
             delay={120}
-            className="text-[clamp(48px,9vw,160px)] font-extrabold tracking-tighter leading-[0.88]"
+            className="font-hero text-[clamp(48px,9vw,140px)] leading-[0.92] text-white max-w-[18ch]"
           >
-            Заметки об инженерии
-            <br />и опыте.
+            Заметки об инженерии и опыте.
           </Reveal>
         </div>
       </section>
 
-      <section className="px-6 md:px-10 pb-20">
+      {/* Featured */}
+      <section className="section-white py-16 md:py-24 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <Reveal>
             <Link
               to="/blog/$slug"
               params={{ slug: "tihaya-injeneriya" }}
-              className="group block relative overflow-hidden rounded-3xl cinematic-card border border-white/5 hover:border-white/20 transition-colors aspect-[16/9] md:aspect-[21/9]"
+              className="image-card group rounded-3xl block aspect-[16/9] md:aspect-[21/9]"
             >
-              <div className="absolute inset-0 p-10 md:p-16 flex flex-col justify-between">
-                <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-silver">
+              <img
+                src={featuredImage}
+                alt={featured.title}
+                className="size-full object-cover"
+                loading="lazy"
+              />
+              <div className="image-card-overlay" />
+              <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-between text-white">
+                <div className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4]">
                   {featured.cat} · Featured
                 </div>
                 <div>
-                  <h2 className="text-3xl md:text-6xl font-extrabold tracking-tighter leading-[1.05] max-w-[22ch]">
+                  <h2 className="font-hero text-[clamp(28px,4.5vw,72px)] leading-[1.02] max-w-[24ch]">
                     {featured.title}
                   </h2>
-                  <div className="mt-6 flex items-center gap-4 text-xs text-mute">
+                  <div className="mt-6 flex items-center gap-4 text-[12px] text-white/80">
                     <span>{featured.date}</span>
-                    <span className="size-1 rounded-full bg-mute" />
+                    <span className="size-1 rounded-full bg-white/60" />
                     <span>{featured.read}</span>
-                    <span className="size-1 rounded-full bg-mute" />
-                    <span className="text-silver inline-flex items-center gap-1">
+                    <span className="size-1 rounded-full bg-white/60" />
+                    <span className="inline-flex items-center gap-1">
                       Читать <ArrowUpRight className="size-3" />
                     </span>
                   </div>
@@ -157,41 +183,51 @@ function Blog() {
         </div>
       </section>
 
-      <section className="px-6 md:px-10 pb-12">
-        <div className="max-w-[1400px] mx-auto flex flex-wrap gap-2 border-y border-white/5 py-6">
-          {cats.map((x) => (
-            <button
-              key={x}
-              onClick={() => setC(x)}
-              className={`px-4 py-2 rounded-full text-[11px] uppercase tracking-[0.2em] font-bold transition-colors ${
-                c === x ? "premium-button" : "text-mute hover:text-fg"
-              }`}
-            >
-              {x}
-            </button>
-          ))}
+      {/* Filters */}
+      <section className="section-white sticky top-[64px] md:top-[68px] z-30 border-y border-black/8 nav-glass-light">
+        <div className="max-w-[1400px] mx-auto px-2 md:px-10 py-3 overflow-x-auto no-scrollbar">
+          <div className="flex items-center min-w-max">
+            {cats.map((x) => (
+              <button
+                key={x}
+                onClick={() => setC(x)}
+                className={`filter-chip ${c === x ? "active" : ""}`}
+              >
+                {x}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="px-6 md:px-10 pb-32">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
+      {/* Grid */}
+      <section className="section-mid py-16 md:py-24 px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filtered.map((p, i) => (
-            <Reveal key={p.title} delay={i * 50}>
+            <Reveal key={p.title} delay={(i % 3) * 80}>
               <Link
                 to="/blog/$slug"
                 params={{ slug: p.title.toLowerCase().replace(/\s+/g, "-").slice(0, 24) }}
-                className="bg-[#161617] p-8 md:p-10 block h-full hover-lift border border-transparent hover:border-white/20 transition-colors"
+                className="group block"
               >
-                <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-silver mb-8">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden mb-5 bg-[#f5f5f7]">
+                  <img
+                    src={postImages[i % postImages.length]}
+                    alt={p.title}
+                    className="size-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-3">
                   {p.cat}
                 </div>
-                <h3 className="text-2xl font-extrabold tracking-tight leading-tight mb-4">
+                <h3 className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f] mb-3 leading-snug group-hover:text-[#0071e3] transition-colors">
                   {p.title}
                 </h3>
-                <p className="text-mute text-sm leading-relaxed mb-8">{p.excerpt}</p>
-                <div className="flex items-center gap-3 text-[11px] text-mute">
+                <p className="text-[14px] leading-relaxed text-[#6e6e73] mb-5">{p.excerpt}</p>
+                <div className="flex items-center gap-3 text-[11px] text-[#6e6e73] uppercase tracking-[0.18em]">
                   <span>{p.date}</span>
-                  <span className="size-1 rounded-full bg-mute" />
+                  <span className="size-1 rounded-full bg-[#6e6e73]" />
                   <span>{p.read}</span>
                 </div>
               </Link>

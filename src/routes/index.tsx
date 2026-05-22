@@ -4,33 +4,6 @@ import { solutions } from "@/lib/solutions";
 import { Reveal } from "@/components/Reveal";
 import { Counter } from "@/components/Counter";
 import { ContactForm } from "@/components/ContactForm";
-import apartmentRender from "@/assets/render-apartment.png";
-import villaRender from "@/assets/render-villa.png";
-import officeRender from "@/assets/render-office.png";
-import residentialRender from "@/assets/render-residential.png";
-import buildingRender from "@/assets/render-hospital.png";
-import mallRender from "@/assets/render-retail.png";
-import hotelRender from "@/assets/render-hospitality.png";
-import restaurantRender from "@/assets/render-restaurant.png";
-import hospitalRender from "@/assets/render-healthcare.png";
-import schoolRender from "@/assets/render-school.png";
-import factoryRender from "@/assets/render-industry.png";
-import agricultureRender from "@/assets/render-agriculture.png";
-
-const renders: Record<string, string> = {
-  "render-apartment.png": apartmentRender,
-  "render-villa.png": villaRender,
-  "render-office.png": officeRender,
-  "render-residential.png": residentialRender,
-  "render-hospital.png": buildingRender,
-  "render-retail.png": mallRender,
-  "render-hospitality.png": hotelRender,
-  "render-restaurant.png": restaurantRender,
-  "render-healthcare.png": hospitalRender,
-  "render-school.png": schoolRender,
-  "render-industry.png": factoryRender,
-  "render-agriculture.png": agricultureRender,
-};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,7 +12,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Интеллектуальные системы для квартир, вилл, офисов, отелей, ЖК и производств в Казахстане.",
+          "Премиальные системы умного дома и автоматизации зданий. Smart Group Kazakhstan — 12 лет опыта, 450+ объектов в Казахстане.",
       },
       { property: "og:title", content: "Smart Group Kazakhstan" },
       { property: "og:description", content: "Дом, который понимает вас." },
@@ -48,111 +21,172 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const HERO_IMAGE = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80";
+
 const advantages = [
   {
+    n: "01",
     title: "Своя инженерия",
     body: "Не интегратор-посредник. Собственный отдел проектирования, программирования и сервиса.",
   },
   {
+    n: "02",
     title: "Прямые контракты",
     body: "Поставки напрямую от KNX, Crestron, Control4, Lutron, BACnet-производителей.",
   },
   {
+    n: "03",
     title: "Открытая архитектура",
     body: "Никаких облачных замков. Ваша система остаётся вашей — навсегда.",
   },
   {
+    n: "04",
     title: "Один партнёр на всё",
     body: "Проект, монтаж, программирование, сервис — внутри одной команды.",
   },
   {
+    n: "05",
     title: "Сервис на годы",
     body: "Договоры обслуживания, удалённая диагностика, выезд по SLA.",
   },
   {
+    n: "06",
     title: "Опыт всех масштабов",
     body: "От квартиры 80 м² до промышленных комплексов и сетей зданий.",
   },
 ];
 
-const steps = [
-  { t: "Брифинг", d: "Слушаем задачу. Смотрим объект. Понимаем людей." },
-  { t: "Концепция", d: "Сценарии. Логика. Бюджет. Архитектура решения." },
-  { t: "Проект", d: "Инженерные схемы, кабельные журналы, согласование." },
-  { t: "Поставка", d: "Прямые поставки оборудования, сборка щитов." },
-  { t: "Монтаж и пуск", d: "Кабель, оборудование, программирование, обучение." },
-  { t: "Сервис", d: "Поддержка, развитие, обновления — на всю жизнь системы." },
+const processSteps = [
+  { n: "01", t: "Брифинг", d: "Слушаем задачу. Смотрим объект. Понимаем людей." },
+  { n: "02", t: "Концепция", d: "Сценарии. Логика. Бюджет. Архитектура решения." },
+  { n: "03", t: "Проект", d: "Инженерные схемы, кабельные журналы, согласование." },
+  { n: "04", t: "Поставка", d: "Прямые поставки оборудования, сборка щитов." },
+  { n: "05", t: "Монтаж и пуск", d: "Кабель, оборудование, программирование, обучение." },
+  { n: "06", t: "Сервис", d: "Поддержка, развитие, обновления — на всю жизнь системы." },
 ];
 
-const blog = [
+const featuredProjects = [
+  {
+    title: "Резиденция Мангилик Ел",
+    city: "Астана",
+    type: "Резиденция",
+    area: "420 м²",
+    systems: ["Свет KNX", "Климат", "Безопасность", "Мультирум"],
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+  },
+  {
+    title: "Esentai Park Apart-Hotel",
+    city: "Алматы",
+    type: "Апарт-отель",
+    area: "12 500 м²",
+    systems: ["Mobile key", "Управление номером", "BMS", "PMS-интеграция"],
+    image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80",
+  },
+  {
+    title: "БЦ Almaty Tower",
+    city: "Алматы",
+    type: "Бизнес-центр",
+    area: "18 000 м²",
+    systems: ["BMS", "Доступ", "Энергоучёт", "Видеоаналитика"],
+    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80",
+  },
+];
+
+const devices = [
+  {
+    label: "Touch-панели",
+    title: "Один экран. Любая сцена.",
+    body: "Сенсорные панели KNX и Crestron — управление светом, климатом, мультимедиа без приложений.",
+    image: "https://images.unsplash.com/photo-1558618047-f4b30c5e5bae?w=1000&q=80",
+  },
+  {
+    label: "Сенсоры",
+    title: "Здание чувствует людей.",
+    body: "Присутствие, CO₂, влажность, шум — данные, которые делают климат и свет точными.",
+    image: "https://images.unsplash.com/photo-1543512214-318c7553f230?w=1000&q=80",
+  },
+  {
+    label: "Шкафы автоматики",
+    title: "Сердце системы.",
+    body: "Промышленные контроллеры BACnet, KNX, Modbus — собранные под ваш объект щиты управления.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=80",
+  },
+];
+
+const blogPosts = [
   {
     eyebrow: "Резиденция",
     title: "Почему свет — это первое, что чувствует гость",
     excerpt: "Один из главных эффектов в премиальной резиденции создаётся не мебелью, а светом.",
+    image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80",
   },
   {
     eyebrow: "Hospitality",
     title: "Mobile key и тишина вестибюля",
     excerpt: "Как отказ от стойки сокращает заезд до десяти секунд и меняет рейтинг отеля.",
+    image: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&q=80",
   },
   {
     eyebrow: "BMS",
     title: "Где здание тратит лишний киловатт",
     excerpt:
-      "Шесть точек, в которых OPEX уходит вникуда — и где автоматизация даёт мгновенный эффект.",
+      "Шесть точек, в которых OPEX уходит впустую — и где автоматизация даёт мгновенный эффект.",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
   },
 ];
 
 function Index() {
   return (
     <main className="relative">
-      {/* Hero */}
-      <section className="relative min-h-screen flex flex-col justify-center hero-grad px-6 md:px-10 pt-32 pb-24 overflow-hidden">
-        <div className="ambient-glow ambient-glow--hero" />
-        <div className="max-w-[1400px] mx-auto w-full">
-          <Reveal className="inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-10">
-            <span className="size-1.5 rounded-full bg-[#f5f5f7] shadow-[0_0_18px_rgba(245,245,247,0.22)] animate-pulse" />
-            Smart Group Kazakhstan
-          </Reveal>
-          <Reveal
-            as="h1"
-            delay={100}
-            className="text-[clamp(56px,11vw,200px)] font-extrabold tracking-tighter leading-[0.85] text-balance max-w-[16ch]"
-          >
-            Дом, который
-            <br />
-            понимает вас.
-          </Reveal>
-          <Reveal
-            as="p"
-            delay={300}
-            className="mt-10 max-w-[44ch] text-lg md:text-xl text-mute leading-relaxed"
-          >
-            Премиальные системы умного дома и автоматизации зданий. Инженерия, которая становится
-            незаметной — и поэтому идеальной.
-          </Reveal>
+      {/* HERO — dark photo background */}
+      <section className="section-dark relative min-h-screen flex items-end overflow-hidden">
+        <div
+          className="hero-image-bg"
+          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          aria-hidden="true"
+        />
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-10 pt-32 pb-16 md:pb-24">
+          <div className="grid lg:grid-cols-12 gap-10 items-end">
+            <div className="lg:col-span-8">
+              <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
+                Smart Group Kazakhstan
+              </Reveal>
+              <Reveal
+                as="h1"
+                delay={120}
+                className="font-hero text-[clamp(56px,11vw,180px)] leading-[0.88] text-white text-balance max-w-[14ch]"
+              >
+                Дом, который
+                <br />
+                понимает вас.
+              </Reveal>
+              <Reveal
+                as="p"
+                delay={300}
+                className="mt-8 max-w-[52ch] text-[17px] md:text-[19px] leading-[1.55] text-[#a1a1a6]"
+              >
+                Премиальные системы умного дома и автоматизации зданий. Инженерия, которая
+                становится незаметной — и поэтому идеальной.
+              </Reveal>
 
-          <Reveal delay={450} className="mt-14 flex flex-wrap gap-4">
-            <Link
-              to="/contact"
-              className="premium-button group inline-flex items-center gap-3 px-7 py-4 rounded-full font-bold uppercase tracking-[0.2em] text-[11px]"
-            >
-              Обсудить проект
-              <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-3 glass-strong px-7 py-4 rounded-full font-bold uppercase tracking-[0.2em] text-[11px] hover:bg-white/10 transition-colors"
-            >
-              Смотреть проекты
-            </Link>
-          </Reveal>
+              <Reveal delay={450} className="mt-12 flex flex-wrap gap-3">
+                <Link to="/contact" className="btn-primary">
+                  Обсудить проект
+                  <ArrowRight className="size-4" />
+                </Link>
+                <Link to="/projects" className="btn-secondary-dark">
+                  Смотреть проекты
+                </Link>
+              </Reveal>
+            </div>
+          </div>
 
+          {/* Stats row */}
           <Reveal
             delay={600}
-            className="mt-24 pt-10 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-10"
+            className="mt-20 pt-10 border-t border-white/15 grid grid-cols-2 md:grid-cols-4"
           >
-            <Stat to={450} suffix="+" label="Объектов сдано" />
+            <Stat to={450} suffix="+" label="Объектов" />
             <Stat to={12} label="Лет опыта" />
             <Stat to={40} suffix="+" label="Интеграций" />
             <Stat value="24/7" label="Поддержка" />
@@ -160,56 +194,54 @@ function Index() {
         </div>
       </section>
 
-      {/* Solutions bento */}
-      <section className="relative py-32 md:py-48 px-6 md:px-10 border-t border-white/5 overflow-hidden">
-        <div className="ambient-glow ambient-glow--right" />
+      {/* WHAT WE AUTOMATE — light gray */}
+      <section className="section-mid py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10 mb-20">
-            <Reveal>
-              <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-6">
-                Решения · 12
-              </div>
-              <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] max-w-[14ch]">
-                Среды, которые отвечают человеку.
-              </h2>
+          <div className="grid md:grid-cols-12 gap-10 mb-16">
+            <Reveal
+              as="h2"
+              className="md:col-span-7 font-hero text-[clamp(40px,7vw,104px)] leading-[0.98] text-[#1d1d1f]"
+            >
+              Пространство, которое работает на человека.
             </Reveal>
-            <Reveal delay={150} className="max-w-[44ch] text-mute leading-relaxed">
-              От квартиры до завода. Везде, где пространство встречается с людьми и должно работать
-              на них — мы строим систему, которая знает свою задачу.
+            <Reveal
+              as="p"
+              delay={140}
+              className="md:col-span-5 self-end text-[17px] leading-relaxed text-[#6e6e73] max-w-[44ch]"
+            >
+              От квартиры до завода. 12 направлений, в которых мы строим системы — и сотни сценариев
+              внутри каждого.
             </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
             {solutions.map((s, i) => (
               <Reveal
                 key={s.slug}
-                delay={i * 60}
-                className="bg-[#161617] overflow-visible"
+                delay={(i % 4) * 70}
                 variant="fade"
+                className="image-card aspect-[3/4] group"
               >
-                <Link
-                  to={s.route}
-                  className="bento-card solution-card group block min-h-[320px] p-6 md:p-8 border border-transparent"
-                >
+                <Link to={s.route} className="block size-full relative">
                   <img
-                    src={renders[s.render]}
-                    alt=""
-                    aria-hidden="true"
-                    className="floating-render solution-card-render"
-                    style={{ animationDelay: `${(i % 4) * 0.45}s` }}
+                    src={s.image}
+                    alt={s.title}
+                    className="size-full object-cover"
+                    loading="lazy"
                   />
-                  <div className="h-full flex flex-col justify-between relative z-10">
-                    <div className="flex items-start justify-between">
-                      <span className="font-mono text-[10px] text-mute tracking-widest">
+                  <div className="image-card-overlay" />
+                  <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between text-white">
+                    <div className="flex justify-between items-start">
+                      <span className="text-[11px] tracking-[0.22em] uppercase opacity-80">
                         {s.index}
                       </span>
-                      <ArrowUpRight className="size-4 text-mute group-hover:text-fg group-hover:rotate-12 transition-all" />
+                      <ArrowUpRight className="size-4 opacity-0 group-hover:opacity-100 group-hover:rotate-12 transition-all duration-300" />
                     </div>
                     <div>
-                      <h3 className="text-xl md:text-2xl font-extrabold tracking-tight">
-                        {s.title}
-                      </h3>
-                      <p className="mt-1 text-[12px] text-mute">{s.short}</p>
+                      <div className="text-[11px] tracking-[0.22em] uppercase text-[#86a8c4] mb-1">
+                        {s.eyebrow}
+                      </div>
+                      <div className="font-bold text-lg md:text-xl leading-tight">{s.title}</div>
                     </div>
                   </div>
                 </Link>
@@ -219,188 +251,290 @@ function Index() {
         </div>
       </section>
 
-      {/* About split */}
-      <section className="relative py-32 md:py-48 px-6 md:px-10 overflow-hidden">
-        <div className="ambient-glow ambient-glow--left" />
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-          <Reveal className="md:col-span-5">
-            <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-6">
-              О компании
-            </div>
-            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95]">
-              Инженерия,
-              <br />
-              которая исчезает.
-            </h2>
+      {/* PROCESS — white, horizontal timeline */}
+      <section className="section-white py-24 md:py-36 px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto">
+          <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
+            Наш процесс · 6 этапов
           </Reveal>
-          <div className="md:col-span-7 md:pt-6 space-y-8 text-lg md:text-xl leading-relaxed text-fg/85">
-            <Reveal delay={120} as="p">
-              Smart Group Kazakhstan — команда инженеров, проектировщиков и программистов, которая
-              делает одно: превращает здание в среду, которая работает на человека.
-            </Reveal>
-            <Reveal delay={220} as="p">
-              Мы строим системы, которые вы не замечаете — потому что они делают именно то, что
-              нужно, именно тогда, когда нужно. Без перегрузки, без облаков, без посредников.
-            </Reveal>
-            <Reveal delay={320}>
-              <Link
-                to="/about"
-                className="story-link inline-flex items-center gap-3 text-fg font-bold uppercase tracking-[0.2em] text-xs"
+          <Reveal
+            as="h2"
+            delay={120}
+            className="font-hero text-[clamp(40px,6vw,88px)] leading-[1] text-[#1d1d1f] max-w-[18ch] mb-20"
+          >
+            От первого звонка до жизни в системе.
+          </Reveal>
+
+          <div className="hidden md:grid grid-cols-6 gap-px bg-black/8 relative">
+            {processSteps.map((step, i) => (
+              <Reveal
+                key={step.n}
+                delay={i * 80}
+                className="bg-white p-8 pt-10 relative hover:bg-[#fafafa] transition-colors"
               >
-                Подробнее о нас <ArrowRight className="size-4" />
-              </Link>
-            </Reveal>
+                <div className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-6 font-mono">
+                  {step.n}
+                </div>
+                <div className="font-bold text-[18px] tracking-tight text-[#1d1d1f] mb-3">
+                  {step.t}
+                </div>
+                <p className="text-[13px] leading-relaxed text-[#6e6e73]">{step.d}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Mobile vertical timeline */}
+          <div className="md:hidden space-y-8">
+            {processSteps.map((step, i) => (
+              <Reveal key={step.n} delay={i * 80} className="timeline-step">
+                <span className="dot" />
+                <div className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-2 font-mono">
+                  {step.n}
+                </div>
+                <div className="font-bold text-lg text-[#1d1d1f] mb-2">{step.t}</div>
+                <p className="text-[14px] leading-relaxed text-[#6e6e73]">{step.d}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="mt-16 flex justify-center">
+            <Link to="/process" className="btn-secondary-light">
+              Подробно о процессе
+              <ArrowRight className="size-4" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Why us */}
-      <section className="py-32 md:py-48 px-6 md:px-10 border-t border-white/5">
+      {/* DEVICES — dark */}
+      <section className="section-dark py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
-          <Reveal className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-10">
-            Почему мы
+          <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-6">
+            Оборудование
           </Reveal>
           <Reveal
             as="h2"
-            className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-24 max-w-[18ch]"
+            delay={120}
+            className="font-hero text-[clamp(40px,7vw,104px)] leading-[0.98] text-white max-w-[18ch] mb-20"
           >
-            Шесть причин, которые слышно через год после сдачи.
+            Технологии, которые вы не видите.
           </Reveal>
-          <div className="space-y-24">
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {devices.map((d, i) => (
+              <Reveal
+                key={d.title}
+                delay={i * 90}
+                variant="breathe"
+                className="rounded-2xl overflow-hidden bg-[#2a2a2c]"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={d.image}
+                    alt={d.title}
+                    className="size-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-7">
+                  <div className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-3">
+                    {d.label}
+                  </div>
+                  <h3 className="font-bold text-xl md:text-2xl text-white mb-3 tracking-tight">
+                    {d.title}
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-[#a1a1a6]">{d.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ADVANTAGES — light gray */}
+      <section className="section-mid py-24 md:py-36 px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="grid md:grid-cols-12 gap-10 mb-14">
+            <Reveal
+              as="h2"
+              className="md:col-span-7 font-hero text-[clamp(40px,6vw,88px)] leading-[1]"
+            >
+              Почему Smart Group.
+            </Reveal>
+            <Reveal
+              delay={140}
+              className="md:col-span-5 self-end text-[16px] leading-relaxed text-[#6e6e73] max-w-[44ch]"
+            >
+              Не маркетинговые обещания. Шесть инженерных причин, по которым нам доверяют объекты от
+              квартиры до промышленного комплекса.
+            </Reveal>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/8">
             {advantages.map((a, i) => (
               <Reveal
                 key={a.title}
-                delay={i * 80}
-                className="grid grid-cols-12 gap-6 items-start border-t border-white/10 pt-10"
+                delay={i * 70}
+                className="bg-[#f5f5f7] p-8 md:p-10 hover:bg-white transition-colors"
               >
-                <div className="col-span-12 md:col-span-2 font-mono text-silver text-sm">
-                  0{i + 1}
+                <div className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-6 font-mono">
+                  {a.n}
                 </div>
-                <h3 className="col-span-12 md:col-span-5 text-3xl md:text-5xl font-extrabold tracking-tighter">
-                  {a.title}
-                </h3>
-                <p className="col-span-12 md:col-span-5 text-lg md:text-xl text-mute leading-relaxed">
-                  {a.body}
-                </p>
+                <h3 className="font-bold text-xl tracking-tight text-[#1d1d1f] mb-3">{a.title}</h3>
+                <p className="text-[14px] leading-relaxed text-[#6e6e73] max-w-[36ch]">{a.body}</p>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process */}
-      <section className="relative py-32 md:py-48 px-6 md:px-10 border-t border-white/5 overflow-hidden">
-        <div className="ambient-glow ambient-glow--right" />
+      {/* FEATURED PROJECTS — white */}
+      <section className="section-white py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
-          <Reveal className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-10">
-            Как мы работаем
-          </Reveal>
-          <Reveal
-            as="h2"
-            className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-24 max-w-[16ch]"
-          >
-            От первого звонка
-            <br />
-            до жизни в системе.
-          </Reveal>
-
-          <div className="relative grid grid-cols-1 md:grid-cols-6 gap-8 md:gap-4">
-            <div className="hidden md:block absolute top-6 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            {steps.map((s, i) => (
-              <Reveal key={s.t} delay={i * 100} className="relative">
-                <div className="relative z-10 size-12 rounded-full bg-[#1d1d1f] ring-1 ring-white/18 flex items-center justify-center font-mono text-[12px] text-silver shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
-                  0{i + 1}
-                </div>
-                <h3 className="mt-6 text-lg font-extrabold tracking-tight">{s.t}</h3>
-                <p className="mt-2 text-sm text-mute leading-relaxed">{s.d}</p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+            <div>
+              <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
+                Проекты · избранное
               </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={400} className="mt-16">
-            <Link
-              to="/process"
-              className="story-link inline-flex items-center gap-3 text-fg font-bold uppercase tracking-[0.2em] text-xs"
-            >
-              Подробно о процессе <ArrowRight className="size-4" />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Blog */}
-      <section className="py-32 md:py-48 px-6 md:px-10 border-t border-white/5">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-end justify-between mb-16 gap-10">
-            <Reveal>
-              <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-6">
-                Журнал
-              </div>
-              <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter leading-[0.95]">
-                Свежее в блоге.
-              </h2>
-            </Reveal>
-            <Reveal delay={120}>
-              <Link
-                to="/blog"
-                className="story-link text-fg font-bold uppercase tracking-[0.2em] text-xs"
+              <Reveal
+                as="h2"
+                delay={120}
+                className="font-hero text-[clamp(40px,6vw,88px)] leading-[1] text-[#1d1d1f] max-w-[16ch]"
               >
-                Все статьи
+                Объекты, которые работают тихо.
+              </Reveal>
+            </div>
+            <Reveal delay={200}>
+              <Link to="/projects" className="btn-secondary-light">
+                Все проекты
+                <ArrowRight className="size-4" />
               </Link>
             </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5">
-            {blog.map((p, i) => (
-              <Reveal key={p.title} delay={i * 100}>
-                <Link
-                  to="/blog"
-                  className="block bg-[#161617] p-8 md:p-10 hover-lift border border-transparent hover:border-white/20 transition-colors h-full"
-                >
-                  <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-silver mb-8">
-                    {p.eyebrow}
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {featuredProjects.map((p, i) => (
+              <Reveal
+                key={p.title}
+                delay={i * 90}
+                variant="fade"
+                className="image-card aspect-[3/4] group"
+              >
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className="size-full object-cover"
+                  loading="lazy"
+                />
+                <div className="image-card-overlay" />
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white">
+                  <div className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-2">
+                    {p.city} · {p.type}
                   </div>
-                  <h3 className="text-2xl font-extrabold tracking-tight mb-4 leading-tight">
-                    {p.title}
-                  </h3>
-                  <p className="text-mute text-sm leading-relaxed">{p.excerpt}</p>
-                  <div className="mt-8 inline-flex items-center gap-2 text-fg text-xs uppercase tracking-[0.2em] font-bold">
-                    Читать <ArrowUpRight className="size-3" />
+                  <div className="font-bold text-xl md:text-2xl leading-tight mb-1">{p.title}</div>
+                  <div className="text-[13px] text-white/80 mb-4">{p.area}</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {p.systems.map((sys) => (
+                      <span
+                        key={sys}
+                        className="text-[10px] uppercase tracking-[0.14em] px-2 py-1 rounded-full bg-white/15 backdrop-blur-md"
+                      >
+                        {sys}
+                      </span>
+                    ))}
                   </div>
-                </Link>
+                </div>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Form */}
-      <section className="relative py-32 md:py-48 px-6 md:px-10 border-t border-white/5 overflow-hidden">
-        <div className="ambient-glow ambient-glow--left" />
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-          <Reveal className="md:col-span-5 md:sticky md:top-32">
-            <div className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-6">
-              Свяжитесь
+      {/* BLOG — light gray */}
+      <section className="section-mid py-24 md:py-36 px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+            <div>
+              <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
+                Журнал
+              </Reveal>
+              <Reveal
+                as="h2"
+                delay={120}
+                className="font-hero text-[clamp(36px,5.5vw,80px)] leading-[1] text-[#1d1d1f] max-w-[18ch]"
+              >
+                Истории, в которых инженерия работает.
+              </Reveal>
             </div>
-            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95]">
-              Начнём с разговора.
-            </h2>
-            <p className="mt-8 text-mute text-lg max-w-[36ch] leading-relaxed">
-              Звонок 20 минут — и у вас есть понимание масштаба, бюджета и сроков.
-            </p>
-            <div className="mt-12 space-y-3">
-              <a href="tel:+77000000000" className="block text-lg story-link">
-                +7 (700) 000 00 00
-              </a>
-              <a href="mailto:hello@smartgroup.kz" className="block text-lg story-link">
-                hello@smartgroup.kz
-              </a>
-              <div className="text-mute text-sm">Астана, пр. Мангилик Ел, 55</div>
-            </div>
-          </Reveal>
-          <div className="md:col-span-7">
-            <ContactForm />
+            <Reveal delay={200}>
+              <Link to="/blog" className="btn-secondary-light">
+                Все статьи
+                <ArrowRight className="size-4" />
+              </Link>
+            </Reveal>
           </div>
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {blogPosts.map((p, i) => (
+              <Reveal key={p.title} delay={i * 80} className="group">
+                <div className="aspect-[4/3] overflow-hidden rounded-2xl mb-6">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    className="size-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-3">
+                  {p.eyebrow}
+                </div>
+                <h3 className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f] mb-3 leading-snug">
+                  {p.title}
+                </h3>
+                <p className="text-[14px] leading-relaxed text-[#6e6e73]">{p.excerpt}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT FORM — white */}
+      <section className="section-white py-24 md:py-36 px-6 md:px-10">
+        <div className="max-w-[1100px] mx-auto grid md:grid-cols-12 gap-12 items-start">
+          <Reveal className="md:col-span-5">
+            <div className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
+              Связаться
+            </div>
+            <h2 className="font-hero text-[clamp(36px,5vw,72px)] leading-[1.02] text-[#1d1d1f] mb-6">
+              Поговорим о вашем объекте.
+            </h2>
+            <p className="text-[16px] leading-relaxed text-[#6e6e73] max-w-[36ch]">
+              Опишите задачу — мы перезвоним в течение рабочего дня и согласуем встречу.
+            </p>
+          </Reveal>
+          <Reveal delay={120} className="md:col-span-7">
+            <ContactForm />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FINAL CTA — dark */}
+      <section className="section-dark py-24 md:py-36 px-6 md:px-10">
+        <div className="max-w-[1200px] mx-auto text-center">
+          <Reveal
+            as="h2"
+            className="font-hero text-[clamp(44px,8vw,140px)] leading-[0.96] text-white max-w-[16ch] mx-auto"
+          >
+            Спроектируем умное пространство под вас.
+          </Reveal>
+          <Reveal delay={180} className="mt-12 flex flex-wrap gap-3 justify-center">
+            <Link to="/contact" className="btn-primary">
+              Спроектировать проект
+              <ArrowRight className="size-4" />
+            </Link>
+            <Link to="/solutions" className="btn-secondary-dark">
+              Все решения
+            </Link>
+          </Reveal>
         </div>
       </section>
     </main>
@@ -409,21 +543,21 @@ function Index() {
 
 function Stat({
   to,
+  value,
   suffix,
   label,
-  value,
 }: {
   to?: number;
+  value?: string;
   suffix?: string;
   label: string;
-  value?: string;
 }) {
   return (
-    <div>
-      <div className="text-5xl md:text-6xl font-extrabold tracking-tighter text-fg leading-none">
-        {value ?? <Counter to={to ?? 0} suffix={suffix} />}
+    <div className="stat-divider py-4 md:py-0 md:pr-6">
+      <div className="font-hero text-[clamp(44px,5vw,76px)] leading-none text-white">
+        {typeof to === "number" ? <Counter to={to} suffix={suffix} /> : value}
       </div>
-      <div className="mt-3 text-[10px] font-mono uppercase tracking-[0.3em] text-mute">{label}</div>
+      <div className="mt-3 text-[11px] uppercase tracking-[0.22em] text-[#a1a1a6]">{label}</div>
     </div>
   );
 }

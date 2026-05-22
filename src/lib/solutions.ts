@@ -13,6 +13,7 @@ export type Solution = {
   cta: string;
   gradientClass: string;
   render: string;
+  image: string;
 };
 
 export const solutions: Solution[] = [
@@ -54,6 +55,7 @@ export const solutions: Solution[] = [
     cta: "Спроектировать квартиру",
     gradientClass: "cinematic-card",
     render: "render-apartment.png",
+    image: "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=1600&q=80",
   },
   {
     slug: "villa",
@@ -93,6 +95,7 @@ export const solutions: Solution[] = [
     cta: "Обсудить виллу",
     gradientClass: "cinematic-card-2",
     render: "render-villa.png",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=80",
   },
   {
     slug: "office",
@@ -125,6 +128,7 @@ export const solutions: Solution[] = [
     cta: "Автоматизировать офис",
     gradientClass: "cinematic-card-3",
     render: "render-office.png",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80",
   },
   {
     slug: "residential",
@@ -160,6 +164,7 @@ export const solutions: Solution[] = [
     cta: "Запросить демонстрацию ЖК",
     gradientClass: "cinematic-card",
     render: "render-residential.png",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=80",
   },
   {
     slug: "building",
@@ -199,6 +204,7 @@ export const solutions: Solution[] = [
     cta: "Заказать аудит BMS",
     gradientClass: "cinematic-card-2",
     render: "render-hospital.png",
+    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80",
   },
   {
     slug: "mall",
@@ -231,6 +237,7 @@ export const solutions: Solution[] = [
     cta: "Обсудить ТЦ или БЦ",
     gradientClass: "cinematic-card-3",
     render: "render-retail.png",
+    image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1600&q=80",
   },
   {
     slug: "hotel",
@@ -260,6 +267,7 @@ export const solutions: Solution[] = [
     cta: "Обсудить отель",
     gradientClass: "cinematic-card",
     render: "render-hospitality.png",
+    image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1600&q=80",
   },
   {
     slug: "restaurant",
@@ -292,6 +300,7 @@ export const solutions: Solution[] = [
     cta: "Спроектировать ресторан",
     gradientClass: "cinematic-card-2",
     render: "render-restaurant.png",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80",
   },
   {
     slug: "hospital",
@@ -324,6 +333,7 @@ export const solutions: Solution[] = [
     cta: "Запросить проект клиники",
     gradientClass: "cinematic-card-3",
     render: "render-healthcare.png",
+    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1600&q=80",
   },
   {
     slug: "school",
@@ -353,6 +363,7 @@ export const solutions: Solution[] = [
     cta: "Спроектировать школу",
     gradientClass: "cinematic-card",
     render: "render-school.png",
+    image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80",
   },
   {
     slug: "factory",
@@ -385,6 +396,7 @@ export const solutions: Solution[] = [
     cta: "Обсудить производство",
     gradientClass: "cinematic-card-2",
     render: "render-industry.png",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&q=80",
   },
   {
     slug: "agriculture",
@@ -417,6 +429,7 @@ export const solutions: Solution[] = [
     cta: "Обсудить агропроект",
     gradientClass: "cinematic-card-3",
     render: "render-agriculture.png",
+    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1600&q=80",
   },
 ];
 
