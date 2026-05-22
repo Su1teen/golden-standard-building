@@ -12,8 +12,8 @@ export function ScrollProgress() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (
-    <div className="fixed top-0 inset-x-0 z-[60] h-[1.5px] pointer-events-none">
-      <div className="progress-line h-full" style={{ transform: `scaleX(${w})` }} />
+    <div className="fixed top-0 inset-x-0 z-[60] h-[2px] pointer-events-none">
+      <div className="progress-line" style={{ transform: `scaleX(${w})` }} />
     </div>
   );
 }

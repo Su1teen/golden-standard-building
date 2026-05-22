@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 export const Route = createFileRoute("/process")({
   head: () => ({
     meta: [
-      { title: "Как мы работаем — Smart Group Kazakhstan" },
+      { title: "Процесс — Smart Group Kazakhstan" },
       {
         name: "description",
         content:
@@ -24,28 +24,46 @@ export const Route = createFileRoute("/process")({
 
 const steps = [
   {
-    t: "Брифинг",
-    d: "Слушаем задачу. Изучаем объект, людей и контекст. Формируем цели и ограничения.",
+    n: "01",
+    t: "Брифинг и аудит",
+    d: "Слушаем задачу. Изучаем объект, людей и контекст. Формируем цели и ограничения. Понимаем, что должна делать система — и чего она делать не должна.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80",
+    duration: "1–2 недели",
   },
   {
-    t: "Концепция",
-    d: "Сценарии управления, логика, архитектура решения, диапазон бюджета и сроков.",
+    n: "02",
+    t: "Проектирование системы",
+    d: "Сценарии управления, логика, архитектура решения, диапазон бюджета. Рабочая документация: схемы, кабельные журналы, спецификации, программная архитектура.",
+    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&q=80",
+    duration: "2–4 недели",
   },
   {
-    t: "Проект",
-    d: "Рабочая документация: схемы, кабельные журналы, спецификации, программная архитектура.",
+    n: "03",
+    t: "Подбор оборудования",
+    d: "Прямые поставки от производителей KNX, Crestron, Control4, Lutron, ABB. Сборка щитов автоматизации в собственной мастерской под маркировкой и тестами.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&q=80",
+    duration: "2–6 недель",
   },
   {
-    t: "Поставка",
-    d: "Прямые поставки от производителей. Сборка щитов автоматизации в собственной мастерской.",
+    n: "04",
+    t: "Монтаж и пуско-наладка",
+    d: "Кабельные сети, оборудование, монтаж сенсорных панелей и шкафов. Сертифицированная бригада, скрытые работы, аккуратные перфорации, чистая сдача.",
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80",
+    duration: "4–10 недель",
   },
   {
-    t: "Монтаж и пуск",
-    d: "Кабельные сети, оборудование, программирование сценариев, обучение пользователей.",
+    n: "05",
+    t: "Программирование и тестирование",
+    d: "Создаём сценарии, привязываем датчики, отлаживаем интеграции с PMS, МИС, SCADA. Тестируем каждый сценарий — день, ночь, отсутствие, гости, аварии.",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80",
+    duration: "2–4 недели",
   },
   {
-    t: "Сервис",
-    d: "Договор обслуживания, удалённая диагностика, выезд по SLA, развитие системы.",
+    n: "06",
+    t: "Обучение и поддержка 24/7",
+    d: "Очное обучение хозяев и техперсонала, видео-инструкции, руководство на русском. Договор обслуживания, удалённая диагностика, выезд по SLA — на всю жизнь системы.",
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80",
+    duration: "На всю жизнь системы",
   },
 ];
 
@@ -86,50 +104,104 @@ const faq = [
 
 function Process() {
   return (
-    <main className="pt-32">
-      <section className="relative px-6 md:px-10 hero-grad pb-32 pt-20 overflow-hidden">
-        <div className="ambient-glow ambient-glow--hero" />
-        <div className="max-w-[1400px] mx-auto">
-          <Reveal className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-10">
-            Процесс
+    <main>
+      {/* Hero */}
+      <section className="section-dark relative min-h-[70vh] flex items-end overflow-hidden">
+        <div
+          className="hero-image-bg"
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1920&q=80)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-16">
+          <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
+            Процесс · 6 этапов
           </Reveal>
           <Reveal
             as="h1"
             delay={120}
-            className="text-[clamp(48px,10vw,180px)] font-extrabold tracking-tighter leading-[0.85] max-w-[18ch]"
+            className="font-hero text-[clamp(48px,9vw,160px)] leading-[0.92] text-white max-w-[18ch]"
           >
             От первого звонка до жизни в системе.
           </Reveal>
+          <Reveal
+            as="p"
+            delay={300}
+            className="mt-8 text-[17px] text-[#a1a1a6] max-w-[54ch] leading-[1.55]"
+          >
+            Фиксированные сроки и зоны ответственности. Команда инженеров, проектировщиков,
+            программистов и сервиса — внутри одной компании.
+          </Reveal>
         </div>
       </section>
 
-      <section className="py-32 px-6 md:px-10">
-        <div className="max-w-[1100px] mx-auto relative">
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-white/24 via-white/10 to-transparent" />
-          {steps.map((s, i) => (
-            <Reveal key={s.t} delay={i * 80} className="relative pl-20 pb-20 last:pb-0">
-              <div className="absolute left-0 top-1 size-12 rounded-full bg-[#1d1d1f] ring-1 ring-white/18 flex items-center justify-center font-mono text-[12px] text-silver shadow-[0_18px_55px_rgba(0,0,0,0.35)]">
-                0{i + 1}
+      {/* 6 Stages alternating layout */}
+      {steps.map((s, i) => {
+        const isOdd = i % 2 === 1;
+        const surface = i % 2 === 0 ? "section-white" : "section-mid";
+        return (
+          <section key={s.n} className={`${surface} py-20 md:py-28 px-6 md:px-10`}>
+            <div className="max-w-[1400px] mx-auto">
+              <div
+                className={`grid md:grid-cols-12 gap-10 md:gap-16 items-center ${
+                  isOdd ? "md:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                <Reveal className="md:col-span-6" variant="breathe">
+                  <div className="image-card aspect-[4/3] rounded-2xl">
+                    <img
+                      src={s.image}
+                      alt={s.t}
+                      className="size-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                </Reveal>
+
+                <div className="md:col-span-6">
+                  <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#0071e3] font-mono mb-5">
+                    Этап {s.n}
+                  </Reveal>
+                  <Reveal
+                    as="h2"
+                    delay={100}
+                    className="font-hero text-[clamp(34px,4.5vw,68px)] leading-[1.02] text-[#1d1d1f] mb-6"
+                  >
+                    {s.t}.
+                  </Reveal>
+                  <Reveal
+                    as="p"
+                    delay={180}
+                    className="text-[17px] leading-[1.55] text-[#6e6e73] max-w-[52ch] mb-8"
+                  >
+                    {s.d}
+                  </Reveal>
+                  <Reveal delay={250} className="card-badge">
+                    {s.duration}
+                  </Reveal>
+                </div>
               </div>
-              <h3 className="text-3xl md:text-5xl font-extrabold tracking-tighter mb-4">{s.t}</h3>
-              <p className="text-lg md:text-xl text-mute leading-relaxed max-w-[52ch]">{s.d}</p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+            </div>
+          </section>
+        );
+      })}
 
-      <section className="py-32 px-6 md:px-10 border-t border-white/5">
+      {/* FAQ — white */}
+      <section className="section-white py-24 md:py-32 px-6 md:px-10 border-t border-black/8">
         <div className="max-w-[1100px] mx-auto">
-          <Reveal className="text-[11px] font-mono uppercase tracking-[0.3em] text-silver mb-10">
-            Вопросы
+          <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
+            FAQ
           </Reveal>
           <Reveal
             as="h2"
-            className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-20 max-w-[14ch]"
+            delay={100}
+            className="font-hero text-[clamp(36px,5vw,80px)] leading-[1.02] text-[#1d1d1f] mb-14 max-w-[18ch]"
           >
             Что обычно спрашивают.
           </Reveal>
-          <div className="divide-y divide-white/10 border-y border-white/10">
+          <div className="border-t border-black/10">
             {faq.map((f, i) => (
               <Faq key={f.q} q={f.q} a={f.a} i={i} />
             ))}
@@ -137,22 +209,29 @@ function Process() {
         </div>
       </section>
 
-      <section className="py-32 md:py-48 px-6 md:px-10 text-center">
-        <Reveal
-          as="h2"
-          className="text-5xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] max-w-[16ch] mx-auto"
-        >
-          Готовы начать?
-        </Reveal>
-        <Reveal delay={120} className="mt-12 flex justify-center">
-          <Link
-            to="/contact"
-            className="premium-button group inline-flex items-center gap-4 px-8 py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs"
+      {/* CTA */}
+      <section className="section-dark py-24 md:py-32 px-6 md:px-10">
+        <div className="max-w-[1200px] mx-auto text-center">
+          <Reveal
+            as="h2"
+            className="font-hero text-[clamp(40px,7vw,120px)] leading-[1] text-white max-w-[18ch] mx-auto"
           >
-            Записаться на брифинг{" "}
-            <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </Reveal>
+            Готовы начать?
+          </Reveal>
+          <Reveal
+            as="p"
+            delay={120}
+            className="mt-8 text-[17px] text-[#a1a1a6] max-w-[44ch] mx-auto"
+          >
+            Один звонок — и вы поймёте, как будет устроена ваша система. Без техжаргона, по делу.
+          </Reveal>
+          <Reveal delay={200} className="mt-10 flex justify-center">
+            <Link to="/contact" className="btn-primary">
+              Записаться на брифинг
+              <ArrowRight className="size-4" />
+            </Link>
+          </Reveal>
+        </div>
       </section>
     </main>
   );
@@ -161,24 +240,29 @@ function Process() {
 function Faq({ q, a, i }: { q: string; a: string; i: number }) {
   const [open, setOpen] = useState(i === 0);
   return (
-    <div>
+    <Reveal delay={i * 60} className="border-b border-black/10">
       <button
-        onClick={() => setOpen(!open)}
-        className="w-full py-8 flex items-center justify-between gap-6 text-left group"
+        onClick={() => setOpen((v) => !v)}
+        className="w-full py-6 flex items-start justify-between gap-6 text-left group"
       >
-        <span className="text-xl md:text-2xl font-bold tracking-tight">{q}</span>
-        <span className="size-10 rounded-full border border-white/15 flex items-center justify-center shrink-0 group-hover:border-white/70 group-hover:text-silver transition-colors">
+        <span className="text-[18px] md:text-[22px] font-medium tracking-tight text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors">
+          {q}
+        </span>
+        <span className="shrink-0 size-9 rounded-full border border-black/15 flex items-center justify-center text-[#1d1d1f] group-hover:border-[#0071e3] group-hover:text-[#0071e3] transition-colors">
           {open ? <Minus className="size-4" /> : <Plus className="size-4" />}
         </span>
       </button>
       <div
-        className="grid transition-all duration-500 ease-out overflow-hidden"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+        className={`grid transition-all duration-500 ease-out ${
+          open ? "grid-rows-[1fr] opacity-100 pb-8" : "grid-rows-[0fr] opacity-0"
+        }`}
       >
         <div className="overflow-hidden">
-          <p className="pb-8 text-mute text-base md:text-lg leading-relaxed max-w-[60ch]">{a}</p>
+          <p className="text-[15px] md:text-[16px] text-[#6e6e73] leading-relaxed max-w-[68ch]">
+            {a}
+          </p>
         </div>
       </div>
-    </div>
+    </Reveal>
   );
 }

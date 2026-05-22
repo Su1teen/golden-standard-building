@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function FloatingCTA() {
   const [show, setShow] = useState(false);
@@ -12,18 +12,16 @@ export function FloatingCTA() {
   }, []);
   return (
     <div
-      className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-40 transition-all duration-500 ${
+      className={`fixed bottom-6 right-6 z-40 transition-all duration-500 ${
         show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"
       }`}
     >
       <Link
         to="/contact"
-        className="glass-strong inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full ring-1 ring-white/10 hover:ring-white/20 transition-all"
+        className="btn-primary !py-3 !px-5 !text-[13px] shadow-[0_18px_40px_rgba(0,113,227,0.32)]"
       >
-        <span className="text-[12px] font-medium tracking-wide">Обсудить проект</span>
-        <span className="size-8 grid place-items-center rounded-full bg-[#f5f5f7] text-[#161617] shadow-[0_10px_30px_rgba(245,245,247,0.12)]">
-          <ArrowUpRight className="size-4" />
-        </span>
+        Обсудить проект
+        <ArrowRight className="size-4" />
       </Link>
     </div>
   );

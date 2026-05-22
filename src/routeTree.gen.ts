@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VillaRouteImport } from './routes/villa'
+import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as SchoolRouteImport } from './routes/school'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as ResidentialRouteImport } from './routes/residential'
@@ -32,6 +33,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 const VillaRoute = VillaRouteImport.update({
   id: '/villa',
   path: '/villa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsRoute = SolutionsRouteImport.update({
+  id: '/solutions',
+  path: '/solutions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SchoolRoute = SchoolRouteImport.update({
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/residential': typeof ResidentialRoute
   '/restaurant': typeof RestaurantRoute
   '/school': typeof SchoolRoute
+  '/solutions': typeof SolutionsRoute
   '/villa': typeof VillaRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
@@ -164,6 +171,7 @@ export interface FileRoutesByTo {
   '/residential': typeof ResidentialRoute
   '/restaurant': typeof RestaurantRoute
   '/school': typeof SchoolRoute
+  '/solutions': typeof SolutionsRoute
   '/villa': typeof VillaRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
@@ -186,6 +194,7 @@ export interface FileRoutesById {
   '/residential': typeof ResidentialRoute
   '/restaurant': typeof RestaurantRoute
   '/school': typeof SchoolRoute
+  '/solutions': typeof SolutionsRoute
   '/villa': typeof VillaRoute
   '/blog/$slug': typeof BlogSlugRoute
 }
@@ -209,6 +218,7 @@ export interface FileRouteTypes {
     | '/residential'
     | '/restaurant'
     | '/school'
+    | '/solutions'
     | '/villa'
     | '/blog/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -230,6 +240,7 @@ export interface FileRouteTypes {
     | '/residential'
     | '/restaurant'
     | '/school'
+    | '/solutions'
     | '/villa'
     | '/blog/$slug'
   id:
@@ -251,6 +262,7 @@ export interface FileRouteTypes {
     | '/residential'
     | '/restaurant'
     | '/school'
+    | '/solutions'
     | '/villa'
     | '/blog/$slug'
   fileRoutesById: FileRoutesById
@@ -273,6 +285,7 @@ export interface RootRouteChildren {
   ResidentialRoute: typeof ResidentialRoute
   RestaurantRoute: typeof RestaurantRoute
   SchoolRoute: typeof SchoolRoute
+  SolutionsRoute: typeof SolutionsRoute
   VillaRoute: typeof VillaRoute
 }
 
@@ -283,6 +296,13 @@ declare module '@tanstack/react-router' {
       path: '/villa'
       fullPath: '/villa'
       preLoaderRoute: typeof VillaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions': {
+      id: '/solutions'
+      path: '/solutions'
+      fullPath: '/solutions'
+      preLoaderRoute: typeof SolutionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/school': {
@@ -442,6 +462,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResidentialRoute: ResidentialRoute,
   RestaurantRoute: RestaurantRoute,
   SchoolRoute: SchoolRoute,
+  SolutionsRoute: SolutionsRoute,
   VillaRoute: VillaRoute,
 }
 export const routeTree = rootRouteImport
