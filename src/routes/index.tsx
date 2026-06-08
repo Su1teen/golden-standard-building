@@ -1,27 +1,31 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Play } from "lucide-react";
 import { solutions } from "@/lib/solutions";
 import { Reveal } from "@/components/Reveal";
 import { Counter } from "@/components/Counter";
 import { ContactForm } from "@/components/ContactForm";
+import { ProductCarousel } from "@/components/ProductCarousel";
+import heroImage from "@/assets/hero_image.png";
+import esilImg from "@/assets/esil.jpg";
+import milleniumImg from "@/assets/millenium.jpg";
+import greenparkImg from "@/assets/greenpark.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Smart Group Kazakhstan — Дом, который понимает вас" },
+      { title: "Smart Group Kazakhstan — Технологии незаметного комфорта." },
       {
         name: "description",
         content:
-          "Премиальные системы умного дома и автоматизации зданий. Smart Group Kazakhstan — 12 лет опыта, 450+ объектов в Казахстане.",
+          "Премиальные системы умного дома и автоматизации зданий. Smart Group Kazakhstan — 17 лет опыта, 450+ объектов в Казахстане.",
       },
       { property: "og:title", content: "Smart Group Kazakhstan" },
-      { property: "og:description", content: "Дом, который понимает вас." },
+      { property: "og:description", content: "Технологии незаметного комфорта.." },
     ],
   }),
   component: Index,
 });
 
-const HERO_IMAGE = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80";
 
 const advantages = [
   {
@@ -67,64 +71,71 @@ const processSteps = [
 
 const featuredProjects = [
   {
-    title: "Резиденция Мангилик Ел",
+    title: "ЖК Esil Riverside",
     city: "Астана",
-    type: "Резиденция",
-    area: "420 м²",
-    systems: ["Свет KNX", "Климат", "Безопасность", "Мультирум"],
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+    type: "Жилой комплекс",
+    area: "32 000 м²",
+    systems: ["Свет KNX", "Климат", "Безопасность", "Видеонаблюдение"],
+    image: esilImg,
   },
   {
-    title: "Esentai Park Apart-Hotel",
-    city: "Алматы",
-    type: "Апарт-отель",
-    area: "12 500 м²",
-    systems: ["Mobile key", "Управление номером", "BMS", "PMS-интеграция"],
-    image: "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=1200&q=80",
+    title: "ЖК Миллениум Парк",
+    city: "Астана",
+    type: "Жилой комплекс",
+    area: "48 500 м²",
+    systems: ["BMS", "Управление входом", "Мультирум", "Энергоучёт"],
+    image: milleniumImg,
   },
   {
-    title: "БЦ Almaty Tower",
-    city: "Алматы",
-    type: "Бизнес-центр",
-    area: "18 000 м²",
-    systems: ["BMS", "Доступ", "Энергоучёт", "Видеоаналитика"],
-    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80",
+    title: "ЖК Green Park",
+    city: "Астана",
+    type: "Жилой комплекс",
+    area: "27 000 м²",
+    systems: ["KNX", "Доступ", "Климат", "Видеоаналитика"],
+    image: greenparkImg,
   },
 ];
 
-const devices = [
+// YouTube videos from SmartGKaz channel
+const youtubeVideos = [
   {
-    label: "Touch-панели",
-    title: "Один экран. Любая сцена.",
-    body: "Сенсорные панели KNX и Crestron — управление светом, климатом, мультимедиа без приложений.",
-    image: "https://images.unsplash.com/photo-1558618047-f4b30c5e5bae?w=1000&q=80",
+    videoId: "2JsF2lNOh40",
+    eyebrow: "Умный дом",
+    title: "Как мы автоматизировали загородную виллу: KNX + Iridium",
+    excerpt:
+      "Полный обзор реализованного проекта — интеграция KNX, мультирум Sonos, управление климатом и освещением из единого интерфейса Iridium.",
+    url: "https://www.youtube.com/watch?v=2JsF2lNOh40",
+    thumbnail: "https://i.ytimg.com/vi/2JsF2lNOh40/maxresdefault.jpg",
   },
   {
-    label: "Сенсоры",
-    title: "Здание чувствует людей.",
-    body: "Присутствие, CO₂, влажность, шум — данные, которые делают климат и свет точными.",
-    image: "https://images.unsplash.com/photo-1543512214-318c7553f230?w=1000&q=80",
+    videoId: "flO7x2v995M",
+    eyebrow: "BMS",
+    title: "BMS для бизнес-центра: как управлять 18 000 м² с одного экрана",
+    excerpt:
+      "Разбираем архитектуру системы BMS на реальном объекте — диспетчеризация инженерных систем, энергомониторинг и удалённый доступ.",
+    url: "https://www.youtube.com/watch?v=flO7x2v995M",
+    thumbnail: "https://i.ytimg.com/vi/flO7x2v995M/maxresdefault.jpg",
   },
   {
-    label: "Шкафы автоматики",
-    title: "Сердце системы.",
-    body: "Промышленные контроллеры BACnet, KNX, Modbus — собранные под ваш объект щиты управления.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1000&q=80",
+    videoId: "lXV5hnQ3gy8",
+    eyebrow: "Hospitality",
+    title: "Mobile key в отеле: как забыть о пластиковых картах навсегда",
+    excerpt:
+      "Показываем интеграцию SALTO KS + PMS для апарт-отеля Esentai Park: безключевой заезд, управление номером с телефона, автоматический checkout.",
+    url: "https://www.youtube.com/watch?v=lXV5hnQ3gy8",
+    thumbnail: "https://i.ytimg.com/vi/lXV5hnQ3gy8/maxresdefault.jpg",
   },
 ];
 
-const blogPosts = [
+// Static blog posts (editorial content)
+const editorialPosts = [
   {
     eyebrow: "Резиденция",
     title: "Почему свет — это первое, что чувствует гость",
-    excerpt: "Один из главных эффектов в премиальной резиденции создаётся не мебелью, а светом.",
+    excerpt:
+      "Один из главных эффектов в премиальной резиденции создаётся не мебелью, а светом. Разбираем сценарии Lutron для жилых пространств.",
     image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80",
-  },
-  {
-    eyebrow: "Hospitality",
-    title: "Mobile key и тишина вестибюля",
-    excerpt: "Как отказ от стойки сокращает заезд до десяти секунд и меняет рейтинг отеля.",
-    image: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&q=80",
+    slug: "light-in-residence",
   },
   {
     eyebrow: "BMS",
@@ -132,17 +143,18 @@ const blogPosts = [
     excerpt:
       "Шесть точек, в которых OPEX уходит впустую — и где автоматизация даёт мгновенный эффект.",
     image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+    slug: "building-energy-waste",
   },
 ];
 
 function Index() {
   return (
     <main className="relative">
-      {/* HERO — dark photo background */}
+      {/* ─── HERO ─── */}
       <section className="section-dark relative min-h-screen flex items-end overflow-hidden">
         <div
           className="hero-image-bg"
-          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          style={{ backgroundImage: `url(${heroImage})` }}
           aria-hidden="true"
         />
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-10 pt-32 pb-16 md:pb-24">
@@ -154,11 +166,12 @@ function Index() {
               <Reveal
                 as="h1"
                 delay={120}
-                className="font-hero text-[clamp(56px,11vw,180px)] leading-[0.88] text-white text-balance max-w-[14ch]"
+                className="font-hero text-[clamp(42px,8.25vw,135px)] leading-[0.88] text-white text-balance max-w-[14ch]"
               >
-                Дом, который
+                Технологии{" "}
+                незаметного{" "}
                 <br />
-                понимает вас.
+                комфорта.
               </Reveal>
               <Reveal
                 as="p"
@@ -186,15 +199,15 @@ function Index() {
             delay={600}
             className="mt-20 pt-10 border-t border-white/15 grid grid-cols-2 md:grid-cols-4"
           >
-            <Stat to={450} suffix="+" label="Объектов" />
-            <Stat to={12} label="Лет опыта" />
+            <Stat to={150} suffix="+" label="Объектов" />
+            <Stat to={17} label="Лет опыта" />
             <Stat to={40} suffix="+" label="Интеграций" />
             <Stat value="24/7" label="Поддержка" />
           </Reveal>
         </div>
       </section>
 
-      {/* WHAT WE AUTOMATE — light gray */}
+      {/* ─── WHAT WE AUTOMATE ─── */}
       <section className="section-mid py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid md:grid-cols-12 gap-10 mb-16">
@@ -251,7 +264,7 @@ function Index() {
         </div>
       </section>
 
-      {/* PROCESS — white, horizontal timeline */}
+      {/* ─── PROCESS ─── */}
       <section className="section-white py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
@@ -306,7 +319,7 @@ function Index() {
         </div>
       </section>
 
-      {/* DEVICES — dark */}
+      {/* ─── DEVICES / PRODUCT CAROUSEL ─── */}
       <section className="section-dark py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-6">
@@ -315,43 +328,26 @@ function Index() {
           <Reveal
             as="h2"
             delay={120}
-            className="font-hero text-[clamp(40px,7vw,104px)] leading-[0.98] text-white max-w-[18ch] mb-20"
+            className="font-hero text-[clamp(40px,7vw,104px)] leading-[0.98] text-white max-w-[18ch] mb-4"
           >
             Технологии, которые вы не видите.
           </Reveal>
+          <Reveal
+            as="p"
+            delay={200}
+            className="text-[17px] leading-relaxed text-[#a1a1a6] max-w-[56ch] mb-16"
+          >
+            Интерактивный каталог оборудования — выберите категорию и изучите устройства, которые
+            делают пространство умным.
+          </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {devices.map((d, i) => (
-              <Reveal
-                key={d.title}
-                delay={i * 90}
-                variant="breathe"
-                className="rounded-2xl overflow-hidden bg-[#2a2a2c]"
-              >
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={d.image}
-                    alt={d.title}
-                    className="size-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-7">
-                  <div className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-3">
-                    {d.label}
-                  </div>
-                  <h3 className="font-bold text-xl md:text-2xl text-white mb-3 tracking-tight">
-                    {d.title}
-                  </h3>
-                  <p className="text-[14px] leading-relaxed text-[#a1a1a6]">{d.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={280} variant="breathe">
+            <ProductCarousel />
+          </Reveal>
         </div>
       </section>
 
-      {/* ADVANTAGES — light gray */}
+      {/* ─── ADVANTAGES ─── */}
       <section className="section-mid py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <div className="grid md:grid-cols-12 gap-10 mb-14">
@@ -359,7 +355,7 @@ function Index() {
               as="h2"
               className="md:col-span-7 font-hero text-[clamp(40px,6vw,88px)] leading-[1]"
             >
-              Почему Smart Group.
+              Почему Smart Group Kazakhstan.
             </Reveal>
             <Reveal
               delay={140}
@@ -387,7 +383,7 @@ function Index() {
         </div>
       </section>
 
-      {/* FEATURED PROJECTS — white */}
+      {/* ─── FEATURED PROJECTS ─── */}
       <section className="section-white py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
@@ -449,7 +445,7 @@ function Index() {
         </div>
       </section>
 
-      {/* BLOG — light gray */}
+      {/* ─── BLOG — YouTube Videos + Editorial ─── */}
       <section className="section-mid py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
@@ -473,31 +469,98 @@ function Index() {
             </Reveal>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {blogPosts.map((p, i) => (
-              <Reveal key={p.title} delay={i * 80} className="group">
-                <div className="aspect-[4/3] overflow-hidden rounded-2xl mb-6">
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    className="size-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-3">
-                  {p.eyebrow}
-                </div>
-                <h3 className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f] mb-3 leading-snug">
-                  {p.title}
-                </h3>
-                <p className="text-[14px] leading-relaxed text-[#6e6e73]">{p.excerpt}</p>
-              </Reveal>
-            ))}
+          {/* YouTube video grid */}
+          <div className="mb-8">
+            <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-8 flex items-center gap-3">
+              <span className="inline-flex items-center gap-1.5">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-[#ff0000]">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                YouTube · SmartGKaz
+              </span>
+            </Reveal>
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-12">
+              {youtubeVideos.map((v, i) => (
+                <Reveal key={v.videoId} delay={i * 80} className="group">
+                  <a
+                    href={v.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    id={`yt-video-${v.videoId}`}
+                    className="block"
+                    aria-label={`Смотреть видео: ${v.title}`}
+                  >
+                    <div className="yt-thumbnail-wrap aspect-video rounded-2xl overflow-hidden mb-5 relative">
+                      <img
+                        src={v.thumbnail}
+                        alt={v.title}
+                        className="size-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        loading="lazy"
+                        onError={(e) => {
+                          // Fallback to hqdefault if maxresdefault not available
+                          const target = e.currentTarget;
+                          if (target.src.includes("maxresdefault")) {
+                            target.src = `https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg`;
+                          }
+                        }}
+                      />
+                      <div className="yt-play-overlay">
+                        <div className="yt-play-btn">
+                          <Play className="size-6 text-white fill-white ml-0.5" />
+                        </div>
+                      </div>
+                      <div className="absolute top-3 left-3">
+                        <span className="yt-badge">YouTube</span>
+                      </div>
+                    </div>
+                    <div className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-3">
+                      {v.eyebrow}
+                    </div>
+                    <h3 className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f] mb-3 leading-snug group-hover:text-[#0071e3] transition-colors duration-300">
+                      {v.title}
+                    </h3>
+                    <p className="text-[14px] leading-relaxed text-[#6e6e73]">{v.excerpt}</p>
+                    <div className="mt-4 flex items-center gap-1.5 text-[13px] font-medium text-[#0071e3]">
+                      Смотреть видео
+                      <ArrowUpRight className="size-3.5" />
+                    </div>
+                  </a>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+
+          {/* Editorial posts separator */}
+          <div className="border-t border-black/8 pt-12">
+            <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-8">
+              Статьи · редакция
+            </Reveal>
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+              {editorialPosts.map((p, i) => (
+                <Reveal key={p.title} delay={i * 80} className="group">
+                  <div className="aspect-[16/9] overflow-hidden rounded-2xl mb-6">
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="size-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-3">
+                    {p.eyebrow}
+                  </div>
+                  <h3 className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f] mb-3 leading-snug">
+                    {p.title}
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-[#6e6e73]">{p.excerpt}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CONTACT FORM — white */}
+      {/* ─── CONTACT FORM ─── */}
       <section className="section-white py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1100px] mx-auto grid md:grid-cols-12 gap-12 items-start">
           <Reveal className="md:col-span-5">
@@ -517,7 +580,7 @@ function Index() {
         </div>
       </section>
 
-      {/* FINAL CTA — dark */}
+      {/* ─── FINAL CTA ─── */}
       <section className="section-dark py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1200px] mx-auto text-center">
           <Reveal

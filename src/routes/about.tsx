@@ -98,14 +98,14 @@ function About() {
         />
         <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-20">
           <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
-            О компании · 12 лет
+            О компании · 17 лет
           </Reveal>
           <Reveal
             as="h1"
             delay={120}
             className="font-hero text-[clamp(48px,9vw,160px)] leading-[0.92] text-white max-w-[16ch]"
           >
-            12 лет. 450 объектов. Одна цель.
+            17 лет. 450+ объектов. Одна цель.
           </Reveal>
         </div>
       </section>
@@ -132,23 +132,21 @@ function About() {
               delay={100}
               className="font-hero text-[clamp(36px,5vw,80px)] leading-[1.02] text-[#1d1d1f]"
             >
-              Чтобы здания работали тихо.
+              Создавать невидимую цифровую архитектуру
             </Reveal>
             <Reveal
               as="p"
               delay={180}
               className="text-[17px] leading-[1.6] text-[#6e6e73] max-w-[52ch]"
             >
-              Smart Group Kazakhstan родилась из одного вопроса: почему здания такие громкие? Они
-              шумят кондиционерами, мигают индикаторами, требуют внимания к каждой мелочи.
+              Компания родилась из понимания: современные здания перегружены хаотичными системами. Они требуют слишком много внимания, ручного контроля и ресурсов.
             </Reveal>
             <Reveal
               as="p"
               delay={240}
               className="text-[17px] leading-[1.6] text-[#6e6e73] max-w-[52ch]"
             >
-              Мы поверили, что правильная инженерия должна быть тихой. И начали строить её — для
-              квартир, вилл, отелей, заводов и больниц по всему Казахстану.
+              Инженерия не должна требовать внимания — она должна создавать условия для жизни и бизнеса. Smart Group Kazakhstan объединяет сложные инженерные процессы в чистые, интуитивные интерфейсы. Мы убираем всё лишнее, оставляя только безупречную функциональность, безопасность и комфорт.
             </Reveal>
           </div>
         </div>
@@ -158,9 +156,9 @@ function About() {
       <section className="section-dark py-20 md:py-28 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { v: 12, s: "", l: "Лет работы" },
+            { v: 17, s: "", l: "Лет работы" },
             { v: 450, s: "+", l: "Объектов" },
-            { v: 38, s: "", l: "Инженеров" },
+            { v: 60, s: "", l: "Инженеров" },
             { v: 24, s: "/7", l: "Сервис" },
           ].map((x, i) => (
             <Reveal key={x.l} delay={i * 80} className="stat-divider md:pr-6">
@@ -208,7 +206,7 @@ function About() {
         </div>
       </section>
 
-      {/* Team — white */}
+      {/* Team — white 
       <section className="section-white py-24 md:py-32 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
@@ -241,7 +239,7 @@ function About() {
           </div>
         </div>
       </section>
-
+*/}
       {/* Partners — light gray */}
       <section className="section-mid py-24 md:py-32 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
@@ -271,7 +269,7 @@ function About() {
         </div>
       </section>
 
-      {/* Certificates — white */}
+      {/* Certificates — white 
       <section className="section-white py-24 md:py-32 px-6 md:px-10">
         <div className="max-w-[1100px] mx-auto">
           <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
@@ -300,7 +298,7 @@ function About() {
           </div>
         </div>
       </section>
-
+*/}
       {/* CTA */}
       <section className="section-dark py-24 md:py-32 px-6 md:px-10">
         <div className="max-w-[1200px] mx-auto text-center">

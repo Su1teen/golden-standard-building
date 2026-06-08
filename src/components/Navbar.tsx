@@ -47,7 +47,7 @@ export function Navbar() {
               }`}
             />
             <span className="font-bold tracking-[0.06em] text-[14px] md:text-[15px]">
-              SMART GROUP
+              SMART GROUP KAZAKHSTAN
             </span>
           </Link>
 

@@ -78,21 +78,21 @@ export function Footer() {
               Контакты
             </div>
             <div className="space-y-2 text-[13px]">
-              <div className="text-white/85">Астана, пр. Мангилик Ел, 55</div>
+              <div className="text-white/85">Астана, БЦ Talan Towers</div>
               <a
-                href="tel:+77000000000"
+                href="tel:+77078004444"
                 className="block text-white/85 hover:text-white transition-colors"
               >
-                +7 (700) 000 00 00
+                +7 (707) 800 44 44
               </a>
               <a
-                href="mailto:hello@smartgroup.kz"
+                href="mailto:info@smartgroup.kz"
                 className="block text-white/85 hover:text-white transition-colors"
               >
-                hello@smartgroup.kz
+                info@smartgroup.kz
               </a>
               <a
-                href="https://wa.me/77000000000"
+                href="https://wa.me/77078004444"
                 className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full border border-white/20 text-white text-[11px] uppercase tracking-[0.18em] hover:bg-white/10 hover:border-white/40 transition-colors"
               >
                 WhatsApp

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/contact")({
         name: "description",
         content: "Свяжитесь со Smart Group Kazakhstan: телефон, email, WhatsApp, офис в Астане.",
       },
-      { property: "og:title", content: "Контакты Smart Group" },
+      { property: "og:title", content: "Контакты Smart Group Kazakhstan" },
       {
         property: "og:description",
         content: "Звонок 20 минут — и есть понимание масштаба, бюджета и сроков.",
@@ -57,16 +57,16 @@ function Contact() {
                 Прямая связь
               </div>
               <a
-                href="tel:+77000000000"
+                href="tel:+77078004444"
                 className="block font-hero text-[clamp(28px,4vw,52px)] leading-[1.02] text-[#1d1d1f] story-link"
               >
-                +7 (700) 000 00 00
+                +7 (707) 800 44 44
               </a>
               <a
-                href="mailto:hello@smartgroup.kz"
+                href="mailto:info@smartgroup.kz"
                 className="block mt-3 text-lg md:text-xl text-[#6e6e73] hover:text-[#0071e3] transition-colors"
               >
-                hello@smartgroup.kz
+                info@smartgroup.kz
               </a>
             </Reveal>
 
@@ -75,9 +75,9 @@ function Contact() {
                 Офис
               </div>
               <p className="text-[17px] leading-relaxed text-[#1d1d1f]">
-                Астана, пр. Мангилик Ел, 55
+                Астана, БЦ Talan Towers
                 <br />
-                БЦ EXPO Business Centre, 14 этаж
+                Достык, 16
               </p>
               <p className="mt-2 text-[#6e6e73] text-sm">Пн–Пт 10:00 — 19:00 · Сб по записи</p>
             </Reveal>
@@ -86,25 +86,25 @@ function Contact() {
               <Item
                 icon={<Phone className="size-4" />}
                 title="Телефон"
-                v="+7 (700) 000 00 00"
-                href="tel:+77000000000"
+                v="+7 (707) 800 44 44"
+                href="tel:+77078004444"
               />
               <Item
                 icon={<Mail className="size-4" />}
                 title="Email"
-                v="hello@smartgroup.kz"
-                href="mailto:hello@smartgroup.kz"
+                v="info@smartgroup.kz"
+                href="mailto:info@smartgroup.kz"
               />
               <Item
                 icon={<MessageCircle className="size-4" />}
                 title="WhatsApp"
                 v="Написать в WhatsApp"
-                href="https://wa.me/77000000000"
+                href="https://wa.me/77078004444"
               />
               <Item
                 icon={<MapPin className="size-4" />}
                 title="Адрес"
-                v="Астана, пр. Мангилик Ел, 55"
+                v="Астана, БЦ Talan Towers"
               />
             </Reveal>
           </div>
@@ -115,7 +115,7 @@ function Contact() {
         </div>
       </section>
 
-      {/* Map placeholder */}
+      {/* Map placeholder 
       <section className="section-white py-16 md:py-24 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <Reveal variant="breathe">
@@ -139,7 +139,7 @@ function Contact() {
             </div>
           </Reveal>
         </div>
-      </section>
+      </section>*/}
     </main>
   );
 }
