@@ -192,6 +192,7 @@ function Index() {
               </Reveal>
             ))}
           </div>
+          <PartnersMarquee />
         </div>
       </section>
 

@@ -95,19 +95,19 @@ function About() {
           <Reveal
             as="h1"
             delay={120}
-            className="font-hero text-[clamp(48px,9vw,150px)] leading-[0.92] text-white max-w-[16ch]"
+            className="font-hero text-[clamp(42px,12vw,150px)] leading-[0.92] text-white max-w-[16ch]"
           >
             20+ лет. 450+ объектов. Одна цель.
           </Reveal>
           <Reveal
             as="div"
             delay={240}
-            className="mt-12 max-w-[920px] rounded-[28px] border border-white/12 bg-black/30 p-6 md:p-9 backdrop-blur-xl"
+            className="mt-10 md:mt-12 max-w-[920px] rounded-[24px] md:rounded-[28px] border border-white/12 bg-black/35 p-5 md:p-9 backdrop-blur-xl"
           >
             <div className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-5">
               Миссия
             </div>
-            <h2 className="font-hero text-[clamp(34px,5vw,72px)] leading-[1.02] text-white max-w-[16ch] mb-6">
+            <h2 className="font-hero text-[clamp(30px,8vw,72px)] leading-[1.02] text-white max-w-[16ch] mb-6">
               Создавать невидимую цифровую архитектуру
             </h2>
             <div className="grid md:grid-cols-2 gap-5 md:gap-8 text-[16px] md:text-[17px] leading-[1.62] text-white/72">
@@ -203,13 +203,6 @@ function About() {
         <div className="max-w-[1400px] mx-auto">
           <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
             Партнёры
-          </Reveal>
-          <Reveal
-            as="h2"
-            delay={100}
-            className="font-hero text-[clamp(36px,5vw,72px)] leading-[1.02] text-[#1d1d1f] mb-14 max-w-[20ch]"
-          >
-            Работаем с лидерами индустрии.
           </Reveal>
           <PartnersMarquee />
         </div>
