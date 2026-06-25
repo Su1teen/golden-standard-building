@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Play } from "lucide-react";
-import { solutions } from "@/lib/solutions";
 import { Reveal } from "@/components/Reveal";
 import { Counter } from "@/components/Counter";
 import { ContactForm } from "@/components/ContactForm";
 import { ProductCarousel } from "@/components/ProductCarousel";
+import { CompanyTimeline } from "@/components/CompanyTimeline";
+import { StackedCards } from "@/components/StackedCards";
 import heroImage from "@/assets/hero_image.png";
 import esilImg from "@/assets/esil.jpg";
 import milleniumImg from "@/assets/millenium.jpg";
@@ -25,7 +26,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
 
 const advantages = [
   {
@@ -58,15 +58,6 @@ const advantages = [
     title: "Опыт всех масштабов",
     body: "От квартиры 80 м² до промышленных комплексов и сетей зданий.",
   },
-];
-
-const processSteps = [
-  { n: "01", t: "Брифинг", d: "Слушаем задачу. Смотрим объект. Понимаем людей." },
-  { n: "02", t: "Концепция", d: "Сценарии. Логика. Бюджет. Архитектура решения." },
-  { n: "03", t: "Проект", d: "Инженерные схемы, кабельные журналы, согласование." },
-  { n: "04", t: "Поставка", d: "Прямые поставки оборудования, сборка щитов." },
-  { n: "05", t: "Монтаж и пуск", d: "Кабель, оборудование, программирование, обучение." },
-  { n: "06", t: "Сервис", d: "Поддержка, развитие, обновления — на всю жизнь системы." },
 ];
 
 const featuredProjects = [
@@ -127,26 +118,6 @@ const youtubeVideos = [
   },
 ];
 
-// Static blog posts (editorial content)
-const editorialPosts = [
-  {
-    eyebrow: "Резиденция",
-    title: "Почему свет — это первое, что чувствует гость",
-    excerpt:
-      "Один из главных эффектов в премиальной резиденции создаётся не мебелью, а светом. Разбираем сценарии Lutron для жилых пространств.",
-    image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80",
-    slug: "light-in-residence",
-  },
-  {
-    eyebrow: "BMS",
-    title: "Где здание тратит лишний киловатт",
-    excerpt:
-      "Шесть точек, в которых OPEX уходит впустую — и где автоматизация даёт мгновенный эффект.",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
-    slug: "building-energy-waste",
-  },
-];
-
 function Index() {
   return (
     <main className="relative">
@@ -168,9 +139,7 @@ function Index() {
                 delay={120}
                 className="font-hero text-[clamp(42px,8.25vw,135px)] leading-[0.88] text-white text-balance max-w-[14ch]"
               >
-                Технологии{" "}
-                незаметного{" "}
-                <br />
+                Технологии незаметного <br />
                 комфорта.
               </Reveal>
               <Reveal
@@ -207,164 +176,21 @@ function Index() {
         </div>
       </section>
 
-      {/* ─── WHAT WE AUTOMATE ─── */}
-      <section className="section-mid py-24 md:py-36 px-6 md:px-10">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-12 gap-10 mb-16">
-            <Reveal
-              as="h2"
-              className="md:col-span-7 font-hero text-[clamp(40px,7vw,104px)] leading-[0.98] text-[#1d1d1f]"
-            >
-              Пространство, которое работает на человека.
-            </Reveal>
-            <Reveal
-              as="p"
-              delay={140}
-              className="md:col-span-5 self-end text-[17px] leading-relaxed text-[#6e6e73] max-w-[44ch]"
-            >
-              От квартиры до завода. 12 направлений, в которых мы строим системы — и сотни сценариев
-              внутри каждого.
-            </Reveal>
-          </div>
+      {/* ─── HISTORY / TIMELINE ─── */}
+      <CompanyTimeline />
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
-            {solutions.map((s, i) => (
-              <Reveal
-                key={s.slug}
-                delay={(i % 4) * 70}
-                variant="fade"
-                className="image-card aspect-[3/4] group"
-              >
-                <Link to={s.route} className="block size-full relative">
-                  <img
-                    src={s.image}
-                    alt={s.title}
-                    className="size-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="image-card-overlay" />
-                  <div className="absolute inset-0 p-5 md:p-6 flex flex-col justify-between text-white">
-                    <div className="flex justify-between items-start">
-                      <span className="text-[11px] tracking-[0.22em] uppercase opacity-80">
-                        {s.index}
-                      </span>
-                      <ArrowUpRight className="size-4 opacity-0 group-hover:opacity-100 group-hover:rotate-12 transition-all duration-300" />
-                    </div>
-                    <div>
-                      <div className="text-[11px] tracking-[0.22em] uppercase text-[#86a8c4] mb-1">
-                        {s.eyebrow}
-                      </div>
-                      <div className="font-bold text-lg md:text-xl leading-tight">{s.title}</div>
-                    </div>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── PROCESS ─── */}
-      <section className="section-white py-24 md:py-36 px-6 md:px-10">
-        <div className="max-w-[1400px] mx-auto">
-          <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-6">
-            Наш процесс · 6 этапов
-          </Reveal>
-          <Reveal
-            as="h2"
-            delay={120}
-            className="font-hero text-[clamp(40px,6vw,88px)] leading-[1] text-[#1d1d1f] max-w-[18ch] mb-20"
-          >
-            От первого звонка до жизни в системе.
-          </Reveal>
-
-          <div className="hidden md:grid grid-cols-6 gap-px bg-black/8 relative">
-            {processSteps.map((step, i) => (
-              <Reveal
-                key={step.n}
-                delay={i * 80}
-                className="bg-white p-8 pt-10 relative hover:bg-[#fafafa] transition-colors"
-              >
-                <div className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-6 font-mono">
-                  {step.n}
-                </div>
-                <div className="font-bold text-[18px] tracking-tight text-[#1d1d1f] mb-3">
-                  {step.t}
-                </div>
-                <p className="text-[13px] leading-relaxed text-[#6e6e73]">{step.d}</p>
-              </Reveal>
-            ))}
-          </div>
-
-          {/* Mobile vertical timeline */}
-          <div className="md:hidden space-y-8">
-            {processSteps.map((step, i) => (
-              <Reveal key={step.n} delay={i * 80} className="timeline-step">
-                <span className="dot" />
-                <div className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-2 font-mono">
-                  {step.n}
-                </div>
-                <div className="font-bold text-lg text-[#1d1d1f] mb-2">{step.t}</div>
-                <p className="text-[14px] leading-relaxed text-[#6e6e73]">{step.d}</p>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="mt-16 flex justify-center">
-            <Link to="/process" className="btn-secondary-light">
-              Подробно о процессе
-              <ArrowRight className="size-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── DEVICES / PRODUCT CAROUSEL ─── */}
-      <section className="section-dark py-24 md:py-36 px-6 md:px-10">
-        <div className="max-w-[1400px] mx-auto">
-          <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-6">
-            Оборудование
-          </Reveal>
-          <Reveal
-            as="h2"
-            delay={120}
-            className="font-hero text-[clamp(40px,7vw,104px)] leading-[0.98] text-white max-w-[18ch] mb-4"
-          >
-            Технологии, которые вы не видите.
-          </Reveal>
-          <Reveal
-            as="p"
-            delay={200}
-            className="text-[17px] leading-relaxed text-[#a1a1a6] max-w-[56ch] mb-16"
-          >
-            Интерактивный каталог оборудования — выберите категорию и изучите устройства, которые
-            делают пространство умным.
-          </Reveal>
-
-          <Reveal delay={280} variant="breathe">
-            <ProductCarousel />
-          </Reveal>
-        </div>
-      </section>
+      {/* ─── WHAT WE AUTOMATE — STACKED CARDS ─── */}
+      <StackedCards />
 
       {/* ─── ADVANTAGES ─── */}
       <section className="section-mid py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
-          <div className="grid md:grid-cols-12 gap-10 mb-14">
-            <Reveal
-              as="h2"
-              className="md:col-span-7 font-hero text-[clamp(40px,6vw,88px)] leading-[1]"
-            >
-              Почему Smart Group Kazakhstan.
-            </Reveal>
-            <Reveal
-              delay={140}
-              className="md:col-span-5 self-end text-[16px] leading-relaxed text-[#6e6e73] max-w-[44ch]"
-            >
-              Не маркетинговые обещания. Шесть инженерных причин, по которым нам доверяют объекты от
-              квартиры до промышленного комплекса.
-            </Reveal>
-          </div>
+          <Reveal
+            as="h2"
+            className="font-hero text-[clamp(40px,6vw,88px)] leading-[1] mb-14 max-w-[16ch]"
+          >
+            Почему Smart Group Kazakhstan.
+          </Reveal>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/8">
             {advantages.map((a, i) => (
               <Reveal
@@ -445,7 +271,7 @@ function Index() {
         </div>
       </section>
 
-      {/* ─── BLOG — YouTube Videos + Editorial ─── */}
+      {/* ─── BLOG — YouTube Videos ─── */}
       <section className="section-mid py-24 md:py-36 px-6 md:px-10">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
@@ -469,94 +295,97 @@ function Index() {
             </Reveal>
           </div>
 
-          {/* YouTube video grid */}
-          <div className="mb-8">
-            <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-8 flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-[#ff0000]">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                YouTube · SmartGKaz
-              </span>
-            </Reveal>
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-12">
-              {youtubeVideos.map((v, i) => (
-                <Reveal key={v.videoId} delay={i * 80} className="group">
-                  <a
-                    href={v.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    id={`yt-video-${v.videoId}`}
-                    className="block"
-                    aria-label={`Смотреть видео: ${v.title}`}
-                  >
-                    <div className="yt-thumbnail-wrap aspect-video rounded-2xl overflow-hidden mb-5 relative">
-                      <img
-                        src={v.thumbnail}
-                        alt={v.title}
-                        className="size-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        loading="lazy"
-                        onError={(e) => {
-                          // Fallback to hqdefault if maxresdefault not available
-                          const target = e.currentTarget;
-                          if (target.src.includes("maxresdefault")) {
-                            target.src = `https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg`;
-                          }
-                        }}
-                      />
-                      <div className="yt-play-overlay">
-                        <div className="yt-play-btn">
-                          <Play className="size-6 text-white fill-white ml-0.5" />
-                        </div>
-                      </div>
-                      <div className="absolute top-3 left-3">
-                        <span className="yt-badge">YouTube</span>
-                      </div>
-                    </div>
-                    <div className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-3">
-                      {v.eyebrow}
-                    </div>
-                    <h3 className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f] mb-3 leading-snug group-hover:text-[#0071e3] transition-colors duration-300">
-                      {v.title}
-                    </h3>
-                    <p className="text-[14px] leading-relaxed text-[#6e6e73]">{v.excerpt}</p>
-                    <div className="mt-4 flex items-center gap-1.5 text-[13px] font-medium text-[#0071e3]">
-                      Смотреть видео
-                      <ArrowUpRight className="size-3.5" />
-                    </div>
-                  </a>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-
-          {/* Editorial posts separator */}
-          <div className="border-t border-black/8 pt-12">
-            <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-8">
-              Статьи · редакция
-            </Reveal>
-            <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-              {editorialPosts.map((p, i) => (
-                <Reveal key={p.title} delay={i * 80} className="group">
-                  <div className="aspect-[16/9] overflow-hidden rounded-2xl mb-6">
+          <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-8 flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="text-[#ff0000]"
+              >
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+              YouTube · SmartGKaz
+            </span>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {youtubeVideos.map((v, i) => (
+              <Reveal key={v.videoId} delay={i * 80} className="group">
+                <a
+                  href={v.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  id={`yt-video-${v.videoId}`}
+                  className="block"
+                  aria-label={`Смотреть видео: ${v.title}`}
+                >
+                  <div className="yt-thumbnail-wrap aspect-video rounded-2xl overflow-hidden mb-5 relative">
                     <img
-                      src={p.image}
-                      alt={p.title}
+                      src={v.thumbnail}
+                      alt={v.title}
                       className="size-full object-cover group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
+                      onError={(e) => {
+                        // Fallback to hqdefault if maxresdefault not available
+                        const target = e.currentTarget;
+                        if (target.src.includes("maxresdefault")) {
+                          target.src = `https://i.ytimg.com/vi/${v.videoId}/hqdefault.jpg`;
+                        }
+                      }}
                     />
+                    <div className="yt-play-overlay">
+                      <div className="yt-play-btn">
+                        <Play className="size-6 text-white fill-white ml-0.5" />
+                      </div>
+                    </div>
+                    <div className="absolute top-3 left-3">
+                      <span className="yt-badge">YouTube</span>
+                    </div>
                   </div>
                   <div className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73] mb-3">
-                    {p.eyebrow}
+                    {v.eyebrow}
                   </div>
-                  <h3 className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f] mb-3 leading-snug">
-                    {p.title}
+                  <h3 className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f] mb-3 leading-snug group-hover:text-[#0071e3] transition-colors duration-300">
+                    {v.title}
                   </h3>
-                  <p className="text-[14px] leading-relaxed text-[#6e6e73]">{p.excerpt}</p>
-                </Reveal>
-              ))}
-            </div>
+                  <p className="text-[14px] leading-relaxed text-[#6e6e73]">{v.excerpt}</p>
+                  <div className="mt-4 flex items-center gap-1.5 text-[13px] font-medium text-[#0071e3]">
+                    Смотреть видео
+                    <ArrowUpRight className="size-3.5" />
+                  </div>
+                </a>
+              </Reveal>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── DEVICES / PRODUCT CAROUSEL ─── */}
+      <section className="section-dark py-24 md:py-36 px-6 md:px-10">
+        <div className="max-w-[1400px] mx-auto">
+          <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-6">
+            Оборудование
+          </Reveal>
+          <Reveal
+            as="h2"
+            delay={120}
+            className="font-hero text-[clamp(40px,7vw,104px)] leading-[0.98] text-white max-w-[18ch] mb-4"
+          >
+            Технологии, которые вы не видите.
+          </Reveal>
+          <Reveal
+            as="p"
+            delay={200}
+            className="text-[17px] leading-relaxed text-[#a1a1a6] max-w-[56ch] mb-16"
+          >
+            Интерактивный каталог оборудования — выберите категорию и изучите устройства, которые
+            делают пространство умным.
+          </Reveal>
+
+          <Reveal delay={280} variant="breathe">
+            <ProductCarousel />
+          </Reveal>
         </div>
       </section>
 
@@ -576,27 +405,6 @@ function Index() {
           </Reveal>
           <Reveal delay={120} className="md:col-span-7">
             <ContactForm />
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─── FINAL CTA ─── */}
-      <section className="section-dark py-24 md:py-36 px-6 md:px-10">
-        <div className="max-w-[1200px] mx-auto text-center">
-          <Reveal
-            as="h2"
-            className="font-hero text-[clamp(44px,8vw,140px)] leading-[0.96] text-white max-w-[16ch] mx-auto"
-          >
-            Спроектируем умное пространство под вас.
-          </Reveal>
-          <Reveal delay={180} className="mt-12 flex flex-wrap gap-3 justify-center">
-            <Link to="/contact" className="btn-primary">
-              Спроектировать проект
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link to="/solutions" className="btn-secondary-dark">
-              Все решения
-            </Link>
           </Reveal>
         </div>
       </section>

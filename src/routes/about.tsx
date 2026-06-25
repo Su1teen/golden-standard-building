@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { Counter } from "@/components/Counter";
+import { CompanyTimeline } from "@/components/CompanyTimeline";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -98,14 +99,14 @@ function About() {
         />
         <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-20">
           <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
-            О компании · 17 лет
+            О компании · 20+ лет
           </Reveal>
           <Reveal
             as="h1"
             delay={120}
             className="font-hero text-[clamp(48px,9vw,160px)] leading-[0.92] text-white max-w-[16ch]"
           >
-            17 лет. 450+ объектов. Одна цель.
+            20+ лет. 450+ объектов. Одна цель.
           </Reveal>
         </div>
       </section>
@@ -139,39 +140,28 @@ function About() {
               delay={180}
               className="text-[17px] leading-[1.6] text-[#6e6e73] max-w-[52ch]"
             >
-              Компания родилась из понимания: современные здания перегружены хаотичными системами. Они требуют слишком много внимания, ручного контроля и ресурсов.
+              Компания родилась из понимания: современные здания перегружены хаотичными системами.
+              Они требуют слишком много внимания, ручного контроля и ресурсов.
             </Reveal>
             <Reveal
               as="p"
               delay={240}
               className="text-[17px] leading-[1.6] text-[#6e6e73] max-w-[52ch]"
             >
-              Инженерия не должна требовать внимания — она должна создавать условия для жизни и бизнеса. Smart Group Kazakhstan объединяет сложные инженерные процессы в чистые, интуитивные интерфейсы. Мы убираем всё лишнее, оставляя только безупречную функциональность, безопасность и комфорт.
+              Инженерия не должна требовать внимания — она должна создавать условия для жизни и
+              бизнеса. Smart Group Kazakhstan объединяет сложные инженерные процессы в чистые,
+              интуитивные интерфейсы. Мы убираем всё лишнее, оставляя только безупречную
+              функциональность, безопасность и комфорт.
             </Reveal>
           </div>
         </div>
       </section>
 
       {/* Stats — dark */}
-      <section className="section-dark py-20 md:py-28 px-6 md:px-10">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { v: 17, s: "", l: "Лет работы" },
-            { v: 450, s: "+", l: "Объектов" },
-            { v: 60, s: "", l: "Инженеров" },
-            { v: 24, s: "/7", l: "Сервис" },
-          ].map((x, i) => (
-            <Reveal key={x.l} delay={i * 80} className="stat-divider md:pr-6">
-              <div className="font-hero text-[clamp(44px,5vw,76px)] leading-none text-white">
-                <Counter to={x.v} suffix={x.s} />
-              </div>
-              <div className="mt-3 text-[11px] uppercase tracking-[0.22em] text-[#a1a1a6]">
-                {x.l}
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+
+
+      {/* Timeline — dark */}
+      <CompanyTimeline />
 
       {/* Values — light gray */}
       <section className="section-mid py-24 md:py-32 px-6 md:px-10">
