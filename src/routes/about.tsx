@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { Counter } from "@/components/Counter";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
+import { PartnersMarquee } from "@/components/PartnersMarquee";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -66,17 +67,6 @@ const team = [
   },
 ];
 
-const partners = [
-  "KNX",
-  "Crestron",
-  "Loxone",
-  "Lutron",
-  "ABB",
-  "Siemens",
-  "Schneider Electric",
-  "Control4",
-];
-
 const certificates = [
   { t: "KNX Certified Partner", d: "Сертификация по полному стеку KNX, 2017" },
   { t: "Crestron Certified Programmer", d: "Программирование Crestron Pyng/Home, 2019" },
@@ -88,77 +78,55 @@ function About() {
   return (
     <main>
       {/* Hero */}
-      <section className="section-dark relative min-h-[80vh] flex items-end overflow-hidden">
+      <section className="section-dark relative min-h-[96vh] flex items-end overflow-hidden">
         <div
           className="hero-image-bg"
           style={{
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1920&q=80)",
+              "url(https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80)",
           }}
           aria-hidden="true"
         />
-        <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-20">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.48)_48%,rgba(0,0,0,0.2)_100%)]" />
+        <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-16 md:pb-24">
           <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
             О компании · 20+ лет
           </Reveal>
           <Reveal
             as="h1"
             delay={120}
-            className="font-hero text-[clamp(48px,9vw,160px)] leading-[0.92] text-white max-w-[16ch]"
+            className="font-hero text-[clamp(48px,9vw,150px)] leading-[0.92] text-white max-w-[16ch]"
           >
             20+ лет. 450+ объектов. Одна цель.
           </Reveal>
-        </div>
-      </section>
-
-      {/* Mission — light gray */}
-      <section className="section-mid py-24 md:py-36 px-6 md:px-10">
-        <div className="max-w-[1400px] mx-auto grid md:grid-cols-12 gap-12 items-center">
-          <Reveal className="md:col-span-6" variant="breathe">
-            <div className="image-card aspect-[4/5] rounded-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80"
-                alt="Команда Smart Group Kazakhstan"
-                className="size-full object-cover"
-                loading="lazy"
-              />
+          <Reveal
+            as="div"
+            delay={240}
+            className="mt-12 max-w-[920px] rounded-[28px] border border-white/12 bg-black/30 p-6 md:p-9 backdrop-blur-xl"
+          >
+            <div className="text-[11px] uppercase tracking-[0.22em] text-[#86a8c4] mb-5">
+              Миссия
+            </div>
+            <h2 className="font-hero text-[clamp(34px,5vw,72px)] leading-[1.02] text-white max-w-[16ch] mb-6">
+              Создавать невидимую цифровую архитектуру
+            </h2>
+            <div className="grid md:grid-cols-2 gap-5 md:gap-8 text-[16px] md:text-[17px] leading-[1.62] text-white/72">
+              <p>
+                Компания родилась из понимания: современные здания перегружены хаотичными системами.
+                Они требуют слишком много внимания, ручного контроля и ресурсов.
+              </p>
+              <p>
+                Инженерия не должна требовать внимания — она должна создавать условия для жизни и
+                бизнеса. Smart Group Kazakhstan объединяет сложные инженерные процессы в чистые,
+                интуитивные интерфейсы. Мы убираем всё лишнее, оставляя только безупречную
+                функциональность, безопасность и комфорт.
+              </p>
             </div>
           </Reveal>
-          <div className="md:col-span-6 space-y-6">
-            <Reveal className="text-[11px] uppercase tracking-[0.22em] text-[#6e6e73]">
-              Миссия
-            </Reveal>
-            <Reveal
-              as="h2"
-              delay={100}
-              className="font-hero text-[clamp(36px,5vw,80px)] leading-[1.02] text-[#1d1d1f]"
-            >
-              Создавать невидимую цифровую архитектуру
-            </Reveal>
-            <Reveal
-              as="p"
-              delay={180}
-              className="text-[17px] leading-[1.6] text-[#6e6e73] max-w-[52ch]"
-            >
-              Компания родилась из понимания: современные здания перегружены хаотичными системами.
-              Они требуют слишком много внимания, ручного контроля и ресурсов.
-            </Reveal>
-            <Reveal
-              as="p"
-              delay={240}
-              className="text-[17px] leading-[1.6] text-[#6e6e73] max-w-[52ch]"
-            >
-              Инженерия не должна требовать внимания — она должна создавать условия для жизни и
-              бизнеса. Smart Group Kazakhstan объединяет сложные инженерные процессы в чистые,
-              интуитивные интерфейсы. Мы убираем всё лишнее, оставляя только безупречную
-              функциональность, безопасность и комфорт.
-            </Reveal>
-          </div>
         </div>
       </section>
 
       {/* Stats — dark */}
-
 
       {/* Timeline — dark */}
       <CompanyTimeline />
@@ -243,19 +211,7 @@ function About() {
           >
             Работаем с лидерами индустрии.
           </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-black/8">
-            {partners.map((p, i) => (
-              <Reveal
-                key={p}
-                delay={i * 50}
-                className="bg-[#f5f5f7] hover:bg-white transition-colors aspect-[3/2] flex items-center justify-center"
-              >
-                <span className="font-bold text-xl md:text-2xl tracking-tight text-[#1d1d1f]">
-                  {p}
-                </span>
-              </Reveal>
-            ))}
-          </div>
+          <PartnersMarquee />
         </div>
       </section>
 

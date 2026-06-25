@@ -337,9 +337,18 @@ export function CompanyTimeline() {
           className="tl-desktop-only tl-entrance pb-10 md:pb-14"
           style={{ transitionDelay: "400ms" }}
         >
-          <div className="tl-track-inner" role="tablist" aria-label="Годы истории">
-            <div className="tl-track-bg" />
-            <div className="tl-track-progress" style={{ width: `${progress}%` }} />
+          <div
+            className="tl-track-inner"
+            role="tablist"
+            aria-label="Годы истории"
+            style={
+              {
+                "--tl-count": total,
+                "--tl-progress": activeIndex / (total - 1),
+              } as React.CSSProperties
+            }
+          >
+            <div className="tl-track-progress" />
             {milestones.map((m, i) => (
               <button
                 key={m.year}

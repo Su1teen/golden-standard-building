@@ -154,7 +154,7 @@ function Projects() {
             delay={120}
             className="font-hero text-[clamp(48px,9vw,160px)] leading-[0.92] text-white max-w-[18ch]"
           >
-            Объекты, которые работают тихо.
+            Объекты, которые работают уже сегодня.
           </Reveal>
         </div>
       </section>
