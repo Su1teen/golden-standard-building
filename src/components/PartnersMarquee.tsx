@@ -29,10 +29,11 @@ export function PartnersMarquee() {
       <div className="partners-header">
         <div>
           <div className="partners-eyebrow">Partners &amp; Technologies</div>
-          <h3 className="partners-title">Открытая экосистема мировых стандартов.</h3>
+          <h3 className="partners-title">Работаем с лидерами индустрии.</h3>
         </div>
         <p className="partners-copy">
-          Интегрируем протоколы, платформы и устройства в единую инженерную среду.
+          Открытая экосистема мировых стандартов: протоколы, платформы и устройства в единой
+          инженерной среде.
         </p>
       </div>
       <div className="partners-marquee" aria-label="Партнёры и технологии">
