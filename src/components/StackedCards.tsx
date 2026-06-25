@@ -71,7 +71,10 @@ const items: StackedItem[] = [
 
 export function StackedCards() {
   return (
-    <section className="sc-section section-white">
+    <section
+      className="sc-section section-white"
+      style={{ "--sc-card-count": items.length } as React.CSSProperties}
+    >
       <div className="sc-header">
         <Reveal className="sc-header-eyebrow">Направления · 7 решений</Reveal>
         <Reveal as="h2" delay={120} className="sc-header-title">
@@ -83,30 +86,39 @@ export function StackedCards() {
         </Reveal>
       </div>
 
-      <div className="sc-stack">
+      <div className="sc-stack" aria-label="Направления автоматизации">
         {items.map((item, i) => (
-          <div key={item.route} className="sc-wrapper" style={{ "--i": i } as React.CSSProperties}>
-            <Link to={item.route} className="sc-card">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="sc-card-bg"
-                loading={i < 2 ? "eager" : "lazy"}
-              />
-              <div className="sc-card-overlay" aria-hidden="true" />
-              <div className="sc-card-content">
-                <div className="sc-card-top">
-                  <span className="sc-card-index">{String(i + 1).padStart(2, "0")}</span>
-                  <ArrowUpRight className="sc-card-arrow" />
-                </div>
-                <div className="sc-card-bottom">
-                  <span className="sc-card-eyebrow">{item.eyebrow}</span>
-                  <h3 className="sc-card-title">{item.title}</h3>
-                  <p className="sc-card-desc">{item.description}</p>
-                </div>
+          <Link
+            key={item.route}
+            to={item.route}
+            className="sc-card"
+            style={
+              {
+                "--i": i,
+                top: `calc(10% + ${i * 40}px)`,
+                zIndex: i + 1,
+              } as React.CSSProperties
+            }
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              className="sc-card-bg"
+              loading={i < 2 ? "eager" : "lazy"}
+            />
+            <div className="sc-card-overlay" aria-hidden="true" />
+            <div className="sc-card-content">
+              <div className="sc-card-top">
+                <span className="sc-card-index">{String(i + 1).padStart(2, "0")}</span>
+                <ArrowUpRight className="sc-card-arrow" />
               </div>
-            </Link>
-          </div>
+              <div className="sc-card-bottom">
+                <span className="sc-card-eyebrow">{item.eyebrow}</span>
+                <h3 className="sc-card-title">{item.title}</h3>
+                <p className="sc-card-desc">{item.description}</p>
+              </div>
+            </div>
+          </Link>
         ))}
       </div>
     </section>

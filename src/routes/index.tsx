@@ -6,6 +6,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { StackedCards } from "@/components/StackedCards";
+import { PartnersMarquee } from "@/components/PartnersMarquee";
 import heroImage from "@/assets/hero_image.png";
 import esilImg from "@/assets/esil.jpg";
 import milleniumImg from "@/assets/millenium.jpg";
@@ -30,33 +31,18 @@ export const Route = createFileRoute("/")({
 const advantages = [
   {
     n: "01",
-    title: "Своя инженерия",
-    body: "Не интегратор-посредник. Собственный отдел проектирования, программирования и сервиса.",
+    title: "Комплексная инженерия без посредников",
+    body: "Собственный отдел проектирования, монтажа и программирования. Мы — единый партнер на всех этапах: от первого инженерного чертежа до финальной пусконаладки и настройки сценариев.",
   },
   {
     n: "02",
-    title: "Прямые контракты",
-    body: "Поставки напрямую от KNX, Crestron, Control4, Lutron, BACnet-производителей.",
+    title: "Открытая архитектура и прямые контракты",
+    body: "Поставки оборудования напрямую от мировых производителей. Мы не используем закрытые «облачные замки» — ваша система, сценарии и данные принадлежат только вам навсегда.",
   },
   {
     n: "03",
-    title: "Открытая архитектура",
-    body: "Никаких облачных замков. Ваша система остаётся вашей — навсегда.",
-  },
-  {
-    n: "04",
-    title: "Один партнёр на всё",
-    body: "Проект, монтаж, программирование, сервис — внутри одной команды.",
-  },
-  {
-    n: "05",
-    title: "Сервис на годы",
-    body: "Договоры обслуживания, удалённая диагностика, выезд по SLA.",
-  },
-  {
-    n: "06",
-    title: "Опыт всех масштабов",
-    body: "От квартиры 80 м² до промышленных комплексов и сетей зданий.",
+    title: "Премиальный сервис и масштабный опыт",
+    body: "От элитных резиденций до промышленных сетей зданий. Обеспечиваем пожизненное обслуживание, удаленную диагностику и гарантированный выезд по SLA-договору.",
   },
 ];
 
@@ -191,12 +177,12 @@ function Index() {
           >
             Почему Smart Group Kazakhstan.
           </Reveal>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/8">
+          <div className="grid md:grid-cols-3 gap-px bg-black/8">
             {advantages.map((a, i) => (
               <Reveal
                 key={a.title}
                 delay={i * 70}
-                className="bg-[#f5f5f7] p-8 md:p-10 hover:bg-white transition-colors"
+                className="bg-[#f5f5f7] p-8 md:p-10 hover:bg-white transition-colors min-h-[300px]"
               >
                 <div className="text-[11px] uppercase tracking-[0.22em] text-[#0071e3] mb-6 font-mono">
                   {a.n}
@@ -222,7 +208,7 @@ function Index() {
                 delay={120}
                 className="font-hero text-[clamp(40px,6vw,88px)] leading-[1] text-[#1d1d1f] max-w-[16ch]"
               >
-                Объекты, которые работают тихо.
+                Объекты, которые работают уже сегодня.
               </Reveal>
             </div>
             <Reveal delay={200}>

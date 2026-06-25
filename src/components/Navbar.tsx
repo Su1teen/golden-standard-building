@@ -4,11 +4,9 @@ import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { solutions } from "@/lib/solutions";
 
 const navLinks = [
-  { to: "/projects", label: "Проекты" },
-  { to: "/process", label: "Процесс" },
-  { to: "/blog", label: "Блог" },
   { to: "/about", label: "О нас" },
-  { to: "/contact", label: "Контакты" },
+  { to: "/solutions", label: "Решения" },
+  { to: "/projects", label: "Проекты" },
 ] as const;
 
 export function Navbar() {
@@ -52,50 +50,55 @@ export function Navbar() {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8 text-[13px] font-medium">
-            <div
-              className="relative"
-              onMouseEnter={() => setSolutionsOpen(true)}
-              onMouseLeave={() => setSolutionsOpen(false)}
-            >
-              <Link
-                to="/solutions"
-                className="inline-flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity"
-              >
-                Решения
-                <ChevronDown className="size-3.5 opacity-70" />
-              </Link>
-              {solutionsOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[640px]">
-                  <div className="bg-white text-[#1d1d1f] rounded-2xl p-5 grid grid-cols-2 gap-1 shadow-[0_24px_60px_rgba(0,0,0,0.16)] border border-black/5">
-                    {solutions.map((s) => (
-                      <Link
-                        key={s.slug}
-                        to={s.route}
-                        className="flex items-center justify-between rounded-lg px-3 py-2.5 hover:bg-[#f5f5f7] transition-colors group"
-                      >
-                        <div>
-                          <div className="text-[13px] font-medium">{s.title}</div>
-                          <div className="text-[11px] text-[#6e6e73]">{s.short}</div>
-                        </div>
-                        <span className="font-mono text-[10px] text-[#6e6e73] opacity-0 group-hover:opacity-100 transition-opacity">
-                          {s.index}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
+            {navLinks.map((l) =>
+              l.to === "/solutions" ? (
+                <div
+                  key={l.to}
+                  className="relative"
+                  onMouseEnter={() => setSolutionsOpen(true)}
+                  onMouseLeave={() => setSolutionsOpen(false)}
+                >
+                  <Link
+                    to="/solutions"
+                    className="inline-flex items-center gap-1 opacity-80 hover:opacity-100 transition-opacity"
+                    activeProps={{ className: "opacity-100" }}
+                  >
+                    {l.label}
+                    <ChevronDown className="size-3.5 opacity-70" />
+                  </Link>
+                  {solutionsOpen && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[640px]">
+                      <div className="bg-white text-[#1d1d1f] rounded-2xl p-5 grid grid-cols-2 gap-1 shadow-[0_24px_60px_rgba(0,0,0,0.16)] border border-black/5">
+                        {solutions.map((s) => (
+                          <Link
+                            key={s.slug}
+                            to={s.route}
+                            className="flex items-center justify-between rounded-lg px-3 py-2.5 hover:bg-[#f5f5f7] transition-colors group"
+                          >
+                            <div>
+                              <div className="text-[13px] font-medium">{s.title}</div>
+                              <div className="text-[11px] text-[#6e6e73]">{s.short}</div>
+                            </div>
+                            <span className="font-mono text-[10px] text-[#6e6e73] opacity-0 group-hover:opacity-100 transition-opacity">
+                              {s.index}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className="opacity-80 hover:opacity-100 transition-opacity"
-                activeProps={{ className: "opacity-100" }}
-              >
-                {l.label}
-              </Link>
-            ))}
+              ) : (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className="opacity-80 hover:opacity-100 transition-opacity"
+                  activeProps={{ className: "opacity-100" }}
+                >
+                  {l.label}
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className="flex items-center gap-3">
@@ -133,35 +136,40 @@ export function Navbar() {
             </button>
           </div>
           <nav className="flex-1 overflow-y-auto px-5 py-10 flex flex-col gap-3">
-            <Link
-              to="/solutions"
-              onClick={() => setOpen(false)}
-              className="text-3xl font-bold tracking-tight"
-            >
-              Решения
-            </Link>
-            <div className="grid grid-cols-2 gap-1 pl-1 mb-6">
-              {solutions.map((s) => (
+            {navLinks.map((l) =>
+              l.to === "/solutions" ? (
+                <div key={l.to}>
+                  <Link
+                    to="/solutions"
+                    onClick={() => setOpen(false)}
+                    className="text-3xl font-bold tracking-tight"
+                  >
+                    {l.label}
+                  </Link>
+                  <div className="grid grid-cols-2 gap-1 pl-1 my-4">
+                    {solutions.map((s) => (
+                      <Link
+                        key={s.slug}
+                        to={s.route}
+                        onClick={() => setOpen(false)}
+                        className="py-2 text-[13px] text-white/70 hover:text-white"
+                      >
+                        {s.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
                 <Link
-                  key={s.slug}
-                  to={s.route}
+                  key={l.to}
+                  to={l.to}
                   onClick={() => setOpen(false)}
-                  className="py-2 text-[13px] text-white/70 hover:text-white"
+                  className="text-3xl font-bold tracking-tight"
                 >
-                  {s.title}
+                  {l.label}
                 </Link>
-              ))}
-            </div>
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className="text-3xl font-bold tracking-tight"
-              >
-                {l.label}
-              </Link>
-            ))}
+              ),
+            )}
           </nav>
           <div className="px-5 py-5 border-t border-white/10">
             <Link
