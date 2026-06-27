@@ -9,7 +9,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-4">
             <Link to="/" className="flex items-center gap-2">
               <span className="inline-block size-1.5 rounded-full bg-[#0071e3]" />
-              <span className="font-bold tracking-[0.06em] text-[15px]">SMART GROUP</span>
+              <span className="font-bold tracking-[0.06em] text-[15px]">SMART GROUP KAZAKHSTAN</span>
             </Link>
             <p className="mt-5 text-[14px] text-[#a1a1a6] max-w-[32ch] leading-relaxed">
               Создаём интеллектуальные системы для пространств, которые отвечают человеку.
@@ -80,10 +80,10 @@ export function Footer() {
             <div className="space-y-2 text-[13px]">
               <div className="text-white/85">Астана, БЦ Talan Towers</div>
               <a
-                href="tel:+77078004444"
+                href="tel:+77077118000"
                 className="block text-white/85 hover:text-white transition-colors"
               >
-                +7 (707) 800 44 44
+                +7 (707) 711 80 00
               </a>
               <a
                 href="mailto:info@smartgroup.kz"
@@ -92,7 +92,7 @@ export function Footer() {
                 info@smartgroup.kz
               </a>
               <a
-                href="https://wa.me/77078004444"
+                href="https://wa.me/77077118000"
                 className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full border border-white/20 text-white text-[11px] uppercase tracking-[0.18em] hover:bg-white/10 hover:border-white/40 transition-colors"
               >
                 WhatsApp

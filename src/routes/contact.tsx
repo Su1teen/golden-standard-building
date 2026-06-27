@@ -57,10 +57,10 @@ function Contact() {
                 Прямая связь
               </div>
               <a
-                href="tel:+77078004444"
+                href="tel:+77077118000"
                 className="block font-hero text-[clamp(28px,4vw,52px)] leading-[1.02] text-[#1d1d1f] story-link"
               >
-                +7 (707) 800 44 44
+                +7 (707) 711 80 00
               </a>
               <a
                 href="mailto:info@smartgroup.kz"
@@ -86,8 +86,8 @@ function Contact() {
               <Item
                 icon={<Phone className="size-4" />}
                 title="Телефон"
-                v="+7 (707) 800 44 44"
-                href="tel:+77078004444"
+                v="+7 (707) 711 80 00"
+                href="tel:+77077118000"
               />
               <Item
                 icon={<Mail className="size-4" />}
@@ -99,7 +99,7 @@ function Contact() {
                 icon={<MessageCircle className="size-4" />}
                 title="WhatsApp"
                 v="Написать в WhatsApp"
-                href="https://wa.me/77078004444"
+                href="https://wa.me/77077118000"
               />
               <Item
                 icon={<MapPin className="size-4" />}

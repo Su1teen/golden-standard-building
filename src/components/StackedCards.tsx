@@ -71,7 +71,7 @@ const items: StackedItem[] = [
 
 export function StackedCards() {
   return (
-    <section className="sc-section section-white">
+    <section className="sc-section section-mid">
       <div className="sc-header">
         <Reveal className="sc-header-eyebrow">Направления · 7 решений</Reveal>
         <Reveal as="h2" delay={120} className="sc-header-title">
