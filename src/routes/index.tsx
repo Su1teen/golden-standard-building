@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Премиальные системы умного дома и автоматизации зданий. Smart Group Kazakhstan — 17 лет опыта, 450+ объектов в Казахстане.",
+          "Премиальные системы умного дома и автоматизации зданий. Smart Group Kazakhstan — 17 лет опыта, 1000+ объектов в Казахстане.",
       },
       { property: "og:title", content: "Smart Group Kazakhstan" },
       { property: "og:description", content: "Технологии незаметного комфорта.." },

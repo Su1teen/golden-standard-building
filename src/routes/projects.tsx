@@ -147,7 +147,7 @@ function Projects() {
         />
         <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-16">
           <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
-            Портфолио · 450+ объектов
+            Портфолио · 1000+ объектов
           </Reveal>
           <Reveal
             as="h1"

@@ -1,13 +1,99 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+// Image glob imports
+const defaultImgsObj = import.meta.glob('@/assets/timeline/default/*.{jpg,jpeg,png,HEIC,heic,JPG}', { eager: true, import: 'default' });
+const imgs2017Obj = import.meta.glob('@/assets/timeline/2017/*.{jpg,jpeg,png,HEIC,heic,JPG}', { eager: true, import: 'default' });
+const imgs2021Obj = import.meta.glob('@/assets/timeline/2021/*.{jpg,jpeg,png,HEIC,heic,JPG}', { eager: true, import: 'default' });
+const imgs2023Obj = import.meta.glob('@/assets/timeline/2023/*.{jpg,jpeg,png,HEIC,heic,JPG}', { eager: true, import: 'default' });
+const imgs2024Obj = import.meta.glob('@/assets/timeline/2024/*.{jpg,jpeg,png,HEIC,heic,JPG}', { eager: true, import: 'default' });
+
+const defaultImgs = Object.values(defaultImgsObj) as string[];
+const imgs2017 = Object.values(imgs2017Obj) as string[];
+const imgs2021 = Object.values(imgs2021Obj) as string[];
+const imgs2023 = Object.values(imgs2023Obj) as string[];
+const imgs2024 = Object.values(imgs2024Obj) as string[];
+
+function ImageSlideshow({ images }: { images: string[] }) {
+  const [current, setCurrent] = useState(0);
+  const touchStartRef = useRef(0);
+  const touchDeltaRef = useRef(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrent((c) => (c + 1) % images.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartRef.current = e.touches[0].clientX;
+    touchDeltaRef.current = 0;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchDeltaRef.current = e.touches[0].clientX - touchStartRef.current;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    const delta = touchDeltaRef.current;
+    if (Math.abs(delta) > 40) {
+      setCurrent((c) => {
+        if (delta < 0) return (c + 1) % images.length;
+        return (c - 1 + images.length) % images.length;
+      });
+    }
+  }, [images.length]);
+
+  if (!images || images.length === 0) return null;
+
+  return (
+    <div
+      className="relative w-full h-full overflow-hidden bg-[#1d1d1f]"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      {images.map((src, idx) => (
+        <img
+          key={idx}
+          src={src}
+          alt={`Slide ${idx}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            idx === current ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}
+          loading="lazy"
+          draggable={false}
+        />
+      ))}
+      {images.length > 1 && (
+        <div className="absolute bottom-3 md:bottom-4 left-0 right-0 z-20 flex justify-center gap-1.5 md:gap-2">
+          {images.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={(e) => { e.stopPropagation(); setCurrent(idx); }}
+              className={`rounded-full transition-all duration-300 ${
+                idx === current
+                  ? "w-5 md:w-2 h-1.5 md:h-2 bg-white"
+                  : "w-1.5 h-1.5 md:w-2 md:h-2 bg-white/40"
+              }`}
+              aria-label={`Show image ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 interface Milestone {
   year: number;
   yearLabel?: string;
   title: string;
   description: string;
   achievements: string[];
-  image: string;
+  images: string[];
 }
 
 const milestones: Milestone[] = [
@@ -22,103 +108,91 @@ const milestones: Milestone[] = [
       "Работаем с лидерами индустрии, и имеем доступ ко всем современным инженерным протоколам и решениям.",
       "450+ реализованных объектов в Казахстане и Центральной Азии",
     ],
-    image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=80",
+    images: defaultImgs.length > 0 ? defaultImgs : ["https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=80"],
   },
   {
-    year: 2004,
-    title: "Основание компании",
+    year: 2009,
+    title: "Основание и первые проекты",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "Официальная регистрация бренда SGK. Год, когда мы заложили фундамент нашего подхода к инженерии. Мы открыли первый шоурум, где клиенты могли вживую оценить выставку наших технологий и концепт по-настоящему умного пространства.",
     achievements: [
-      "Открытие первого офиса в Алматы",
-      "Формирование инженерного ядра команды",
-      "Первые пилотные проекты автоматизации",
+      "Регистрация бренда Smart Group Kazakhstan",
+      "Открытие первого флагланского шоурума",
+      "Успешная реализация первых коммерческих проектов",
     ],
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+    images: ["https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80"],
   },
   {
-    year: 2007,
-    title: "Первые крупные проекты",
+    year: 2014,
+    title: "Масштабирование и крупные партнеры",
     description:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.",
+      "Презентация наших комплексных решений для BI Group и других ведущих застройщиков региона. Мы перешли от частных объектов к системной работе на корпоративном и девелоперском уровне, доказав надежность наших инженерных стандартов.",
     achievements: [
-      "Реализация 15+ коммерческих объектов",
-      "Получение статуса KNX Partner",
-      "Внедрение первых BMS-систем",
+      "Презентация технологий для BI Group",
+      "Выход на рынок крупных девелоперских проектов",
+      "Разработка стандартов массового внедрения BMS",
     ],
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80",
+    images: ["https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80"],
   },
   {
-    year: 2010,
-    title: "Расширение команды",
+    year: 2017,
+    title: "Международные стандарты",
     description:
-      "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.",
+      "Важный этап в признании наших компетенций — мы стали официальным участником ассоциации KNX. В этом же году состоялось открытие нового офиса в Астане для управления еще более масштабными и амбициозными проектами в столице.",
     achievements: [
-      "Штат вырос до 30 специалистов",
-      "Открытие офиса в Астане",
-      "Запуск сервисного подразделения 24/7",
+      "Вступление в международную ассоциацию KNX",
+      "Открытие представительства в Астане",
+      "Реализация знаковых архитектурных проектов",
     ],
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80",
+    images: imgs2017.length > 0 ? imgs2017 : ["https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80"],
   },
   {
-    year: 2013,
-    title: "Выход на новые рынки",
+    year: 2021,
+    title: "Новые горизонты",
     description:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.",
+      "Наш опыт и стандарты качества оказались востребованы за пределами страны — мы успешно завершили наш первый крупный проект в Санкт-Петербурге. В этом же году мы представили свои инновации на выставке Kazbuild и открыли новый современный шоурум.",
     achievements: [
-      "Первые международные проекты",
-      "Партнёрство с Crestron и Lutron",
-      "Сертификация ISO 9001",
+      "Первый международный проект в Санкт-Петербурге",
+      "Участие в крупнейшей выставке Kazbuild в Алматы",
+      "Открытие обновленного шоурума",
     ],
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
+    images: imgs2021.length > 0 ? imgs2021 : ["https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80"],
   },
   {
-    year: 2016,
-    title: "Запуск новых направлений",
+    year: 2023,
+    title: "Международная экспансия",
     description:
-      "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.",
+      "Переход на глобальный уровень. Открытие офиса в Дубае стало логичным шагом в развитии компании, позволив нам применять и обогащать наш инженерный опыт на одном из самых технологичных и требовательных рынков мира.",
     achievements: [
-      "Направление «Умный отель» и hospitality",
-      "Интеграция IoT-платформ и аналитики",
-      "Портфель 200+ реализованных объектов",
+      "Открытие офиса в Дубае (ОАЭ)",
+      "Интеграция международного опыта в казахстанские проекты",
+      "Участие в проектах премиум-класса на Ближнем Востоке",
     ],
-    image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80",
+    images: imgs2023.length > 0 ? imgs2023 : ["https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80"],
   },
   {
-    year: 2019,
-    title: "Технологическая модернизация",
+    year: 2024,
+    title: "Наука и инновации",
     description:
-      "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.",
+      "Технологии требуют фундаментального подхода. Открытие офиса в технопарке Назарбаев Университета позволило нам начать полноценные вклады в прикладную науку. Мы объединили академические знания с практическим опытом автоматизации зданий.",
     achievements: [
-      "Переход на открытые протоколы и стандарты",
-      "Собственная R&D лаборатория",
-      "Интеграция AI-решений в BMS",
+      "Открытие R&D офиса в Назарбаев Университете",
+      "Инвестиции в научные исследования",
+      "Разработка собственных аппаратно-программных комплексов",
     ],
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80",
-  },
-  {
-    year: 2022,
-    title: "Масштабирование бизнеса",
-    description:
-      "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.",
-    achievements: [
-      "Штат 60+ инженеров и проектировщиков",
-      "Выручка выросла в 4 раза за 3 года",
-      "450+ объектов в портфеле компании",
-    ],
-    image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80",
+    images: imgs2024.length > 0 ? imgs2024 : ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80"],
   },
   {
     year: 2026,
-    title: "Новый этап развития",
+    title: "Эра собственного производства",
     description:
-      "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+      "Новый масштаб и независимость. Мы запускаем собственное производство оборудования и открываем самый крупный учебный центр и шоурум умного дома в Центральной Азии. Параллельно мы выходим на европейский рынок с открытием офиса в ЕС.",
     achievements: [
-      "Запуск платформы нового поколения",
-      "Экспансия в страны Центральной Азии",
-      "Курс на устойчивое строительство и ESG",
+      "Запуск собственного инженерного производства",
+      "Крупнейший учебный центр и шоурум УД в ЦА",
+      "Открытие нового офиса в Европейском Союзе",
     ],
-    image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=1200&q=80",
+    images: ["https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=1200&q=80"],
   },
 ];
 
@@ -197,9 +271,14 @@ export function CompanyTimeline() {
 
   useEffect(() => {
     if (isPaused || !isVisible || activeIndex >= total - 1) return;
+
+    let delay = 5000;
+    if (activeIndex === 0) delay = 1500;
+    else if (activeIndex === 1) delay = 3000;
+
     timerRef.current = setTimeout(() => {
       goTo(activeIndex + 1);
-    }, 7000);
+    }, delay);
     return () => clearTimeout(timerRef.current);
   }, [activeIndex, isPaused, isVisible, total, goTo]);
 
@@ -251,17 +330,17 @@ export function CompanyTimeline() {
         style={{ left: `${15 + progress * 0.7}%`, top: "35%" }}
       />
       <div
-        className="max-w-[1400px] mx-auto w-full px-6 md:px-10 flex flex-col"
-        style={{ minHeight: "92vh" }}
+        className="max-w-[1400px] mx-auto w-full px-4 sm:px-6 md:px-10 flex flex-col"
+        style={{ minHeight: "min(92vh, 900px)" }}
       >
         {/* Header */}
         <div className="tl-entrance" style={{ transitionDelay: "100ms" }}>
-          <div className="flex items-start md:items-center justify-between pt-24 md:pt-32 pb-8 md:pb-12 gap-6 flex-wrap">
+          <div className="flex items-start md:items-center justify-between pt-16 sm:pt-20 md:pt-32 pb-6 sm:pb-8 md:pb-12 gap-4 sm:gap-6 flex-wrap">
             <div>
-              <div className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-4">
+              <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-3 sm:mb-4">
                 Наша история
               </div>
-              <h2 className="font-hero text-[clamp(32px,5.5vw,72px)] leading-[1.05] text-white max-w-[18ch]">
+              <h2 className="font-hero text-[clamp(28px,7vw,72px)] leading-[1.05] text-white max-w-[18ch]">
                 Более 20 лет развития и{"\u00a0"}инноваций
               </h2>
             </div>
@@ -325,7 +404,7 @@ export function CompanyTimeline() {
             </div>
             <div className="col-span-12 lg:col-span-7">
               <div className={`tl-image-wrap ${contentVisible ? "tl-show" : "tl-hide"}`}>
-                <img src={milestone.image} alt={milestone.title} loading="lazy" />
+                <ImageSlideshow images={milestone.images} />
                 <div className="tl-image-overlay" />
               </div>
             </div>
@@ -354,7 +433,7 @@ export function CompanyTimeline() {
                 key={m.year}
                 className={`tl-node ${i === activeIndex ? "active" : ""} ${i < activeIndex ? "past" : ""}`}
                 onClick={() => goTo(i)}
-                onMouseEnter={() => preloadImage(m.image)}
+                onMouseEnter={() => preloadImage(m.images[0])}
                 role="tab"
                 aria-selected={i === activeIndex}
                 aria-label={`${m.yearLabel || m.year} — ${m.title}`}
@@ -368,7 +447,7 @@ export function CompanyTimeline() {
 
         {/* Mobile */}
         <div
-          className="tl-mobile-only tl-entrance flex-1 flex flex-col pb-8"
+          className="tl-mobile-only tl-entrance flex-1 flex flex-col pb-6"
           style={{ transitionDelay: "200ms" }}
         >
           <div className="tl-m-years">
@@ -386,7 +465,7 @@ export function CompanyTimeline() {
             {milestones.map((m) => (
               <article key={m.year} className="tl-m-card">
                 <div className="tl-m-card-img">
-                  <img src={m.image} alt={m.title} loading="lazy" />
+                  <ImageSlideshow images={m.images} />
                 </div>
                 <div className="tl-m-card-body">
                   <div className="tl-m-card-year" aria-hidden="true">
@@ -399,9 +478,6 @@ export function CompanyTimeline() {
                       <li key={j}>{a}</li>
                     ))}
                   </ul>
-                  <button className="btn-secondary-dark text-[13px]">
-                    Читать подробнее <ArrowRight className="size-3.5" />
-                  </button>
                 </div>
               </article>
             ))}

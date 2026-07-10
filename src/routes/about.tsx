@@ -97,7 +97,7 @@ function About() {
             delay={120}
             className="font-hero text-[clamp(42px,12vw,150px)] leading-[0.92] text-white max-w-[16ch]"
           >
-            20+ лет. 450+ объектов. Одна цель.
+            20+ лет. 1000+ объектов. Одна цель.
           </Reveal>
           <Reveal
             as="div"
