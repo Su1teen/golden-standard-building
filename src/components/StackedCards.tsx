@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -99,6 +99,7 @@ function StageContent({
           transition: { delayChildren: 0.38, staggerChildren: 0.09 },
         },
       }}
+      style={{ willChange: "transform" }}
     >
       <motion.div
         className="flex items-start justify-between"
@@ -110,6 +111,7 @@ function StageContent({
             transition: { duration: 0.65, ease: premiumEase },
           },
         }}
+        style={{ willChange: "transform" }}
       >
         <span className="font-mono text-[11px] tracking-[0.22em] text-white/55">
           {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
@@ -135,6 +137,7 @@ function StageContent({
               transition: { duration: 0.65, ease: premiumEase },
             },
           }}
+          style={{ willChange: "transform" }}
         >
           {item.eyebrow}
         </motion.span>
@@ -143,14 +146,15 @@ function StageContent({
             mobile ? "text-[clamp(2.25rem,10vw,4.5rem)]" : "text-[clamp(2.6rem,5vw,5.5rem)]"
           }`}
           variants={{
-            hidden: { opacity: 0, y: 30, filter: "blur(7px)" },
+            hidden: { opacity: 0, y: 30, scale: 0.98 },
             visible: {
               opacity: 1,
               y: 0,
-              filter: "blur(0px)",
+              scale: 1,
               transition: { duration: 0.82, ease: premiumEase },
             },
           }}
+          style={{ willChange: "transform" }}
         >
           {item.title}
         </motion.h3>
@@ -164,6 +168,7 @@ function StageContent({
               transition: { duration: 0.72, ease: premiumEase },
             },
           }}
+          style={{ willChange: "transform" }}
         >
           {item.description}
         </motion.p>
@@ -183,7 +188,7 @@ function DesktopAccordion({
 
   return (
     <LayoutGroup id="solutions-desktop">
-      <div className="hidden h-[min(74vh,760px)] min-h-[620px] w-full gap-[2px] overflow-hidden rounded-[2rem] border border-black/10 bg-[#d8d8dc] p-[2px] shadow-[0_30px_90px_-50px_rgba(0,0,0,0.55)] lg:flex">
+      <div className="hidden h-[min(74vh,760px)] h-[min(74dvh,760px)] min-h-[620px] w-full gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 lg:flex">
         {items.map((item, index) => {
           const isActive = index === activeIndex;
 
@@ -191,14 +196,12 @@ function DesktopAccordion({
             <motion.article
               key={item.route}
               layout
-              className={`relative isolate min-w-0 overflow-hidden bg-[#171719] text-white outline-none ${
-                index === 0 ? "rounded-l-[1.8rem]" : ""
-              } ${index === items.length - 1 ? "rounded-r-[1.8rem]" : ""}`}
-              style={{ flex: isActive ? "1 1 0%" : "0 0 clamp(76px, 6.4vw, 98px)" }}
-              transition={{ layout: { duration: reduceMotion ? 0 : 0.86, ease: premiumEase } }}
-              onPointerEnter={(event) => {
-                if (event.pointerType === "mouse") setActiveIndex(index);
+              className="relative isolate min-w-0 overflow-hidden bg-[#111] text-white outline-none first:rounded-l-[2rem] last:rounded-r-[2rem]"
+              style={{
+                flex: isActive ? "1 1 0%" : "0 0 clamp(84px, 6.4vw, 110px)",
+                willChange: "transform",
               }}
+              transition={{ layout: { duration: reduceMotion ? 0 : 0.86, ease: premiumEase } }}
             >
               <motion.div
                 className="absolute inset-0"
@@ -207,6 +210,7 @@ function DesktopAccordion({
                   clipPath: isActive ? "inset(0% 0% 0% 0%)" : "inset(0% 100% 0% 0%)",
                 }}
                 transition={{ duration: reduceMotion ? 0 : 0.95, ease: premiumEase }}
+                style={{ willChange: "clip-path" }}
               >
                 <motion.img
                   src={item.image}
@@ -217,6 +221,7 @@ function DesktopAccordion({
                   transition={{ duration: reduceMotion ? 0 : 1.25, ease: premiumEase }}
                   loading={index < 2 ? "eager" : "lazy"}
                   draggable={false}
+                  style={{ willChange: "transform" }}
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,10,0.08)_20%,rgba(8,8,10,0.82)_100%)]" />
               </motion.div>
@@ -231,7 +236,7 @@ function DesktopAccordion({
                 {!isActive && (
                   <motion.button
                     type="button"
-                    className="absolute inset-0 z-10 flex flex-col items-center justify-between py-7"
+                    className="group absolute inset-0 z-10 flex flex-col items-center justify-between px-1 py-7"
                     initial={reduceMotion ? false : { opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -240,13 +245,25 @@ function DesktopAccordion({
                     onFocus={() => setActiveIndex(index)}
                     aria-label={`Развернуть: ${item.title}`}
                   >
-                    <span className="font-mono text-[10px] tracking-[0.2em] text-white/35">
+                    <img
+                      src={item.image}
+                      alt=""
+                      className="pointer-events-none absolute inset-0 size-full object-cover opacity-50 transition-opacity duration-700 group-hover:opacity-100"
+                      loading={index < 2 ? "eager" : "lazy"}
+                      draggable={false}
+                      style={{
+                        filter: "blur(24px) brightness(0.35) saturate(0.6)",
+                        willChange: "transform",
+                      }}
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-black/70 transition-colors duration-700 group-hover:bg-black/50" />
+                    <span className="relative z-10 font-mono text-[10px] tracking-[0.2em] text-white/70 transition-colors duration-500 group-hover:text-white">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <span className="rotate-180 text-sm font-semibold tracking-[-0.01em] text-white/75 [writing-mode:vertical-rl]">
+                    <span className="relative z-10 rotate-180 text-[11px] font-semibold uppercase tracking-[0.28em] text-white/90 transition-[color,text-shadow] duration-500 group-hover:text-white group-hover:[text-shadow:0_0_18px_rgba(255,255,255,0.35)] [writing-mode:vertical-rl]">
                       {item.title}
                     </span>
-                    <span className="h-8 w-px bg-white/15" />
+                    <span className="relative z-10 h-8 w-px bg-white/30 transition-colors duration-500 group-hover:bg-white/50" />
                   </motion.button>
                 )}
               </AnimatePresence>
@@ -270,6 +287,16 @@ function MobileAccordion({
   setActiveIndex: (index: number) => void;
 }) {
   const reduceMotion = useReducedMotion();
+  const itemRefs = useRef<(HTMLElement | null)[]>([]);
+
+  const handleExpand = (index: number) => {
+    if (activeIndex !== index && itemRefs.current[index]) {
+      setTimeout(() => {
+        itemRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+      }, 120);
+    }
+    setActiveIndex(index);
+  };
 
   return (
     <LayoutGroup id="solutions-mobile">
@@ -280,16 +307,18 @@ function MobileAccordion({
           return (
             <motion.article
               key={item.route}
+              ref={(el) => { itemRefs.current[index] = el; }}
               layout
-              className="relative isolate overflow-hidden rounded-[1.4rem] bg-[#171719] text-white shadow-[0_18px_48px_-34px_rgba(0,0,0,0.7)]"
+              className="relative isolate scroll-mt-20 overflow-hidden rounded-[1.4rem] bg-[#171719] text-white"
               transition={{ layout: { duration: reduceMotion ? 0 : 0.8, ease: premiumEase } }}
+              style={{ willChange: "transform" }}
             >
               <button
                 type="button"
                 className={`relative z-30 flex w-full items-center justify-between px-5 text-left ${
-                  isActive ? "h-[27rem] sm:h-[32rem]" : "h-[5.5rem]"
+                  isActive ? "h-[28rem] sm:h-[34rem]" : "h-20 sm:h-24"
                 }`}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => handleExpand(index)}
                 aria-expanded={isActive}
               >
                 {!isActive && (
@@ -314,6 +343,7 @@ function MobileAccordion({
                   clipPath: isActive ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)",
                 }}
                 transition={{ duration: reduceMotion ? 0 : 0.92, ease: premiumEase }}
+                style={{ willChange: "clip-path" }}
               >
                 <motion.img
                   src={item.image}
@@ -324,6 +354,7 @@ function MobileAccordion({
                   transition={{ duration: reduceMotion ? 0 : 1.15, ease: premiumEase }}
                   loading={index < 2 ? "eager" : "lazy"}
                   draggable={false}
+                  style={{ willChange: "transform" }}
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,8,10,0.08)_10%,rgba(8,8,10,0.88)_100%)]" />
               </motion.div>
