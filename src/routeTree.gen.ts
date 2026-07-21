@@ -28,6 +28,8 @@ import { Route as ApartmentRouteImport } from './routes/apartment'
 import { Route as AgricultureRouteImport } from './routes/agriculture'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
+import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const VillaRoute = VillaRouteImport.update({
@@ -125,6 +127,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProjectsRoute,
+} as any)
+const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProjectsRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -145,13 +157,15 @@ export interface FileRoutesByFullPath {
   '/mall': typeof MallRoute
   '/office': typeof OfficeRoute
   '/process': typeof ProcessRoute
-  '/projects': typeof ProjectsRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/residential': typeof ResidentialRoute
   '/restaurant': typeof RestaurantRoute
   '/school': typeof SchoolRoute
   '/solutions': typeof SolutionsRoute
   '/villa': typeof VillaRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -167,13 +181,14 @@ export interface FileRoutesByTo {
   '/mall': typeof MallRoute
   '/office': typeof OfficeRoute
   '/process': typeof ProcessRoute
-  '/projects': typeof ProjectsRoute
   '/residential': typeof ResidentialRoute
   '/restaurant': typeof RestaurantRoute
   '/school': typeof SchoolRoute
   '/solutions': typeof SolutionsRoute
   '/villa': typeof VillaRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects': typeof ProjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -190,13 +205,15 @@ export interface FileRoutesById {
   '/mall': typeof MallRoute
   '/office': typeof OfficeRoute
   '/process': typeof ProcessRoute
-  '/projects': typeof ProjectsRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/residential': typeof ResidentialRoute
   '/restaurant': typeof RestaurantRoute
   '/school': typeof SchoolRoute
   '/solutions': typeof SolutionsRoute
   '/villa': typeof VillaRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -221,6 +238,8 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/villa'
     | '/blog/$slug'
+    | '/projects/$slug'
+    | '/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -236,13 +255,14 @@ export interface FileRouteTypes {
     | '/mall'
     | '/office'
     | '/process'
-    | '/projects'
     | '/residential'
     | '/restaurant'
     | '/school'
     | '/solutions'
     | '/villa'
     | '/blog/$slug'
+    | '/projects/$slug'
+    | '/projects'
   id:
     | '__root__'
     | '/'
@@ -265,6 +285,8 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/villa'
     | '/blog/$slug'
+    | '/projects/$slug'
+    | '/projects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -281,7 +303,7 @@ export interface RootRouteChildren {
   MallRoute: typeof MallRoute
   OfficeRoute: typeof OfficeRoute
   ProcessRoute: typeof ProcessRoute
-  ProjectsRoute: typeof ProjectsRoute
+  ProjectsRoute: typeof ProjectsRouteWithChildren
   ResidentialRoute: typeof ResidentialRoute
   RestaurantRoute: typeof RestaurantRoute
   SchoolRoute: typeof SchoolRoute
@@ -424,6 +446,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/': {
+      id: '/projects/'
+      path: '/'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsIndexRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/projects/$slug': {
+      id: '/projects/$slug'
+      path: '/$slug'
+      fullPath: '/projects/$slug'
+      preLoaderRoute: typeof ProjectsSlugRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -444,6 +480,20 @@ const BlogRouteChildren: BlogRouteChildren = {
 
 const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
+interface ProjectsRouteChildren {
+  ProjectsSlugRoute: typeof ProjectsSlugRoute
+  ProjectsIndexRoute: typeof ProjectsIndexRoute
+}
+
+const ProjectsRouteChildren: ProjectsRouteChildren = {
+  ProjectsSlugRoute: ProjectsSlugRoute,
+  ProjectsIndexRoute: ProjectsIndexRoute,
+}
+
+const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
+  ProjectsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -458,7 +508,7 @@ const rootRouteChildren: RootRouteChildren = {
   MallRoute: MallRoute,
   OfficeRoute: OfficeRoute,
   ProcessRoute: ProcessRoute,
-  ProjectsRoute: ProjectsRoute,
+  ProjectsRoute: ProjectsRouteWithChildren,
   ResidentialRoute: ResidentialRoute,
   RestaurantRoute: RestaurantRoute,
   SchoolRoute: SchoolRoute,
