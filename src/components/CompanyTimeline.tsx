@@ -109,7 +109,7 @@ function HistoryGallery({
 
 export function CompanyTimeline() {
   const router = useRouter();
-  const { viewportRef, progressRef, rangeRef, activeIndex, first, scrollToStage } =
+  const { viewportRef, progressRef, rangeRef, activeIndex, first, scrollToStage, settleScrubber } =
     useHistoryScroll();
 
   useEffect(() => {
@@ -299,6 +299,8 @@ export function CompanyTimeline() {
             aria-label="Позиция в истории"
             aria-valuetext={`Этап ${activeIndex + 1} из ${milestones.length}`}
             onInput={(event) => scrollToStage(event.currentTarget.valueAsNumber, false)}
+            onPointerUp={settleScrubber}
+            onBlur={settleScrubber}
           />
         </div>
       </div>

@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+const transitionStart = 0.25;
+const transitionEnd = 0.75;
+const settleDelay = 190;
+const settleDuration = 280;
+
 function easeBetween(value: number, from: number, to: number) {
   const progress = Math.max(0, Math.min(1, (value - from) / (to - from)));
   return progress * progress * (3 - 2 * progress);
@@ -10,7 +15,8 @@ export function useHistoryScroll() {
   const progressRef = useRef<HTMLDivElement>(null);
   const rangeRef = useRef<HTMLInputElement>(null);
   const geometry = useRef({ step: 0, last: 0 });
-  const cancelWheel = useRef(() => {});
+  const cancelMotion = useRef(() => {});
+  const finishScrubbing = useRef(() => {});
   const [scene, setScene] = useState({ activeIndex: 0, first: -1 });
 
   useEffect(() => {
@@ -31,6 +37,12 @@ export function useHistoryScroll() {
     let paintFrame = 0;
     let wheelFrame = 0;
     let wheelTarget = 0;
+    let settleTimer = 0;
+    let settleFrame = 0;
+    let touchHeld = false;
+    let userScrolling = false;
+    let direction = 0;
+    let lastUserLeft = 0;
 
     function paint() {
       paintFrame = 0;
@@ -52,23 +64,27 @@ export function useHistoryScroll() {
       progressRef.current?.style.setProperty("--history-progress", String(progress));
       if (rangeRef.current) rangeRef.current.value = String(position);
 
-      const mix = position - first;
+      // The ends of an interval keep the whole chapter readable while short inputs accumulate.
+      const mix = Math.max(
+        0,
+        Math.min(1, (position - first - transitionStart) / (transitionEnd - transitionStart)),
+      );
       const opening = easeBetween(mix, 0.02, 0.96);
       viewport.style.setProperty("--scene-light", String(0.32 + Math.sin(mix * Math.PI) * 0.4));
       for (const [index, card] of cards.entries()) {
         const incoming = index === first + 1 && mix > 0;
-        const layer = index === first ? "base" : incoming ? "incoming" : "";
+        const layer = index === first && mix < 1 ? "base" : incoming ? "incoming" : "";
         if (card.dataset.layer !== layer) card.dataset.layer = layer;
         if (!layer) continue;
 
-        const year = incoming ? easeBetween(mix, 0.34, 0.76) : 1 - easeBetween(mix, 0.08, 0.49);
-        const title = incoming ? easeBetween(mix, 0.42, 0.89) : 1 - easeBetween(mix, 0.03, 0.45);
+        const year = incoming ? easeBetween(mix, 0.41, 0.76) : 1 - easeBetween(mix, 0.08, 0.41);
+        const title = incoming ? easeBetween(mix, 0.45, 0.89) : 1 - easeBetween(mix, 0.07, 0.45);
         const copy = incoming ? easeBetween(mix, 0.51, 0.99) : 1 - easeBetween(mix, 0, 0.4);
 
         card.style.setProperty("--scene-year", year.toFixed(3));
         card.style.setProperty("--scene-title", title.toFixed(3));
         card.style.setProperty("--scene-copy", copy.toFixed(3));
-        card.style.setProperty("--scene-offset", (index - position).toFixed(3));
+        card.style.setProperty("--scene-offset", (incoming ? 1 - mix : -mix).toFixed(3));
         card.style.setProperty(
           "--scene-aperture",
           incoming ? `${((1 - opening) * 100).toFixed(2)}%` : "0%",
@@ -89,6 +105,70 @@ export function useHistoryScroll() {
       wheelFrame = 0;
     }
 
+    function stopSettling() {
+      window.clearTimeout(settleTimer);
+      cancelAnimationFrame(settleFrame);
+      settleFrame = 0;
+    }
+
+    function stopMotion() {
+      stopWheel();
+      stopSettling();
+      userScrolling = false;
+    }
+
+    function beginGesture(inputDirection = 0) {
+      stopSettling();
+      if (!userScrolling) {
+        userScrolling = true;
+        lastUserLeft = viewport.scrollLeft;
+        direction = 0;
+      }
+      if (inputDirection) direction = inputDirection;
+    }
+
+    function finishTransition(inputDirection = 0) {
+      stopMotion();
+      if (!step || reducedMotion.matches) return;
+      const left = viewport.scrollLeft;
+      const chapter = Math.floor(left / step);
+      const fraction = left / step - chapter;
+      if (fraction <= transitionStart || fraction >= transitionEnd) return;
+
+      // Complete only the interrupted transition, stopping at its readable edge.
+      const forward = inputDirection ? inputDirection > 0 : fraction >= 0.5;
+      const edge = (chapter + (forward ? transitionEnd : transitionStart)) * step;
+      const destination = forward ? Math.ceil(edge) : Math.floor(edge);
+      const startingTime = performance.now();
+      function advance(time: number) {
+        const progress = easeBetween(time - startingTime, 0, settleDuration);
+        if (reducedMotion.matches) {
+          settleFrame = 0;
+          return;
+        }
+        viewport.scrollLeft = left + (destination - left) * progress;
+        settleFrame = progress < 1 ? requestAnimationFrame(advance) : 0;
+      }
+      settleFrame = requestAnimationFrame(advance);
+    }
+
+    function scheduleSettle() {
+      window.clearTimeout(settleTimer);
+      if (userScrolling && direction && !touchHeld && !wheelFrame) {
+        settleTimer = window.setTimeout(() => finishTransition(direction), settleDelay);
+      }
+    }
+
+    function onScroll() {
+      schedulePaint();
+      if (!userScrolling) return;
+      const left = viewport.scrollLeft;
+      const delta = left - lastUserLeft;
+      if (Math.abs(delta) >= 0.5) direction = Math.sign(delta);
+      lastUserLeft = left;
+      scheduleSettle();
+    }
+
     function measure() {
       const width = viewport.clientWidth;
       if (!width || width === measuredWidth) return;
@@ -100,7 +180,7 @@ export function useHistoryScroll() {
       viewport.style.setProperty("--history-track-width", `${width + step * last}px`);
       viewport.setAttribute("data-scroll-effects", "");
       if (retainedPosition > 0) {
-        stopWheel();
+        stopMotion();
         viewport.scrollTo({ left: retainedPosition * step, behavior: "instant" });
       }
       paint();
@@ -111,6 +191,7 @@ export function useHistoryScroll() {
       if (Math.abs(distance) <= 2 || reducedMotion.matches) {
         viewport.scrollLeft = wheelTarget;
         wheelFrame = 0;
+        scheduleSettle();
         return;
       }
       viewport.scrollLeft += distance * 0.24;
@@ -118,43 +199,79 @@ export function useHistoryScroll() {
     }
 
     function onWheel(event: WheelEvent) {
-      if (event.ctrlKey || !event.cancelable) return;
-      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? viewport.clientWidth : 1;
-      if (Math.abs(event.deltaX) >= Math.abs(event.deltaY)) {
-        stopWheel();
+      if (event.ctrlKey) {
+        stopMotion();
         return;
       }
-      const distance = event.deltaY * unit;
-      if (event.deltaX && !event.shiftKey) {
-        // A diagonal trackpad gesture must be able to continue up or down the page.
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? viewport.clientWidth : 1;
+      if (Math.abs(event.deltaX) >= Math.abs(event.deltaY)) {
+        if (!event.deltaX) return;
         stopWheel();
+        beginGesture(Math.sign(event.deltaX));
+        scheduleSettle();
+        return;
+      }
+      if (!event.cancelable) return;
+      const distance = event.deltaY * unit;
+      const left = viewport.scrollLeft;
+      const end = viewport.scrollWidth - viewport.clientWidth;
+      const leaving = (distance < 0 && left <= 1) || (distance > 0 && end - left <= 1);
+      if (!event.shiftKey && (event.deltaX || leaving)) {
+        // Keep vertical scrolling available even if the browser latched the horizontal viewport.
+        stopWheel();
+        scheduleSettle();
         event.preventDefault();
         window.scrollBy({ top: distance, behavior: "instant" });
         return;
       }
-      const left = viewport.scrollLeft;
-      const end = viewport.scrollWidth - viewport.clientWidth;
-      if ((distance < 0 && left <= 1) || (distance > 0 && end - left <= 1)) return;
+      if (leaving) return;
 
       event.preventDefault();
+      beginGesture(Math.sign(distance));
       wheelTarget = Math.max(0, Math.min(end, (wheelFrame ? wheelTarget : left) + distance));
       if (!wheelFrame) slideWheel();
     }
 
-    cancelWheel.current = stopWheel;
+    function onTouchStart(event: TouchEvent) {
+      stopMotion();
+      touchHeld = true;
+      if (event.touches.length === 1) beginGesture();
+    }
+
+    function onTouchEnd(event: TouchEvent) {
+      touchHeld = Array.from(event.touches).some(
+        (touch) => touch.target instanceof Node && viewport.contains(touch.target),
+      );
+      if (!touchHeld) scheduleSettle();
+    }
+
+    function onPointerDown(event: PointerEvent) {
+      if (event.pointerType !== "touch") stopMotion();
+    }
+
+    cancelMotion.current = stopMotion;
+    finishScrubbing.current = () => {
+      if (!settleFrame) finishTransition();
+    };
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(viewport);
-    viewport.addEventListener("scroll", schedulePaint, { passive: true });
+    viewport.addEventListener("scroll", onScroll, { passive: true });
     viewport.addEventListener("wheel", onWheel, { passive: false });
-    viewport.addEventListener("pointerdown", stopWheel);
+    viewport.addEventListener("pointerdown", onPointerDown);
+    viewport.addEventListener("touchstart", onTouchStart, { passive: true });
+    viewport.addEventListener("touchend", onTouchEnd, { passive: true });
+    viewport.addEventListener("touchcancel", onTouchEnd, { passive: true });
     return () => {
       observer.disconnect();
       cancelAnimationFrame(paintFrame);
-      stopWheel();
-      viewport.removeEventListener("scroll", schedulePaint);
+      stopMotion();
+      viewport.removeEventListener("scroll", onScroll);
       viewport.removeEventListener("wheel", onWheel);
-      viewport.removeEventListener("pointerdown", stopWheel);
+      viewport.removeEventListener("pointerdown", onPointerDown);
+      viewport.removeEventListener("touchstart", onTouchStart);
+      viewport.removeEventListener("touchend", onTouchEnd);
+      viewport.removeEventListener("touchcancel", onTouchEnd);
       viewport.removeAttribute("data-scroll-effects");
     };
   }, []);
@@ -165,7 +282,7 @@ export function useHistoryScroll() {
     const { step, last } = geometry.current;
     if (!step) return;
     const bounded = Math.max(0, Math.min(index, last));
-    cancelWheel.current();
+    cancelMotion.current();
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     viewport.scrollTo({
       left: bounded * step,
@@ -173,5 +290,7 @@ export function useHistoryScroll() {
     });
   }, []);
 
-  return { viewportRef, progressRef, rangeRef, ...scene, scrollToStage };
+  const settleScrubber = useCallback(() => finishScrubbing.current(), []);
+
+  return { viewportRef, progressRef, rangeRef, ...scene, scrollToStage, settleScrubber };
 }
