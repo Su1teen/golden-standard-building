@@ -124,6 +124,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   overflow-anchor: none;
+  touch-action: pan-y pinch-zoom;
   overscroll-behavior-x: contain;
   scrollbar-width: thin;
   scrollbar-color: #7498b7 #10151d;

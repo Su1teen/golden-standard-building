@@ -40,6 +40,8 @@ export function useHistoryScroll() {
     let settleTimer = 0;
     let settleFrame = 0;
     let touchHeld = false;
+    let touchGesture: { id: number; x: number; y: number; left: number; axis: string } | null =
+      null;
     let userScrolling = false;
     let direction = 0;
     let lastUserLeft = 0;
@@ -232,21 +234,59 @@ export function useHistoryScroll() {
       if (!wheelFrame) slideWheel();
     }
 
-    function onTouchStart(event: TouchEvent) {
-      stopMotion();
-      touchHeld = true;
-      if (event.touches.length === 1) beginGesture();
-    }
-
-    function onTouchEnd(event: TouchEvent) {
-      touchHeld = Array.from(event.touches).some(
-        (touch) => touch.target instanceof Node && viewport.contains(touch.target),
-      );
-      if (!touchHeld) scheduleSettle();
-    }
-
     function onPointerDown(event: PointerEvent) {
-      if (event.pointerType !== "touch") stopMotion();
+      stopMotion();
+      if (
+        event.pointerType !== "touch" ||
+        !event.isPrimary ||
+        (event.target instanceof Element && event.target.closest("button, a, input"))
+      )
+        return;
+      touchHeld = true;
+      touchGesture = {
+        id: event.pointerId,
+        x: event.clientX,
+        y: event.clientY,
+        left: viewport.scrollLeft,
+        axis: "",
+      };
+    }
+
+    function onPointerMove(event: PointerEvent) {
+      const gesture = touchGesture;
+      if (!gesture || gesture.id !== event.pointerId || !step) return;
+      const dx = event.clientX - gesture.x;
+      const dy = event.clientY - gesture.y;
+      if (!gesture.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 8) {
+        gesture.axis = Math.abs(dx) > Math.abs(dy) ? "horizontal" : "vertical";
+        if (gesture.axis === "horizontal") viewport.setPointerCapture(event.pointerId);
+      }
+      if (gesture.axis !== "horizontal") return;
+      const origin = Math.round(gesture.left / step);
+      viewport.scrollLeft = Math.max(
+        Math.max(0, origin - 1) * step,
+        Math.min(Math.min(last, origin + 1) * step, gesture.left - dx),
+      );
+    }
+
+    function onPointerEnd(event: PointerEvent) {
+      const gesture = touchGesture;
+      if (!gesture || gesture.id !== event.pointerId) return;
+      touchGesture = null;
+      touchHeld = false;
+      if (gesture.axis !== "horizontal" || !step) return;
+      const dx = event.clientX - gesture.x;
+      const origin = Math.round(gesture.left / step);
+      const target = Math.max(0, Math.min(last, origin + (Math.abs(dx) > 35 ? -Math.sign(dx) : 0)));
+      const start = viewport.scrollLeft;
+      const destination = target * step;
+      const startTime = performance.now();
+      function advance(time: number) {
+        const progress = reducedMotion.matches ? 1 : easeBetween(time - startTime, 0, 300);
+        viewport.scrollLeft = start + (destination - start) * progress;
+        settleFrame = progress < 1 ? requestAnimationFrame(advance) : 0;
+      }
+      settleFrame = requestAnimationFrame(advance);
     }
 
     cancelMotion.current = stopMotion;
@@ -259,9 +299,9 @@ export function useHistoryScroll() {
     viewport.addEventListener("scroll", onScroll, { passive: true });
     viewport.addEventListener("wheel", onWheel, { passive: false });
     viewport.addEventListener("pointerdown", onPointerDown);
-    viewport.addEventListener("touchstart", onTouchStart, { passive: true });
-    viewport.addEventListener("touchend", onTouchEnd, { passive: true });
-    viewport.addEventListener("touchcancel", onTouchEnd, { passive: true });
+    viewport.addEventListener("pointermove", onPointerMove);
+    viewport.addEventListener("pointerup", onPointerEnd);
+    viewport.addEventListener("pointercancel", onPointerEnd);
     return () => {
       observer.disconnect();
       cancelAnimationFrame(paintFrame);
@@ -269,9 +309,9 @@ export function useHistoryScroll() {
       viewport.removeEventListener("scroll", onScroll);
       viewport.removeEventListener("wheel", onWheel);
       viewport.removeEventListener("pointerdown", onPointerDown);
-      viewport.removeEventListener("touchstart", onTouchStart);
-      viewport.removeEventListener("touchend", onTouchEnd);
-      viewport.removeEventListener("touchcancel", onTouchEnd);
+      viewport.removeEventListener("pointermove", onPointerMove);
+      viewport.removeEventListener("pointerup", onPointerEnd);
+      viewport.removeEventListener("pointercancel", onPointerEnd);
       viewport.removeAttribute("data-scroll-effects");
     };
   }, []);
