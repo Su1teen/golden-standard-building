@@ -13,10 +13,10 @@ const webp = import.meta.glob<string>("@/assets/timeline-webp/*.webp", {
 });
 
 const imageSizes = [
-  "(min-width: 84rem) 616px",
+  "(min-width: 84rem) 647px",
   "(min-width: 60rem) calc(51vw - 70px)",
-  "(min-width: 40rem) calc(95vw - 110px)",
-  "calc(100vw - 82px)",
+  "(min-width: 40rem) calc(95vw - 68px)",
+  "calc(100vw - 62px)",
 ].join(", ");
 
 type Photo = {
@@ -36,11 +36,13 @@ function HistoryGallery({
   title,
   priority,
   active,
+  nearby,
 }: {
   photos: Photo[];
   title: string;
   priority: boolean;
   active: boolean;
+  nearby: boolean;
 }) {
   const [current, setCurrent] = useState(0);
   const [loadedPhoto, setLoadedPhoto] = useState<string>();
@@ -58,23 +60,25 @@ function HistoryGallery({
   return (
     <figure className="company-history__gallery">
       <div className="company-history__photo">
-        <img
-          width={width}
-          height={photo.height}
-          alt={photo.alt ?? `${title}, фото ${current + 1}`}
-          sizes={imageSizes}
-          srcSet={srcSet}
-          src={photoUrl(photo, width)}
-          loading={priority || current !== 0 ? "eager" : "lazy"}
-          fetchPriority={priority ? "high" : undefined}
-          decoding="async"
-          draggable={false}
-          data-contain={photo.contain ? "" : undefined}
-          data-photo-loaded={photo.name === loadedPhoto ? "" : undefined}
-          onLoad={() => {
-            if (hasChanged.current) setLoadedPhoto(photo.name);
-          }}
-        />
+        {nearby && (
+          <img
+            width={width}
+            height={photo.height}
+            alt={photo.alt ?? `${title}, фото ${current + 1}`}
+            sizes={imageSizes}
+            srcSet={srcSet}
+            src={photoUrl(photo, width)}
+            loading={priority || active || current !== 0 ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : undefined}
+            decoding="async"
+            draggable={false}
+            data-contain={photo.contain ? "" : undefined}
+            data-photo-loaded={photo.name === loadedPhoto ? "" : undefined}
+            onLoad={() => {
+              if (hasChanged.current) setLoadedPhoto(photo.name);
+            }}
+          />
+        )}
       </div>
       {photos.length > 1 && (
         <div className="company-history__controls" role="group" aria-label={`Фото: ${title}`}>
@@ -105,7 +109,8 @@ function HistoryGallery({
 
 export function CompanyTimeline() {
   const router = useRouter();
-  const { viewportRef, progressRef, activeIndex, scrollToStage } = useHistoryScroll();
+  const { viewportRef, progressRef, rangeRef, activeIndex, first, scrollToStage } =
+    useHistoryScroll();
 
   useEffect(() => {
     let frame = 0;
@@ -237,46 +242,64 @@ export function CompanyTimeline() {
           }}
         >
           <div className="company-history__strip">
-            {milestones.map(({ id, year, title, description, achievements }, index) => (
-              <article
-                key={id}
-                id={`history-${id}`}
-                className="company-history__story"
-                aria-labelledby={`history-title-${id}`}
-                tabIndex={-1}
-              >
-                <header className="company-history__story-heading">
-                  {year ? (
-                    <time className="company-history__year" dateTime={String(year)}>
-                      {year}
-                    </time>
-                  ) : (
-                    <span className="company-history__year">{id === "sgk" ? "SGK" : "Архив"}</span>
-                  )}
-                  <h3 id={`history-title-${id}`} className="company-history__title">
-                    {title}
-                  </h3>
-                </header>
-                <HistoryGallery
-                  photos={media[id]}
-                  title={title}
-                  priority={index === 0}
-                  active={index === activeIndex}
-                />
-                <div className="company-history__copy">
-                  <p>{description}</p>
-                  <ul className="company-history__points">
-                    {achievements.map((achievement) => (
-                      <li key={achievement}>{achievement}</li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            ))}
+            <div className="company-history__frame">
+              {milestones.map(({ id, year, title, description, achievements }, index) => (
+                <article
+                  key={id}
+                  id={`history-${id}`}
+                  className="company-history__story"
+                  aria-labelledby={`history-title-${id}`}
+                  data-active={index === activeIndex ? "" : undefined}
+                  inert={first >= 0 && index !== activeIndex}
+                  tabIndex={-1}
+                >
+                  <header className="company-history__story-heading">
+                    {year ? (
+                      <time className="company-history__year" dateTime={String(year)}>
+                        {year}
+                      </time>
+                    ) : (
+                      <span className="company-history__year">
+                        {id === "sgk" ? "SGK" : "Архив"}
+                      </span>
+                    )}
+                    <h3 id={`history-title-${id}`} className="company-history__title">
+                      {title}
+                    </h3>
+                  </header>
+                  <HistoryGallery
+                    photos={media[id]}
+                    title={title}
+                    priority={index === 0}
+                    active={index === activeIndex}
+                    nearby={first < 0 || (index >= first - 1 && index <= first + 2)}
+                  />
+                  <div className="company-history__copy">
+                    <p>{description}</p>
+                    <ul className="company-history__points">
+                      {achievements.map((achievement) => (
+                        <li key={achievement}>{achievement}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="company-history__progress" aria-hidden="true">
-          <span ref={progressRef} />
+        <div className="company-history__progress" ref={progressRef}>
+          <span aria-hidden="true" />
+          <input
+            ref={rangeRef}
+            type="range"
+            min={0}
+            max={milestones.length - 1}
+            step={0.01}
+            defaultValue={0}
+            aria-label="Позиция в истории"
+            aria-valuetext={`Этап ${activeIndex + 1} из ${milestones.length}`}
+            onInput={(event) => scrollToStage(event.currentTarget.valueAsNumber, false)}
+          />
         </div>
       </div>
       <div id="company-history-end" className="company-history__end" tabIndex={-1} />

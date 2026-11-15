@@ -1,23 +1,33 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+function easeBetween(value: number, from: number, to: number) {
+  const progress = Math.max(0, Math.min(1, (value - from) / (to - from)));
+  return progress * progress * (3 - 2 * progress);
+}
+
 export function useHistoryScroll() {
   const viewportRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLSpanElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const rangeRef = useRef<HTMLInputElement>(null);
+  const geometry = useRef({ step: 0, last: 0 });
   const cancelWheel = useRef(() => {});
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [scene, setScene] = useState({ activeIndex: 0, first: -1 });
 
   useEffect(() => {
     const container = viewportRef.current;
     const strip = container?.firstElementChild;
-    if (!container || !strip) return;
+    const frame = strip?.firstElementChild;
+    if (!container || !frame) return;
 
     const viewport = container;
-    const cards = Array.from(strip.children) as HTMLElement[];
+    const cards = Array.from(frame.children) as HTMLElement[];
+    const last = cards.length - 1;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let measuredWidth = 0;
     let step = 0;
     let position = 0;
-    let visibleIndex = 0;
+    let firstVisible = -1;
+    let active = 0;
     let paintFrame = 0;
     let wheelFrame = 0;
     let wheelTarget = 0;
@@ -30,20 +40,42 @@ export function useHistoryScroll() {
       }
       if (!step) return;
 
-      position = Math.max(0, Math.min(cards.length - 1, viewport.scrollLeft / step));
+      position = Math.max(0, Math.min(last, viewport.scrollLeft / step));
+      const first = Math.floor(position);
       const nearest = Math.round(position);
-      if (visibleIndex !== nearest) {
-        visibleIndex = nearest;
-        setActiveIndex(nearest);
+      if (firstVisible !== first || active !== nearest) {
+        firstVisible = first;
+        active = nearest;
+        setScene({ first, activeIndex: nearest });
       }
-      progressRef.current?.style.setProperty(
-        "--history-progress",
-        String(position / (cards.length - 1)),
-      );
+      const progress = position / last;
+      progressRef.current?.style.setProperty("--history-progress", String(progress));
+      if (rangeRef.current) rangeRef.current.value = String(position);
+
+      const mix = position - first;
+      const opening = easeBetween(mix, 0.02, 0.96);
+      viewport.style.setProperty("--scene-light", String(0.32 + Math.sin(mix * Math.PI) * 0.4));
       for (const [index, card] of cards.entries()) {
+        const incoming = index === first + 1 && mix > 0;
+        const layer = index === first ? "base" : incoming ? "incoming" : "";
+        if (card.dataset.layer !== layer) card.dataset.layer = layer;
+        if (!layer) continue;
+
+        const year = incoming ? easeBetween(mix, 0.34, 0.76) : 1 - easeBetween(mix, 0.08, 0.49);
+        const title = incoming ? easeBetween(mix, 0.42, 0.89) : 1 - easeBetween(mix, 0.03, 0.45);
+        const copy = incoming ? easeBetween(mix, 0.51, 0.99) : 1 - easeBetween(mix, 0, 0.4);
+
+        card.style.setProperty("--scene-year", year.toFixed(3));
+        card.style.setProperty("--scene-title", title.toFixed(3));
+        card.style.setProperty("--scene-copy", copy.toFixed(3));
+        card.style.setProperty("--scene-offset", (index - position).toFixed(3));
         card.style.setProperty(
-          "--history-reveal",
-          Math.max(0, 1 - Math.abs(index - position)).toFixed(3),
+          "--scene-aperture",
+          incoming ? `${((1 - opening) * 100).toFixed(2)}%` : "0%",
+        );
+        card.style.setProperty(
+          "--scene-seam",
+          incoming ? (Math.sin(Math.PI * opening) * 0.75).toFixed(3) : "0",
         );
       }
     }
@@ -58,14 +90,18 @@ export function useHistoryScroll() {
     }
 
     function measure() {
-      const width = cards[1].offsetLeft - cards[0].offsetLeft;
-      if (!width) return;
-      measuredWidth = viewport.clientWidth;
-      const previousStep = step;
-      step = width;
-      if (previousStep && previousStep !== width) {
+      const width = viewport.clientWidth;
+      if (!width || width === measuredWidth) return;
+      const retainedPosition = measuredWidth ? position : viewport.scrollLeft / width;
+      measuredWidth = width;
+      step = Math.min(width, 560);
+      geometry.current = { step, last };
+      viewport.style.setProperty("--history-frame-width", `${width}px`);
+      viewport.style.setProperty("--history-track-width", `${width + step * last}px`);
+      viewport.setAttribute("data-scroll-effects", "");
+      if (retainedPosition > 0) {
         stopWheel();
-        viewport.scrollTo({ left: position * width, behavior: "instant" });
+        viewport.scrollTo({ left: retainedPosition * step, behavior: "instant" });
       }
       paint();
     }
@@ -107,7 +143,6 @@ export function useHistoryScroll() {
 
     cancelWheel.current = stopWheel;
     measure();
-    viewport.setAttribute("data-scroll-effects", "");
     const observer = new ResizeObserver(measure);
     observer.observe(viewport);
     viewport.addEventListener("scroll", schedulePaint, { passive: true });
@@ -127,17 +162,16 @@ export function useHistoryScroll() {
   const scrollToStage = useCallback((index: number, animate = true) => {
     const viewport = viewportRef.current;
     if (!viewport) return;
-    const cards = viewport.firstElementChild?.children;
-    const bounded = Math.max(0, Math.min(index, (cards?.length ?? 1) - 1));
-    const card = cards?.[bounded] as HTMLElement | undefined;
-    if (!card) return;
+    const { step, last } = geometry.current;
+    if (!step) return;
+    const bounded = Math.max(0, Math.min(index, last));
     cancelWheel.current();
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     viewport.scrollTo({
-      left: card.offsetLeft,
+      left: bounded * step,
       behavior: animate && !reduce ? "smooth" : "instant",
     });
   }, []);
 
-  return { viewportRef, progressRef, activeIndex, scrollToStage };
+  return { viewportRef, progressRef, rangeRef, ...scene, scrollToStage };
 }
