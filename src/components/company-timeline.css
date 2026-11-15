@@ -1,0 +1,209 @@
+.company-history {
+  --history-line: #ffffff26;
+  --history-accent: #9abfdd;
+  --history-muted: #c4c8d0;
+  background: radial-gradient(ellipse at 10% 0%, #23354b 0, transparent 42rem), var(--bg-dark);
+  color: var(--text-light);
+  scroll-margin-top: 5.5rem;
+}
+
+.company-history__inner {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: clamp(3.5rem, 7vw, 7rem) 1rem;
+}
+
+.company-history__heading {
+  font-size: clamp(2.25rem, 5.7vw, 5.25rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+  text-wrap: balance;
+  max-width: 16ch;
+}
+
+.company-history__eyebrow {
+  margin-bottom: 0.8rem;
+  color: var(--history-accent);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.company-history__nav {
+  margin-top: clamp(1.5rem, 4vw, 3rem);
+}
+
+.company-history__nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.company-history__nav a,
+.company-history__back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  border: 1px solid var(--history-line);
+  border-radius: 999px;
+  padding-inline: 0.85rem;
+  color: var(--text-light);
+  background: #ffffff08;
+  font-size: 0.875rem;
+  font-weight: 550;
+}
+
+.company-history__nav a:hover,
+.company-history__back:hover,
+.company-history__controls button:hover {
+  background: #ffffff17;
+  border-color: var(--history-accent);
+}
+
+.company-history :is(a, button):focus-visible,
+.company-history__story:focus-visible {
+  outline: 2px solid var(--history-accent);
+  outline-offset: 3px;
+}
+
+.company-history__stories {
+  margin-top: clamp(1.75rem, 4vw, 3.25rem);
+}
+
+.company-history__story {
+  display: grid;
+  grid-template-areas: "heading" "media" "copy";
+  gap: 1.125rem;
+  min-width: 0;
+  padding-block: clamp(1.75rem, 4vw, 3.5rem);
+  border-top: 1px solid var(--history-line);
+  scroll-margin-top: 5.5rem;
+}
+
+.company-history__story:target .company-history__year {
+  color: #badafc;
+}
+
+.company-history__story-heading {
+  grid-area: heading;
+  min-width: 0;
+}
+
+.company-history__year {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--history-accent);
+  font-size: clamp(2.25rem, 5.2vw, 4.5rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.company-history__title {
+  font-size: clamp(1.5rem, 3.3vw, 3rem);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.company-history__copy {
+  grid-area: copy;
+  max-width: 61ch;
+  color: var(--history-muted);
+  font-size: clamp(1rem, 1.3vw, 1.0625rem);
+  line-height: 1.65;
+}
+
+.company-history__points {
+  margin-top: 0.875rem;
+  padding-inline-start: 1.15rem;
+  list-style: disc;
+  font-size: 0.9375rem;
+}
+
+.company-history__points li + li {
+  margin-top: 0.375rem;
+}
+
+.company-history__points li::marker {
+  color: var(--history-accent);
+}
+
+.company-history__gallery {
+  grid-area: media;
+  min-width: 0;
+}
+
+.company-history__photo {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--history-line);
+  border-radius: clamp(0.875rem, 2vw, 1.5rem);
+  background: #14191f;
+}
+
+.company-history__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.company-history__photo img[data-contain] {
+  object-fit: contain;
+}
+
+.company-history__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+  color: var(--history-muted);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.company-history__controls button {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid var(--history-line);
+  border-radius: 50%;
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+.company-history__controls span {
+  padding-inline-start: 0.375rem;
+}
+
+@media (min-width: 40rem) {
+  .company-history__inner {
+    padding-inline: 2rem;
+  }
+
+  .company-history__photo {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (min-width: 60rem) {
+  .company-history__inner {
+    padding-inline: 2.5rem;
+  }
+
+  .company-history__story {
+    grid-template:
+      "heading media" auto
+      "copy media" 1fr
+      / minmax(0, 11fr) minmax(0, 14fr);
+    column-gap: 3rem;
+    align-items: start;
+  }
+}

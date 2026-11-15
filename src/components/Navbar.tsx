@@ -102,13 +102,12 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link
-              to="/contact"
-              className="btn-primary hidden md:inline-flex !py-2.5 !px-5 !text-[12px]"
-            >
-              Обсудить проект
-              <ArrowRight className="size-3.5" />
-            </Link>
+            <div className="hidden md:block">
+              <Link to="/contact" className="btn-primary !py-2.5 !px-5 !text-[12px]">
+                Обсудить проект
+                <ArrowRight className="size-3.5" />
+              </Link>
+            </div>
             <button
               onClick={() => setOpen(true)}
               className="lg:hidden size-10 grid place-items-center rounded-full border border-current/20"

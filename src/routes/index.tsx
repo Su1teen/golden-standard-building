@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Play } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { Counter } from "@/components/Counter";
 import { ContactForm } from "@/components/ContactForm";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { StackedCards } from "@/components/StackedCards";
 import { PartnersMarquee } from "@/components/PartnersMarquee";
+import { companyFoundedYear } from "@/lib/company";
 import heroImage from "@/assets/hero_image.png";
 import esilImg from "@/assets/esil.jpg";
 import milleniumImg from "@/assets/millenium.jpg";
@@ -18,8 +18,7 @@ export const Route = createFileRoute("/")({
       { title: "Smart Group Kazakhstan — Технологии незаметного комфорта." },
       {
         name: "description",
-        content:
-          "Премиальные системы умного дома и автоматизации зданий. Smart Group Kazakhstan — 17 лет опыта, 1000+ объектов в Казахстане.",
+        content: `Премиальные системы умного дома и автоматизации зданий. Smart Group Kazakhstan работает с ${companyFoundedYear} года.`,
       },
       { property: "og:title", content: "Smart Group Kazakhstan" },
       { property: "og:description", content: "Технологии незаметного комфорта.." },
@@ -51,7 +50,6 @@ const featuredProjects = [
     title: "ЖК Esil Riverside",
     city: "Астана",
     type: "Жилой комплекс",
-    area: "32 000 м²",
     systems: ["Свет KNX", "Климат", "Безопасность", "Видеонаблюдение"],
     image: esilImg,
   },
@@ -59,7 +57,6 @@ const featuredProjects = [
     title: "ЖК Миллениум Парк",
     city: "Астана",
     type: "Жилой комплекс",
-    area: "48 500 м²",
     systems: ["BMS", "Управление входом", "Мультирум", "Энергоучёт"],
     image: milleniumImg,
   },
@@ -67,7 +64,6 @@ const featuredProjects = [
     title: "ЖК Green Park",
     city: "Астана",
     type: "Жилой комплекс",
-    area: "27 000 м²",
     systems: ["KNX", "Доступ", "Климат", "Видеоаналитика"],
     image: greenparkImg,
   },
@@ -149,14 +145,12 @@ function Index() {
             </div>
           </div>
 
-          {/* Stats row */}
+          {/* Company facts */}
           <Reveal
             delay={600}
-            className="mt-20 pt-10 border-t border-white/15 grid grid-cols-2 md:grid-cols-4"
+            className="mt-20 pt-10 border-t border-white/15 grid grid-cols-2 md:max-w-[42rem]"
           >
-            <Stat to={150} suffix="+" label="Объектов" />
-            <Stat to={17} label="Лет опыта" />
-            <Stat to={40} suffix="+" label="Интеграций" />
+            <Stat value={String(companyFoundedYear)} label="Год основания" />
             <Stat value="24/7" label="Поддержка" />
           </Reveal>
         </div>
@@ -240,8 +234,7 @@ function Index() {
                     {p.city} · {p.type}
                   </div>
                   <div className="font-bold text-xl md:text-2xl leading-tight mb-1">{p.title}</div>
-                  <div className="text-[13px] text-white/80 mb-4">{p.area}</div>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="mt-4 flex flex-wrap gap-1.5">
                     {p.systems.map((sys) => (
                       <span
                         key={sys}
@@ -399,21 +392,11 @@ function Index() {
   );
 }
 
-function Stat({
-  to,
-  value,
-  suffix,
-  label,
-}: {
-  to?: number;
-  value?: string;
-  suffix?: string;
-  label: string;
-}) {
+function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="stat-divider py-4 md:py-0 md:pr-6">
       <div className="font-hero text-[clamp(44px,5vw,76px)] leading-none text-white">
-        {typeof to === "number" ? <Counter to={to} suffix={suffix} /> : value}
+        {value}
       </div>
       <div className="mt-3 text-[11px] uppercase tracking-[0.22em] text-[#a1a1a6]">{label}</div>
     </div>
