@@ -5,8 +5,8 @@ export function Footer() {
   return (
     <footer className="section-dark relative">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 pt-20 pb-10">
-        <div className="grid grid-cols-2 md:grid-cols-12 gap-10 md:gap-12 mb-16">
-          <div className="col-span-2 md:col-span-4">
+        <div className="grid grid-cols-2 gap-10 md:gap-12 lg:grid-cols-12 mb-16">
+          <div className="col-span-2 lg:col-span-3">
             <Link to="/" className="flex items-center gap-2">
               <span className="inline-block size-1.5 rounded-full bg-[#0071e3]" />
               <span className="font-bold tracking-[0.06em] text-[15px]">SMART GROUP KAZAKHSTAN</span>
@@ -14,7 +14,7 @@ export function Footer() {
             <p className="mt-5 text-[14px] text-[#a1a1a6] max-w-[32ch] leading-relaxed">
               Создаём интеллектуальные системы для пространств, которые отвечают человеку.
             </p>
-            <div className="mt-8 flex gap-5">
+            <div className="mt-8 flex flex-wrap gap-5">
               {[
                 { name: "Instagram", href: "https://instagram.com" },
                 { name: "YouTube", href: "https://youtube.com" },
@@ -31,7 +31,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="col-span-2 md:col-span-4">
+          <div className="col-span-2 lg:col-span-4">
             <div className="text-[11px] uppercase tracking-[0.2em] text-[#a1a1a6] mb-5">
               Решения
             </div>
@@ -49,7 +49,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-1 lg:col-span-2">
             <div className="text-[11px] uppercase tracking-[0.2em] text-[#a1a1a6] mb-5">
               Компания
             </div>
@@ -73,7 +73,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-1 lg:col-span-3">
             <div className="text-[11px] uppercase tracking-[0.2em] text-[#a1a1a6] mb-5">
               Контакты
             </div>
@@ -87,7 +87,7 @@ export function Footer() {
               </a>
               <a
                 href="mailto:info@smartgroup.kz"
-                className="block text-white/85 hover:text-white transition-colors"
+                className="block wrap-anywhere text-white/85 hover:text-white transition-colors"
               >
                 info@smartgroup.kz
               </a>

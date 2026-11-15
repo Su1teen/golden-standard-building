@@ -35,7 +35,7 @@ function ProjectsIndex() {
         />
         <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-16">
           <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
-            Портфолио · 500+ объектов
+            Портфолио
           </Reveal>
           <Reveal
             as="h1"
@@ -43,21 +43,6 @@ function ProjectsIndex() {
             className="font-hero text-[clamp(48px,9vw,160px)] leading-[0.92] text-white max-w-[18ch]"
           >
             Объекты, которые работают уже сегодня.
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 500+ projects banner */}
-      <section className="section-white py-16 md:py-20 px-6 md:px-10 border-b border-black/5">
-        <div className="max-w-[1400px] mx-auto text-center">
-          <Reveal>
-            <span className="font-hero text-[clamp(56px,8vw,120px)] leading-none text-[#1d1d1f]">500+</span>
-          </Reveal>
-          <Reveal delay={80}>
-            <p className="text-lg md:text-xl text-[#6e6e73] mt-4 max-w-[600px] mx-auto leading-relaxed">
-              реализованных проектов по всему Казахстану. Мы работаем на широком рынке — от частных
-              резиденций до крупных жилых комплексов. Ниже лишь некоторые из наших объектов.
-            </p>
           </Reveal>
         </div>
       </section>

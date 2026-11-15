@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { Counter } from "@/components/Counter";
 import { CompanyTimeline } from "@/components/CompanyTimeline";
 import { PartnersMarquee } from "@/components/PartnersMarquee";
+import { companyFoundedYear } from "@/lib/company";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -11,8 +11,7 @@ export const Route = createFileRoute("/about")({
       { title: "О компании — Smart Group Kazakhstan" },
       {
         name: "description",
-        content:
-          "Smart Group Kazakhstan — команда инженеров с 12-летним опытом интеграции систем умного дома и BMS в Казахстане.",
+        content: `Smart Group Kazakhstan — команда инженеров по автоматизации зданий и системам умного дома. Работаем с ${companyFoundedYear} года.`,
       },
       { property: "og:title", content: "О Smart Group Kazakhstan" },
       { property: "og:description", content: "Инженерия, которая исчезает в пользу человека." },
@@ -90,14 +89,14 @@ function About() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.78)_0%,rgba(0,0,0,0.48)_48%,rgba(0,0,0,0.2)_100%)]" />
         <div className="relative z-10 max-w-[1400px] mx-auto w-full px-6 md:px-10 pt-40 pb-16 md:pb-24">
           <Reveal className="text-[11px] uppercase tracking-[0.24em] text-[#86a8c4] mb-8">
-            О компании · 20+ лет
+            О компании · с {companyFoundedYear} года
           </Reveal>
           <Reveal
             as="h1"
             delay={120}
             className="font-hero text-[clamp(42px,12vw,150px)] leading-[0.92] text-white max-w-[16ch]"
           >
-            20+ лет. 1000+ объектов. Одна цель.
+            Инженерия умных пространств.
           </Reveal>
           <Reveal
             as="div"
@@ -125,8 +124,6 @@ function About() {
           </Reveal>
         </div>
       </section>
-
-      {/* Stats — dark */}
 
       {/* Timeline — dark */}
       <CompanyTimeline />

@@ -12,7 +12,7 @@ export function FloatingCTA() {
   }, []);
   return (
     <div
-      className={`fixed bottom-6 right-6 z-40 transition-all duration-500 ${
+      className={`fixed bottom-6 right-6 z-40 hidden transition-all duration-500 lg:block ${
         show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"
       }`}
     >
